@@ -39,15 +39,14 @@ Volumes (資料卷)：資料要存在硬碟的哪個位置。
 環境一致：這份 .yml 檔案拿到哪台電腦，只要執行同一個指令，跑出來的環境都會一模一樣。
 
 ## 操作流程簡述
-撰寫檔案：建立一個 docker-compose.yml 並寫入服務配置。
+撰寫檔案：使用任一你熟悉的純文字編輯器例如 vi nano  建立一個 docker-compose.yml 檔案並寫入服務配置。
 請查看 本文件 yml  路徑下  docker-compose.yml 檔案內容
 
 執行指令：在該檔案目錄下執行：
 
-Bash
+```text
 docker-compose up -d
-( -d 代表在背景執行 )
-
+``` ( -d 代表在背景執行 )
 
 查看服務：
 
@@ -82,12 +81,8 @@ docker-compose up -d
 執行時間：兩個容器都已經穩定運行了 3 小時。
 
 
-
-
-
 停止服務：
 ```text
-Bash
 docker-compose down
 ```
 ( 這會同時停止並移除清單中所有的容器，非常乾淨 )
