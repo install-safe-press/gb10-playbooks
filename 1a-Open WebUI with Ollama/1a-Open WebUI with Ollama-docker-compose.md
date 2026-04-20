@@ -41,9 +41,44 @@ Volumes (資料卷)：資料要存在硬碟的哪個位置。
 ## 操作流程簡述
 撰寫檔案：使用任一你熟悉的純文字編輯器例如 vi nano  建立一個 docker-compose.yml 檔案並寫入服務配置。
 請查看 本文件 yml  路徑下  docker-compose.yml 檔案內容
+```text
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: always
+    network_mode: host
+    volumes:
+      - open-webui-ollama:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    restart: always
+    ports:
+      - "12000:8080"
+    environment:
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+    volumes:
+      - open-webui:/app/backend/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  open-webui:
+  open-webui-ollama:
+
+```
+
 
 執行指令：在該檔案目錄下執行：
-
 ```text
 docker-compose up -d
 ```
