@@ -66,21 +66,19 @@ docker-compose up -d
 ## 2. Compose 專案狀態 (docker compose ps)
 這個表格顯示了在你 ~/openwebui 目錄下，由 Compose 檔案定義的服務邏輯關係。
 
-Plaintext
+```text
 +-------------+---------------------------+---------------------+------------+---------------------+------------------------------------------+
 | NAME        | IMAGE                     | COMMAND             | SERVICE    | STATUS              | PORTS                                    |
 +-------------+---------------------------+---------------------+------------+---------------------+------------------------------------------+
 | ollama      | ollama/ollama:latest      | "/bin/ollama serve" | ollama     | Up 3 hours          | (Host Network)                           |
 | open-webui  | open-webui:main           | "bash start.sh"     | open-webui | Up 3 hours (healthy)| 0.0.0.0:12000->8080/tcp, [::]:12000->8080|
 +-------------+---------------------------+---------------------+------------+---------------------+------------------------------------------+
+```
 
 ### 關鍵觀察點：
 埠位映射 (Port Mapping)：你的 Open WebUI 正對外開放 12000 埠位，你可以透過 http://<伺服器IP>:12000 存取。
-
 健康檢查 (Healthcheck)：open-webui 顯示為 healthy，代表容器內部的服務已成功啟動並通過自我檢測。
-
 網路模式：ollama 容器看起來是以 network_mode: host 或類似方式執行，因此在 docker ps 的 PORTS 欄位中沒有顯示傳統的埠位映射。
-
 執行時間：兩個容器都已經穩定運行了 3 小時。
 
 
@@ -88,7 +86,6 @@ Plaintext
 
 
 停止服務：
-
 Bash
 docker-compose down
 ( 這會同時停止並移除清單中所有的容器，非常乾淨 )
