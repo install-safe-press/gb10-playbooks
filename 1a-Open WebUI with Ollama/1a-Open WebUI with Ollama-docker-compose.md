@@ -86,8 +86,10 @@ docker-compose up -d
 
 
 停止服務：
+```text
 Bash
 docker-compose down
+```
 ( 這會同時停止並移除清單中所有的容器，非常乾淨 )
 
 ## 總結
