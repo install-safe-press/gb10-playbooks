@@ -1,11 +1,5 @@
 Open WebUI with Ollama 
 
-安裝 Open WebUI 與 Ollama 應用大語言模型開始交談
-
-🚀 快速上手：在 DGX Spark（Dell Pro MAX GB10） 部署 Open WebUI (整合 Ollama)
-想在你的 DGX Spark 上擁有像 ChatGPT 一樣漂亮的操作介面，同時確保所有資料都保存在本地端嗎？
-透過 Open WebUI 結合 Ollama，你可以直接在瀏覽器上調用 GPU 的強大算力來跑 AI 模型。
-
 💡 核心概念
 Open WebUI：你的 AI 控制面板（WEB介面）。
 Ollama：後台的模型驅動引擎（大腦）。Ollama 是一個開源的本地大語言模型（LLM）執行框架，旨在讓使用者能夠在自己的電腦上（而非依賴雲端伺服器）輕鬆地執行、管理和部署各種 AI 模型。
