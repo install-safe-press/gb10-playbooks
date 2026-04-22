@@ -1,12 +1,12 @@
-# gb10-playbooks 專案目標
-# 透過spark playbooks 熟悉各種應用並將其作記錄
+*gb10-playbooks 專案目標
+*透過spark playbooks 熟悉各種應用並將其作記錄
 
 NVIDIA GB10 Grace Blackwell 超級晶片上運行 AI 工作負載的說明和範例,依據 https://build.nvidia.com/spark 網站上的playbooks 進行操作 <br>
 spark playbooks 至目前看來有三十項,將每一個子項分成一個目錄進行作業.除此之外於基礎項目增加硬體與基本作業系統相關說明.<br>
 除GitHub文件說明外,製作成影片收錄於大叔裝機安gb10-playbooks 播放清單.<br>
 <br>
  
-  # 分類與目錄
+*分類與目錄
 
 | 順序 | 分類               | 順序+標題                                                    | 原始描述                                                                                                        | 主題說明                                                                                                       |
 |------|--------------------|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
@@ -53,8 +53,5 @@ spark playbooks 至目前看來有三十項,將每一個子項分成一個目錄
 | 7a   | (即時視覺推理)     | 7a-Live VLM WebUI                                            | Real-time Vision Language Model interaction with webcam streaming                                               | 透過網路攝影機串流進行即時視覺語言模型交互                                                                     |
 | 8a   | (數位孿生與模擬)   | 8a-Install and Use Isaac Sim and Isaac Lab                   | Build Isaac Sim and Isaac Lab from source for Spark                                                             | 從原始碼建立適用於 Spark 的 Isaac Sim 和 Isaac Lab                                                             |
 | 9a   | (多模態互動)       | 9a-Spark & Reachy Photo Booth                                | AI augmented photo booth using the DGX Spark and Reachy Mini.                                                   | 使用 DGX Spark 和 Reachy Mini 建造 AI 增強型照相亭。                                                           |
-                                                                              |
-
-
-<br><br><br><br><br><br><br>
-本專案為大叔裝機安人腦輔以各式AI工具創建.[比例不等] , 創建起始日 2026.4.20
+ <br>
+本專案為大叔裝機安人腦輔以各式AI工具創建. 創建起始日 2026.4.20
