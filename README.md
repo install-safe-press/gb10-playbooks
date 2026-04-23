@@ -55,3 +55,7 @@ spark playbooks 至目前看來有三十項,將每一個子項分成一個目錄
 | 9a   | (多模態互動)       | 9a-Spark & Reachy Photo Booth                                | AI augmented photo booth using the DGX Spark and Reachy Mini.                                                   | 使用 DGX Spark 和 Reachy Mini 建造 AI 增強型照相亭。                                                           |
  <br>
 本專案為大叔裝機安人腦輔以各式AI工具創建. 創建起始日 2026.4.20
+
+
+#注意點提示區
+*它是arm架構不是x64架構，注意程式相容性
