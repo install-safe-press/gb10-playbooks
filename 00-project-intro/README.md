@@ -1,5 +1,5 @@
-## NVIDIA DGX Spark：個人 AI 超級電腦簡介  > 從桌上型 AI 開發，走向資料中心級 AI 應用
-# NVIDIA DGX Spark 是一款定位為「個人 AI 超級電腦」的桌上型工作站，專為開發人員、研究人員和數據科學家設計。<br>
+## NVIDIA DGX Spark（Dell Pro MAX GB10）：個人 AI 超級電腦簡介  > 從桌上型 AI 開發，走向資料中心級 AI 應用
+# NVIDIA DGX Spark （Dell Pro MAX GB10） 是一款定位為「個人 AI 超級電腦」的桌上型工作站，專為開發人員、研究人員和數據科學家設計。<br>
 採用了最新的 NVIDIA Blackwell 架構，體積非常精巧（僅約 15 公分見方），旨在讓使用者能在桌面上直接進行大規模 AI 模型的原型設計、微調與推論。<br>
 
 ## 1. 核心技術規格
