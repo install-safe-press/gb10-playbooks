@@ -69,7 +69,7 @@ HP ZGX Nano AI Station
 Lenovo ThinkStation PGX
 MSI EdgeXpert MS-C931
 
-# GB10 (Grace Blackwell) 平台產品橫向分析表 
+# GB10 (Grace Blackwell) 平台產品橫向分析表  這個表格是ChatGPT+Gemini 在那邊幻覺生出來的.
 | 產品 | 平台定位 | 管理 / 軟體堆疊 | 核心差異點 | 適合族群 | 部署場景 |
 |------|----------|------------------|------------|----------|----------|
 | NVIDIA DGX Spark | 官方參考標準 AI 節點（Reference DGX Node） | 完整 DGX Stack（NGC / CUDA / AI Enterprise） | 最完整原生 NVIDIA 生態 | AI 研究員 / ML 工程師 / 需要最高相容性者 | AI Lab / 研發中心 / 企業AI中樞 |
