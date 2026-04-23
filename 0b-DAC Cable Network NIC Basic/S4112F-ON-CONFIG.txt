@@ -1,0 +1,1021 @@
+
+OS10 login: admin
+Password:
+Last login: Mon Mar 16 07:53:03 UTC 2026 on ttyS0
+Linux OS10 4.19.249 #1d SMP Debian 4.19.249-2+dn1 x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+-*         Dell EMC  Network Operating System (OS10)           *-
+-*                                                             *-
+-* Copyright (c) 1999-2022 by Dell Inc. All Rights Reserved.   *-
+-*                                                             *-
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+This product is protected by U.S. and international copyright and
+intellectual property laws. Dell EMC and the Dell EMC logo are
+trademarks of Dell Inc. in the United States and/or other
+jurisdictions. All other marks and names mentioned herein may be
+trademarks of their respective companies.
+
+%Warning : Default password for admin account should be changed to secure the system
+%Warning : Default password for linuxadmin account should be changed to secure the system.
+OS10#
+OS10#
+OS10#
+OS10#
+OS10#
+OS10# show interface status
+
+--------------------------------------------------------------------------------------------------
+Port            Description     Status   Speed    Duplex   Mode Vlan Tagged-Vlans
+--------------------------------------------------------------------------------------------------
+Eth 1/1/1       Node_1_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/2       Node_1_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/3       Node_2_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/4       Node_2_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/5       Node_3_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/6       Node_3_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/7       Node_4_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/8       Node_4_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/9                       down     0        full     A    1    -
+Eth 1/1/10                      down     0        full     A    1    -
+Eth 1/1/11      UPLINK-1        down     0        full     A    1    -
+Eth 1/1/12      UPLINK-2        down     0        full     A    1    -
+Eth 1/1/13:1    Node-A          down     0        full     T    1    55,101-102
+Eth 1/1/13:2    Node-A          down     0        full     T    1    55,101-102
+Eth 1/1/13:3    Node-A          down     0        full     T    1    55,101-102
+Eth 1/1/13:4    Node-A          down     0        full     T    1    55,101-102
+Eth 1/1/14:1    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:2    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:3    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:4    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/15:1    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:2    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:3    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:4    Node-C          down     0        full     T    1    55,101-102
+--------------------------------------------------------------------------------------------------
+
+OS10# show running-configuration
+aaa                 access-list         as-path             bfd
+bgp                 class-map           community-list      compressed
+control-plane       crypto              delay-restore       dot1x
+evpn                extcommunity-list   fefd                igmp
+interface           ip                  lacp                line
+lldp                logging             management-route    mld
+monitor             ntp                 nve                 ospf
+ospfv3              password-attributes pim                 pim6
+policy-map          port-security       prefix-list         privilege
+qos-map             ra-guard            radius-server       route
+route-map           sflow               smartfabric         snmp
+spanning-tree       stats-monitor       support-assist      system-qos
+tacacs-server       telemetry           trust-map           uplink-state-group
+userrole            users               virtual-network     vlt
+vrf                 wred-profile        |
+OS10# show running-configuration | no-more
+! Version 10.5.4.4
+! Last configuration change at Apr  22 03:11:37 2026
+!
+ip vrf default
+!
+iscsi enable
+iscsi target port 860
+iscsi target port 3260
+interface breakout 1/1/13 map 25g-4x
+interface breakout 1/1/14 map 25g-4x
+interface breakout 1/1/15 map 25g-4x
+system-user linuxadmin password ****
+username admin password **** role sysadmin priv-lvl 15
+aaa authentication login default local
+aaa authentication login console local
+!
+class-map type application class-iscsi
+!
+policy-map type application policy-iscsi
+!
+interface vlan1
+ no shutdown
+ ip address 192.168.55.251/24
+!
+interface vlan21
+ description VDS2-21
+ no shutdown
+ mtu 9216
+ ip address 192.168.21.251/24
+ ipv6 mld snooping querier
+!
+interface vlan22
+ description VDS2-22
+ no shutdown
+ mtu 9216
+ ip address 192.168.22.251/24
+ ipv6 mld snooping querier
+!
+interface vlan23
+ description Backup-DPS-DATA
+ no shutdown
+ mtu 9216
+ ipv6 mld snooping querier
+!
+interface vlan24
+ description VM-VLAN-24
+ no shutdown
+ mtu 9216
+ ipv6 mld snooping querier
+!
+interface vlan25
+ description VM-VLAN-25
+ no shutdown
+ mtu 9216
+ ipv6 mld snooping querier
+!
+interface vlan55
+ description STORAGE-55
+ no shutdown
+ mtu 9216
+ ip address 10.10.55.251/24
+!
+interface vlan101
+ description VXRAIL-vSAN
+ no shutdown
+ mtu 9216
+ ip address 10.10.10.251/24
+ ipv6 mld snooping querier
+!
+interface vlan102
+ description VXRAIL-vMotion
+ no shutdown
+ mtu 9216
+ ip address 10.10.20.251/24
+ ipv6 mld snooping querier
+!
+interface vlan120
+ description PPDM
+ no shutdown
+ ip address 10.10.120.251/24
+!
+interface vlan130
+ description PPDM
+ no shutdown
+ ip address 10.10.130.251/24
+!
+interface vlan140
+ description PPDM
+ no shutdown
+ ip address 10.10.140.251/24
+!
+interface vlan150
+ description PPDM
+ no shutdown
+ ip address 10.10.150.251/24
+!
+interface vlan3939
+ description VXRAIL-3939
+ no shutdown
+ mtu 9216
+ ipv6 mld snooping querier
+!
+interface mgmt1/1/1
+ no shutdown
+ no ip address dhcp
+ ip address 192.168.50.251/24
+ ipv6 address autoconfig
+!
+interface ethernet1/1/1
+ description Node_1_0-vDS1
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102,3939
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/2
+ description Node_1_1-vDS1
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102,3939
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/3
+ description Node_2_0-vDS1
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102,3939
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/4
+ description Node_2_1-vDS1
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102,3939
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/5
+ description Node_3_0-vDS1
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102,3939
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/6
+ description Node_3_1-vDS1
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102,3939
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/7
+ description Node_4_0-vDS1
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102,3939
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/8
+ description Node_4_1-vDS1
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102,3939
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/9
+ no shutdown
+ switchport access vlan 1
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/10
+ no shutdown
+ switchport access vlan 1
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/11
+ description UPLINK-1
+ no shutdown
+ switchport access vlan 1
+ flowcontrol receive on
+!
+interface ethernet1/1/12
+ description UPLINK-2
+ no shutdown
+ switchport access vlan 1
+ flowcontrol receive on
+!
+interface ethernet1/1/13:1
+ description Node-A
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/13:2
+ description Node-A
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/13:3
+ description Node-A
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/13:4
+ description Node-A
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/14:1
+ description Node-B
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/14:2
+ description Node-B
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/14:3
+ description Node-B
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/14:4
+ description Node-B
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/15:1
+ description Node-C
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/15:2
+ description Node-C
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/15:3
+ description Node-C
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+interface ethernet1/1/15:4
+ description Node-C
+ no shutdown
+ switchport mode trunk
+ switchport access vlan 1
+ switchport trunk allowed vlan 55,101-102
+ mtu 9216
+ flowcontrol receive on
+ flowcontrol transmit off
+ spanning-tree port type edge
+!
+management route 0.0.0.0/0 192.168.50.254
+!
+support-assist
+!
+snmp-server community public ro
+snmp-server contact "Contact Support"
+snmp-server user admin1 netadmingroup 2c
+!
+telemetry
+OS10# '
+% Error: Unrecognized command.
+OS10#
+OS10#
+OS10#
+OS10#
+OS10#
+OS10# show running-configuration
+! Version 10.5.4.4
+! Last configuration change at Apr  22 03:11:37 2026
+!
+ip vrf default
+!
+iscsi enable
+iscsi target port 860
+iscsi target port 3260
+interface breakout 1/1/13 map 25g-4x
+interface breakout 1/1/14 map 25g-4x
+interface breakout 1/1/15 map 25g-4x
+system-user linuxadmin password ****
+username admin password **** role sysadmin priv-lvl 15
+aaa authentication login default local
+aaa authentication login console local
+!
+class-map type application class-iscsi
+!
+policy-map type application policy-iscsi
+!
+interface vlan1
+ no shutdown
+ ip address 192.168.55.251/24
+OS10# configure terminal
+OS10(config)# interface breakout 1/1/13
+% Error: The command is not completed.
+OS10(config)# interface breakout 1/1/13 map
+  100g-1x  Breakout to 1 100G interface
+  50g-2x   Breakout to 2 50G interfaces
+  40g-1x   Breakout to 1 40G interface
+  25g-4x   Breakout to 4 25G interfaces
+  10g-4x   Breakout to 4 10G interfaces
+
+OS10(config)# interface breakout 1/1/13 map 100g-1x
+<165>1 2026-04-22T03:41:45.976287+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IFM_ASTATE_U                                                                         P: Interface admin state up :ethernet1/1/13
+<165>1 2026-04-22T03:41:45.979640+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %ISCSI_NEW_PO                                                                         RT_FC: ISCSI_OPT: Set flow control for the new port added  ethernet1/1/13
+OS10(config)#
+OS10(config)# end
+OS10# show conf
+% Error: Unrecognized command.
+OS10# show running-configuration
+! Version 10.5.4.4
+! Last configuration change at Apr  22 03:41:46 2026
+!
+ip vrf default
+!
+iscsi enable
+iscsi target port 860
+iscsi target port 3260
+interface breakout 1/1/13 map 100g-1x
+interface breakout 1/1/14 map 25g-4x
+interface breakout 1/1/15 map 25g-4x
+system-user linuxadmin password ****
+username admin password **** role sysadmin priv-lvl 15
+aaa authentication login default local
+aaa authentication login console local
+!
+class-map type application class-iscsi
+!
+policy-map type application policy-iscsi
+!
+interface vlan1
+ no shutdown
+ ip address 192.168.55.251/24
+OS10# copy running-configuration startup-configuration
+OS10#
+OS10#
+OS10#
+OS10# show interface s
+status     switchport
+OS10# show interface status
+
+--------------------------------------------------------------------------------------------------
+Port            Description     Status   Speed    Duplex   Mode Vlan Tagged-Vlans
+--------------------------------------------------------------------------------------------------
+Eth 1/1/1       Node_1_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/2       Node_1_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/3       Node_2_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/4       Node_2_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/5       Node_3_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/6       Node_3_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/7       Node_4_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/8       Node_4_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/9                       down     0        full     A    1    -
+Eth 1/1/10                      down     0        full     A    1    -
+Eth 1/1/11      UPLINK-1        down     0        full     A    1    -
+Eth 1/1/12      UPLINK-2        down     0        full     A    1    -
+Eth 1/1/13                      down     0        full     A    1    -
+Eth 1/1/14:1    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:2    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:3    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:4    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/15:1    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:2    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:3    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:4    Node-C          down     0        full     T    1    55,101-102
+--------------------------------------------------------------------------------------------------
+
+OS10# <165>1 2026-04-22T03:42:49.370214+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %EQM_ME                                                                         DIA_PRESENT: Media inserted . Media QSFP+ 40GBASE-CR4-3.0M in slot:1 port:13 serial number:CN0FC6KV5A817ND
+<161>1 2026-04-22T03:42:50.784218+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %EQM_MEDIA_NO                                                                         T_PRESENT: Media removed  from slot:1 port:13
+<165>1 2026-04-22T03:42:55.381449+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %EQM_MEDIA_PR                                                                         ESENT: Media inserted . Media QSFP+ 40GBASE-CR4-3.0M in slot:1 port:13 serial number:CN0FC6KV5A817ND
+
+OS10#
+OS10#
+OS10#
+OS10# show interface status
+
+--------------------------------------------------------------------------------------------------
+Port            Description     Status   Speed    Duplex   Mode Vlan Tagged-Vlans
+--------------------------------------------------------------------------------------------------
+Eth 1/1/1       Node_1_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/2       Node_1_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/3       Node_2_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/4       Node_2_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/5       Node_3_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/6       Node_3_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/7       Node_4_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/8       Node_4_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/9                       down     0        full     A    1    -
+Eth 1/1/10                      down     0        full     A    1    -
+Eth 1/1/11      UPLINK-1        down     0        full     A    1    -
+Eth 1/1/12      UPLINK-2        down     0        full     A    1    -
+Eth 1/1/13                      down     0        full     A    1    -
+Eth 1/1/14:1    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:2    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:3    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:4    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/15:1    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:2    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:3    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:4    Node-C          down     0        full     T    1    55,101-102
+--------------------------------------------------------------------------------------------------
+
+OS10# configure terminal
+OS10(config)# interface breakout 1/1/13 map
+  100g-1x  Breakout to 1 100G interface
+  50g-2x   Breakout to 2 50G interfaces
+  40g-1x   Breakout to 1 40G interface
+  25g-4x   Breakout to 4 25G interfaces
+  10g-4x   Breakout to 4 10G interfaces
+
+OS10(config)# interface breakout 1/1/13 map 40g-1x
+<165>1 2026-04-22T03:43:24.901081+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IFM_ASTATE_U                                                                         P: Interface admin state up :ethernet1/1/13:1
+<165>1 2026-04-22T03:43:24.931778+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %ISCSI_NEW_PO                                                                         RT_FC: ISCSI_OPT: Set flow control for the new port added  ethernet1/1/13:1
+OS10(config)# enc
+% Error: Unrecognized command.
+OS10(config)# end
+OS10# show interface status
+
+--------------------------------------------------------------------------------------------------
+Port            Description     Status   Speed    Duplex   Mode Vlan Tagged-Vlans
+--------------------------------------------------------------------------------------------------
+Eth 1/1/1       Node_1_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/2       Node_1_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/3       Node_2_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/4       Node_2_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/5       Node_3_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/6       Node_3_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/7       Node_4_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/8       Node_4_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/9                       down     0        full     A    1    -
+Eth 1/1/10                      down     0        full     A    1    -
+Eth 1/1/11      UPLINK-1        down     0        full     A    1    -
+Eth 1/1/12      UPLINK-2        down     0        full     A    1    -
+Eth 1/1/13:1                    down     0        full     A    1    -
+Eth 1/1/14:1    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:2    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:3    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:4    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/15:1    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:2    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:3    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:4    Node-C          down     0        full     T    1    55,101-102
+--------------------------------------------------------------------------------------------------
+
+OS10# <165>1 2026-04-22T03:43:58.440891+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IFM_OS                                                                         TATE_UP: Interface operational state is up :ethernet1/1/13:1
+<165>1 2026-04-22T03:43:58.449898+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IFM_OSTATE_U                                                                         P: Interface operational state is up :vlan1
+<165>1 2026-04-22T03:44:00.276655+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %DCBX_PFC_POR                                                                         T_OPER_DOWN: PFC Parameters MISMATCH on interface ethernet1/1/13:1
+<165>1 2026-04-22T03:44:00.277723+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %DCBX_ETS_POR                                                                         T_OPER_DOWN: ETS Parameters MISMATCH on interface ethernet1/1/13:1
+
+OS10#
+OS10#
+OS10#
+OS10# show interface status
+
+--------------------------------------------------------------------------------------------------
+Port            Description     Status   Speed    Duplex   Mode Vlan Tagged-Vlans
+--------------------------------------------------------------------------------------------------
+Eth 1/1/1       Node_1_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/2       Node_1_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/3       Node_2_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/4       Node_2_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/5       Node_3_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/6       Node_3_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/7       Node_4_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/8       Node_4_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/9                       down     0        full     A    1    -
+Eth 1/1/10                      down     0        full     A    1    -
+Eth 1/1/11      UPLINK-1        down     0        full     A    1    -
+Eth 1/1/12      UPLINK-2        down     0        full     A    1    -
+Eth 1/1/13:1                    up       40G      full     A    1    -
+Eth 1/1/14:1    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:2    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:3    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:4    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/15:1    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:2    Node-C          down     0        full     T    1    55,101-102
+OS10#
+OS10# show interface 1/1/13
+% Error: Illegal command line.
+OS10# show interface ethernet 1/1/13
+% Error: No such interface(s)
+OS10# show interface ethernet 1/1/13:1
+Ethernet 1/1/13:1 is up, line protocol is up
+Hardware is Eth, address is 20:04:0f:51:b0:e5
+    Current address is 20:04:0f:51:b0:e5
+Pluggable media present, QSFP+ type is QSFP+ 40GBASE-CR4-3.0M
+    Wavelength is 90
+Interface index is 123
+Internet address is not set
+Mode of IPv4 Address Assignment: not set
+Interface IPv6 oper status: Disabled
+MTU 9216 bytes, IP MTU 9184 bytes
+LineSpeed 40G, Auto-Negotiation on
+Flowcontrol rx on tx off
+ARP type: ARPA, ARP Timeout: 60
+Tag Protocol IDentifier (TPID) value: 0x8100
+Last clearing of "show interface" counters: 00:01:55
+Queuing strategy: fifo
+Input statistics:
+     93 packets, 18497 octets
+     0 64-byte pkts, 38 over 64-byte pkts, 27 over 127-byte pkts
+     28 over 255-byte pkts, 0 over 511-byte pkts, 0 over 1023-byte pkts
+     73 Multicasts, 20 Broadcasts, 0 Unicasts
+     0 runts, 0 giants, 0 throttles
+     0 CRC, 0 overrun, 0 discarded
+Output statistics:
+     89 packets, 7634 octets
+     80 64-byte pkts, 0 over 64-byte pkts, 3 over 127-byte pkts
+     6 over 255-byte pkts, 0 over 511-byte pkts, 0 over 1023-byte pkts
+     89 Multicasts, 0 Broadcasts, 0 Unicasts
+     0 throttles, 0 discarded, 0 Collisions,  wred drops
+Rate Info(interval 30 seconds):
+     Input 0 Mbits/sec, 1 packets/sec, 0% of line rate
+     Output 0 Mbits/sec, 1 packets/sec, 0% of line rate
+Time since last interface status change: 00:01:22
+
+
+OS10# <165>1 2026-04-22T03:47:52.664584+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IFM_OSTATE_DN: Interface operational st                                        ate is down :ethernet1/1/13:1
+<165>1 2026-04-22T03:47:52.665910+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IFM_OSTATE_DN: Interface operational state is                                         down :vlan1
+<161>1 2026-04-22T03:47:58.014384+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %EQM_MEDIA_NOT_PRESENT: Media removed  from sl                                        ot:1 port:13
+<165>1 2026-04-22T03:53:47.760256+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %EQM_MEDIA_PRESENT: Media inserted . Media QSF                                        P28 100GBASE-CR4-3.0M in slot:1 port:13 serial number:CN0APX004B1P8NA
+
+OS10#
+OS10#
+OS10#
+OS10# configure terminal
+OS10(config)# interface breakout 1/1/13 map 100g-1x
+<165>1 2026-04-22T03:54:01.218218+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IFM_ASTATE_UP: Interface admin state up :ethe                                        rnet1/1/13
+<165>1 2026-04-22T03:54:01.221571+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %ISCSI_NEW_PORT_FC: ISCSI_OPT: Set flow contro                                        l for the new port added  ethernet1/1/13
+OS10(config)# end
+OS10# show interface status
+
+--------------------------------------------------------------------------------------------------
+Port            Description     Status   Speed    Duplex   Mode Vlan Tagged-Vlans
+--------------------------------------------------------------------------------------------------
+Eth 1/1/1       Node_1_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/2       Node_1_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/3       Node_2_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/4       Node_2_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/5       Node_3_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/6       Node_3_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/7       Node_4_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/8       Node_4_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/9                       down     0        full     A    1    -
+Eth 1/1/10                      down     0        full     A    1    -
+Eth 1/1/11      UPLINK-1        down     0        full     A    1    -
+Eth 1/1/12      UPLINK-2        down     0        full     A    1    -
+Eth 1/1/13                      down     0        full     A    1    -
+Eth 1/1/14:1    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:2    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:3    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:4    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/15:1    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:2    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:3    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:4    Node-C          down     0        full     T    1    55,101-102
+--------------------------------------------------------------------------------------------------
+
+OS10# show interface status
+
+--------------------------------------------------------------------------------------------------
+Port            Description     Status   Speed    Duplex   Mode Vlan Tagged-Vlans
+--------------------------------------------------------------------------------------------------
+Eth 1/1/1       Node_1_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/2       Node_1_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/3       Node_2_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/4       Node_2_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/5       Node_3_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/6       Node_3_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/7       Node_4_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/8       Node_4_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/9                       down     0        full     A    1    -
+Eth 1/1/10                      down     0        full     A    1    -
+Eth 1/1/11      UPLINK-1        down     0        full     A    1    -
+Eth 1/1/12      UPLINK-2        down     0        full     A    1    -
+Eth 1/1/13                      down     0        full     A    1    -
+Eth 1/1/14:1    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:2    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:3    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:4    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/15:1    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:2    Node-C          down     0        full     T    1    55,101-102
+--more--<165>1 2026-04-22T03:54:28.363007+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IFM_OSTATE_UP: Interface operational                                         state is up :ethernet1/1/13
+<165>1 2026-04-22T03:54:28.364459+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IFM_OSTATE_UP: Interface operational state is                                         up :vlan1
+<165>1 2026-04-22T03:54:30.279448+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %DCBX_PFC_PORT_OPER_DOWN: PFC Parameters MISMA                                        TCH on interface ethernet1/1/13
+<165>1 2026-04-22T03:54:30.280460+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %DCBX_ETS_PORT_OPER_DOWN: ETS Parameters MISMA                                        TCH on interface ethernet1/1/13
+Eth 1/1/15:3    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:4    Node-C          down     0        full     T    1    55,101-102
+OS10# show interface status
+
+--------------------------------------------------------------------------------------------------
+Port            Description     Status   Speed    Duplex   Mode Vlan Tagged-Vlans
+--------------------------------------------------------------------------------------------------
+Eth 1/1/1       Node_1_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/2       Node_1_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/3       Node_2_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/4       Node_2_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/5       Node_3_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/6       Node_3_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/7       Node_4_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/8       Node_4_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/9                       down     0        full     A    1    -
+Eth 1/1/10                      down     0        full     A    1    -
+Eth 1/1/11      UPLINK-1        down     0        full     A    1    -
+Eth 1/1/12      UPLINK-2        down     0        full     A    1    -
+Eth 1/1/13                      up       100G     full     A    1    -
+Eth 1/1/14:1    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:2    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:3    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:4    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/15:1    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:2    Node-C          down     0        full     T    1    55,101-102
+Eth 1/1/15:3    Node-C          down     0        full     T    1    55,101-102
+OS10#
+OS10#
+OS10#
+OS10#
+OS10#
+OS10# show interface ethernet 1/1/13
+Ethernet 1/1/13 is up, line protocol is up
+Hardware is Eth, address is 20:04:0f:51:b0:e5
+    Current address is 20:04:0f:51:b0:e5
+Pluggable media present, QSFP28 type is QSFP28 100GBASE-CR4-3.0M
+    Wavelength is 64
+Interface index is 124
+Internet address is not set
+Mode of IPv4 Address Assignment: not set
+Interface IPv6 oper status: Disabled
+MTU 9216 bytes, IP MTU 9184 bytes
+LineSpeed 100G, Auto-Negotiation on
+Configured FEC is cl91-rs, Negotiated FEC is cl91-rs
+Flowcontrol rx on tx off
+ARP type: ARPA, ARP Timeout: 60
+Tag Protocol IDentifier (TPID) value: 0x8100
+Last clearing of "show interface" counters: 00:01:17
+Queuing strategy: fifo
+Input statistics:
+     46 packets, 9268 octets
+     0 64-byte pkts, 18 over 64-byte pkts, 14 over 127-byte pkts
+     14 over 255-byte pkts, 0 over 511-byte pkts, 0 over 1023-byte pkts
+     36 Multicasts, 10 Broadcasts, 0 Unicasts
+     0 runts, 0 giants, 0 throttles
+     0 CRC, 0 overrun, 0 discarded
+Output statistics:
+     53 packets, 4952 octets
+     46 64-byte pkts, 0 over 64-byte pkts, 2 over 127-byte pkts
+     5 over 255-byte pkts, 0 over 511-byte pkts, 0 over 1023-byte pkts
+     53 Multicasts, 0 Broadcasts, 0 Unicasts
+     0 throttles, 0 discarded, 0 Collisions,  wred drops
+Rate Info(interval 30 seconds):
+     Input 0 Mbits/sec, 0 packets/sec, 0% of line rate
+     Output 0 Mbits/sec, 0 packets/sec, 0% of line rate
+Time since last interface status change: 00:00:51
+
+
+OS10#
+OS10#
+OS10#
+OS10#
+OS10# cobf
+% Error: Unrecognized command.
+OS10# configure terminal
+OS10(config)# interface breakout 1/1/15 map
+  100g-1x  Breakout to 1 100G interface
+  50g-2x   Breakout to 2 50G interfaces
+  40g-1x   Breakout to 1 40G interface
+  25g-4x   Breakout to 4 25G interfaces
+  10g-4x   Breakout to 4 10G interfaces
+
+OS10(config)# interface breakout 1/1/15 map 1
+100g-1x 10g-4x
+OS10(config)# interface breakout 1/1/15 map 100g-1x
+<165>1 2026-04-22T03:57:45.418095+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IFM_ASTATE_UP: Interface admin state up :ethernet1/1/15
+<165>1 2026-04-22T03:57:45.444518+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %ISCSI_NEW_PORT_FC: ISCSI_OPT: Set flow control for the new port added  ethernet1/1/15
+OS10(config)# <165>1 2026-04-22T03:59:00.711399+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %EQM_MEDIA_PRESENT: Media inserted . Media QSFP28 100GBASE-CR4-1.0M in slot:1 port:15 serial number:CN0APX005BH35GT is third party
+<165>1 2026-04-22T03:59:18.897963+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IFM_OSTATE_UP: Interface operational state is up :ethernet1/1/15
+<165>1 2026-04-22T03:59:19.831859+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %DCBX_PFC_PORT_OPER_DOWN: PFC Parameters MISMATCH on interface ethernet1/1/15
+<165>1 2026-04-22T03:59:19.832089+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %DCBX_ETS_PORT_OPER_DOWN: ETS Parameters MISMATCH on interface ethernet1/1/15
+
+OS10(config)# end
+OS10# show interface status
+
+--------------------------------------------------------------------------------------------------
+Port            Description     Status   Speed    Duplex   Mode Vlan Tagged-Vlans
+--------------------------------------------------------------------------------------------------
+Eth 1/1/1       Node_1_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/2       Node_1_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/3       Node_2_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/4       Node_2_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/5       Node_3_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/6       Node_3_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/7       Node_4_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/8       Node_4_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/9                       down     0        full     A    1    -
+Eth 1/1/10                      down     0        full     A    1    -
+Eth 1/1/11      UPLINK-1        down     0        full     A    1    -
+Eth 1/1/12      UPLINK-2        down     0        full     A    1    -
+Eth 1/1/13                      up       100G     full     A    1    -
+Eth 1/1/14:1    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:2    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:3    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:4    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/15                      up       100G     full     A    1    -
+--------------------------------------------------------------------------------------------------
+OS10# show interface ethernet 1/1/1
+Ethernet 1/1/1 is up, line protocol is down
+Description: Node_1_0-vDS1
+Hardware is Eth, address is 20:04:0f:51:b0:d9
+    Current address is 20:04:0f:51:b0:d9
+Pluggable media not present
+
+Interface index is 16
+Internet address is not set
+Mode of IPv4 Address Assignment: not set
+Interface IPv6 oper status: Disabled
+MTU 9216 bytes, IP MTU 9184 bytes
+LineSpeed 0, Auto-Negotiation off
+Flowcontrol rx on tx off
+ARP type: ARPA, ARP Timeout: 60
+Tag Protocol IDentifier (TPID) value: 0x8100
+Last clearing of "show interface" counters: 01:40:37
+Queuing strategy: fifo
+Input statistics:
+     0 packets, 0 octets
+     0 64-byte pkts, 0 over 64-byte pkts, 0 over 127-byte pkts
+     0 over 255-byte pkts, 0 over 511-byte pkts, 0 over 1023-byte pkts
+     0 Multicasts, 0 Broadcasts, 0 Unicasts
+     0 runts, 0 giants, 0 throttles
+OS10# show interface ethernet 1/1/15
+Ethernet 1/1/15 is up, line protocol is up
+Hardware is Eth, address is 20:04:0f:51:b0:ed
+    Current address is 20:04:0f:51:b0:ed
+Pluggable media present, QSFP28 type is QSFP28 100GBASE-CR4-1.0M
+    Wavelength is 25
+Interface index is 125
+Internet address is not set
+Mode of IPv4 Address Assignment: not set
+Interface IPv6 oper status: Disabled
+MTU 9216 bytes, IP MTU 9184 bytes
+LineSpeed 100G, Auto-Negotiation on
+Configured FEC is cl91-rs, Negotiated FEC is cl91-rs
+Flowcontrol rx on tx off
+ARP type: ARPA, ARP Timeout: 60
+Tag Protocol IDentifier (TPID) value: 0x8100
+Last clearing of "show interface" counters: 00:02:04
+Queuing strategy: fifo
+Input statistics:
+     43 packets, 8203 octets
+     0 64-byte pkts, 18 over 64-byte pkts, 13 over 127-byte pkts
+     12 over 255-byte pkts, 0 over 511-byte pkts, 0 over 1023-byte pkts
+     35 Multicasts, 8 Broadcasts, 0 Unicasts
+     0 runts, 0 giants, 0 throttles
+     0 CRC, 0 overrun, 0 discarded
+Output statistics:
+     35 packets, 3092 octets
+     32 64-byte pkts, 0 over 64-byte pkts, 0 over 127-byte pkts
+     3 over 255-byte pkts, 0 over 511-byte pkts, 0 over 1023-byte pkts
+     35 Multicasts, 0 Broadcasts, 0 Unicasts
+     0 throttles, 0 discarded, 0 Collisions,  wred drops
+Rate Info(interval 30 seconds):
+     Input 0 Mbits/sec, 1 packets/sec, 0% of line rate
+     Output 0 Mbits/sec, 0 packets/sec, 0% of line rate
+Time since last interface status change: 00:00:31
+
+
+OS10#
+OS10#
+OS10# show interface status
+
+--------------------------------------------------------------------------------------------------
+Port            Description     Status   Speed    Duplex   Mode Vlan Tagged-Vlans
+--------------------------------------------------------------------------------------------------
+Eth 1/1/1       Node_1_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/2       Node_1_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/3       Node_2_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/4       Node_2_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/5       Node_3_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/6       Node_3_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/7       Node_4_0-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/8       Node_4_1-vDS1   down     0        full     T    1    55,101-102,3939
+Eth 1/1/9                       down     0        full     A    1    -
+Eth 1/1/10                      down     0        full     A    1    -
+Eth 1/1/11      UPLINK-1        down     0        full     A    1    -
+Eth 1/1/12      UPLINK-2        down     0        full     A    1    -
+Eth 1/1/13                      up       100G     full     A    1    -
+Eth 1/1/14:1    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:2    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:3    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/14:4    Node-B          down     0        full     T    1    55,101-102
+Eth 1/1/15                      up       100G     full     A    1    -
+--------------------------------------------------------------------------------------------------
+OS10# show interface ethernet 1/1/15
+Ethernet 1/1/15 is up, line protocol is up
+Hardware is Eth, address is 20:04:0f:51:b0:ed
+    Current address is 20:04:0f:51:b0:ed
+Pluggable media present, QSFP28 type is QSFP28 100GBASE-CR4-1.0M
+    Wavelength is 25
+Interface index is 125
+Internet address is not set
+Mode of IPv4 Address Assignment: not set
+Interface IPv6 oper status: Disabled
+MTU 9216 bytes, IP MTU 9184 bytes
+LineSpeed 100G, Auto-Negotiation on
+Configured FEC is cl91-rs, Negotiated FEC is cl91-rs
+Flowcontrol rx on tx off
+ARP type: ARPA, ARP Timeout: 60
+Tag Protocol IDentifier (TPID) value: 0x8100
+Last clearing of "show interface" counters: 00:02:26
+Queuing strategy: fifo
+Input statistics:
+     77 packets, 14674 octets
+     0 64-byte pkts, 34 over 64-byte pkts, 22 over 127-byte pkts
+     21 over 255-byte pkts, 0 over 511-byte pkts, 0 over 1023-byte pkts
+     63 Multicasts, 14 Broadcasts, 0 Unicasts
+     0 runts, 0 giants, 0 throttles
+     0 CRC, 0 overrun, 0 discarded
+Output statistics:
+     56 packets, 4720 octets
+     52 64-byte pkts, 0 over 64-byte pkts, 0 over 127-byte pkts
+     4 over 255-byte pkts, 0 over 511-byte pkts, 0 over 1023-byte pkts
+     56 Multicasts, 0 Broadcasts, 0 Unicasts
+     0 throttles, 0 discarded, 0 Collisions,  wred drops
+Rate Info(interval 30 seconds):
+     Input 0 Mbits/sec, 0 packets/sec, 0% of line rate
+     Output 0 Mbits/sec, 1 packets/sec, 0% of line rate
+Time since last interface status change: 00:00:52
+
+
+OS10# <165>1 2026-04-22T04:01:30.694577+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IFM_OSTATE_DN: Interface operational state is down :ethernet1/1/15
+<161>1 2026-04-22T04:01:53.650600+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %EQM_MEDIA_NOT_PRESENT: Media removed  from slot:1 port:15
+<165>1 2026-04-22T04:02:07.839985+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IFM_OSTATE_DN: Interface operational state is down :ethernet1/1/13
+<165>1 2026-04-22T04:02:07.844406+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IFM_OSTATE_DN: Interface operational state is down :vlan1
+<161>1 2026-04-22T04:02:09.878949+00:00 OS10 dn_alm 845 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %EQM_MEDIA_NOT_PRESENT: Media removed  from slot:1 port:13
+
+OS10#
