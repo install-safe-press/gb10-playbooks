@@ -69,18 +69,17 @@ HP ZGX Nano AI Station
 Lenovo ThinkStation PGX
 MSI EdgeXpert MS-C931
 
-# GB10 (Grace Blackwell) 平台產品橫向分析表 是Gemini隨便寫的
-
-| 產品名稱 | 核心定位與管理特點  | 適合族群 |
-| :--- | :--- | :--- |
-| **NVIDIA DGX Spark** | 官方原生機型，搭載完整 DGX 軟體堆疊 | 頂級開發者、軟體相容性優先者 |
-| **Dell Pro Max With GB10** | 採用 ProSupport 企業保固，但管理介面遵循 NVIDIA 規範 | 習慣 Dell 售後體系但接受 NVIDIA 管理邏輯者 |
-| **Gigabyte AI TOP ATOM** | 搭載圖形化微調工具 (AI TOP)，操作門檻最低 | 初創團隊、不擅長指令操作的用戶 |
-| **Lenovo ThinkStation PGX** | 強化散熱與抗噪設計，適合桌面辦公環境 | 長時間運算、重視安靜環境的研究室 |
-| **MSI EdgeXpert MS-C931** | 具備更強的震動與溫度耐受力 (工業規格) | 工廠邊緣端、自動化生產線部署 |
-| **ASUS Ascent GX10** | 整合 ProArt 創作者介面與極致外觀 | 獨立 AI 設計師、精品工作室 |
-| **HP ZGX Nano AI Station** | 具備 Wolf Security 硬體加密技術 | 金融、政府等高資安要求單位 |
-| **Acer Veriton GN100** | 結構簡單、性價比極高 | 教育市場、大規模採購需求 |
+# GB10 (Grace Blackwell) 平台產品橫向分析表 
+| 產品 | 平台定位 | 管理 / 軟體堆疊 | 核心差異點 | 適合族群 | 部署場景 |
+|------|----------|------------------|------------|----------|----------|
+| NVIDIA DGX Spark | 官方參考標準 AI 節點（Reference DGX Node） | 完整 DGX Stack（NGC / CUDA / AI Enterprise） | 最完整原生 NVIDIA 生態 | AI 研究員 / ML 工程師 / 需要最高相容性者 | AI Lab / 研發中心 / 企業AI中樞 |
+| Dell Pro Max with GB10 | 企業級整合工作站（Enterprise OEM Node） | NVIDIA Stack + Dell ProSupport 管理體系 | 強企業維運與售後整合 | IT 部門 / 企業導入 AI | 企業內部 AI 部署 |
+| Lenovo ThinkStation PGX | 穩定長時間運算工作站 | NVIDIA Stack + Lenovo 管理工具 | 散熱/噪音/穩定性優化 | 研究機構 / 長時間運算用戶 | 實驗室 / 研究室 |
+| HP ZGX Nano AI Station | 高資安工作站（Secure AI Node） | NVIDIA Stack + HP Wolf Security | 硬體級安全與隔離設計 | 金融 / 政府 / 高合規企業 | 高安全企業環境 |
+| ASUS Ascent GX10 | 創作者導向 AI 工作站 | NVIDIA Stack + ASUS ProArt 生態 | UI/設計導向整合 | AI 創作者 / 設計工作室 | 創作環境 / 個人專業 |
+| Gigabyte AI TOP ATOM | 低門檻 AI 微調平台 | AI TOP GUI（可視化訓練工具） | No-code / 低學習成本 | Startup / 非工程背景團隊 | PoC / 教學 / 快速實驗 |
+| MSI EdgeXpert MS-C931 | 工業級邊緣 AI 節點 | NVIDIA Stack + 工業管理介面 | 耐震 / 耐溫 / 工業規格 | 工廠 / OT / 自動化系統 | Edge AI / 工業現場 |
+| Acer Veriton GN100 | 成本導向 AI 工作站 | 基礎 NVIDIA Stack（標準化） | 高性價比 / 易大量部署 | 教育 / 公部門 / 大規模採購 | 教育機構 / 批量部署 |
 ---
 # 核心差異總結 ： 不跟你廢話就是品牌與價格！ # 市售各品牌WIFI晶片與儲存容量可能有所差異！
 
@@ -125,4 +124,4 @@ Playbook 是一套「一步一步帶你完成 AI 專案」的實戰教學
 建立模型部署、推論與系統整合能力
 進一步將架構擴展至資料中心（如 H200）實現大規模 AI 應用
 
-## 本專案採用 DELL PRO MAX GB10 操作示範 , 也非常歡迎 HP Lenovo Nvidia 等品牌提供設備 .
+## 本專案只有採用 DELL PRO MAX GB10 操作示範 , 也非常歡迎 HP Lenovo Nvidia 等品牌提供設備 .
