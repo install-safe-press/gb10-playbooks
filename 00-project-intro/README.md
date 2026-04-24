@@ -122,4 +122,4 @@ Playbook 是一套「一步一步帶你完成 AI 專案」的實戰教學
 ## 👉「先在桌上把 AI 玩熟，再把同一套能力放大到機房等級。」
 以Dell Pro MAX GB10 桌上型平台作為本地 AI 開發起點 ,建立模型部署、推論與系統整合能力 ,進一步將架構擴展至資料中心（如 H200）實現大規模 AI 應用
 
-## 本專案只有採用 DELL PRO MAX GB10 操作示範 , 也非常歡迎 HP Lenovo Nvidia 等品牌 . 還有雙A , 至於 Giaibyte MSI也可以 
+## 本專案只有採用 DELL PRO MAX GB10 操作示範 , 也非常歡迎 HP Lenovo Nvidia 等品牌 . 還有雙A , 至於 Gigabyte MSI也可以 
