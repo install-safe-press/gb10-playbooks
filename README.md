@@ -1,5 +1,5 @@
 
-![summary]/000-summary/summary-1.png
+![summary](00-00-TARGET/summary-1.jpg)
 
 #gb10-playbooks 專案目標
 *透過spark playbooks 熟悉各種應用並將其作記錄
