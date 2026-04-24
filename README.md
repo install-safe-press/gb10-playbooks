@@ -1,4 +1,4 @@
-# 一張圖說明GB10拿來做什麼可以做什麼
+# GB10拿來做什麼可以做什麼
 ![summary](00-00-TARGET/summary-1.jpg)
 
 #gb10-playbooks 專案目標
