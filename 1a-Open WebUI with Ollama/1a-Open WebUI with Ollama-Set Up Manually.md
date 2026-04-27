@@ -1,11 +1,8 @@
 Step 1: Configure Docker permissions (配置 Docker 權限)
 註解：此步驟是為了讓你不需要每次輸入 sudo 就能執行 Docker。透過將使用者加入 docker 群組，提升操作便利性。
 
-```bash
 docker ps: 測試目前是否有權限存取 Docker 守護行程。
-
 sudo usermod -aG docker $USER: 將當前使用者加入 Docker 群組。
-
 newgrp docker: 立即套用群組變更，無需登出重新登入。
 
 To easily manage containers without sudo, you must be in the docker group. If you choose to skip this step, you will need to run Docker commands with sudo. Open a new terminal and test Docker access. In the terminal, run:
@@ -17,6 +14,7 @@ If you see a permission denied error, add your user to the docker group:
 Bash
 sudo usermod -aG docker $USER
 newgrp docker
+
 Step 2: Verify Docker setup and pull container (驗證設定並拉取映像檔)
 註解：從 GitHub 伺服器下載整合了 Ollama 引擎的 Open WebUI 映像檔。這是「全功能版」，一個容器內就包含介面與模型執行環境。
 
@@ -102,6 +100,7 @@ docker volume rm open-webui open-webui-ollama
 資源管理困難：如果 Ollama 當機或佔用過多資源，會直接影響到網頁介面的運作。
 
 耦合度高：如果你想讓其他應用程式（例如另一個介面）連線到這個 Ollama，設定會比較麻煩。
+
 
 ## 2. 第二種方式：Docker Compose 分離部署
 這使用的是標準的 微服務架構，將 Ollama 和 Open WebUI 分成兩個獨立的容器執行。
