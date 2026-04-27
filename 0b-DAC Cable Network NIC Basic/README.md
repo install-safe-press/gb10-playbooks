@@ -1,4 +1,4 @@
-本章節描述 GB10 實體網路相關
+## 描述 GB10 實體網路相關
 
 Dell Pro MAX GB10 網路採用晶片分別是<br>
 1.Realtek RTL8127-CG for 1/10GbE<br>
@@ -95,3 +95,7 @@ ________________________________________<br>
 ## 為何是兩個 interface ？ 此題待解！！！
 <br>
 另外附了S4112F-ON switch config 在此子目錄 scripts/S4112F-ON-CONFIG.txt
+<br>
+
+## 補充資料：<br>
+這份pdf文件值得深入理解 400g-100g-pam4-osfp-qsfp112-based-cables-and-transceivers-user-guide.pdf 
