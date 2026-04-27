@@ -25,3 +25,59 @@ docker-compose down      # 停止並刪除<br>
 docker-compose logs      # 查看 log<br>
 <br>
 
+👉 docker-compose.yml 不會決定「檔案實際在主機哪個路徑」<br>
+👉 它只決定「容器內的路徑」與「是否用 volume 保存」<br>
+
+🧩 你的這份設定，資料實際在哪？<br>
+你現在用的是 named volume（不是 bind mount）：<br>
+volumes:  - open-webui:/app/backend/data  - open-webui-ollama:/root/.ollama<br>
+👉 這代表資料會被 Docker 存在主機的：<br>
+/var/lib/docker/volumes/<br>
+
+📂 對應實際路徑<br>
+🔹 ollama 模型資料<br>
+/var/lib/docker/volumes/open-webui-ollama/_data/<br>
+👉 對應容器內：<br>
+/root/.ollama<br>
+
+🔹 open-webui 資料<br>
+/var/lib/docker/volumes/open-webui/_data/<br>
+👉 對應容器內：<br>
+/app/backend/data<br>
+
+🔍 如何確認（實際查）<br>
+你可以用：docker volume inspect open-webui<br>
+會看到類似：
+"Mountpoint": "/var/lib/docker/volumes/open-webui/_data"<br>
+
+⚠️ 很重要的觀念<br>
+❌ 不是這樣
+很多人以為：
+~/openwebui/
+會存資料 ❌<br>
+👉 其實 這個目錄只放 docker-compose.yml
+
+✅ 真正資料在<br>
+👉 Docker 自己管理的 volume 路徑<br>
+（/var/lib/docker/...）
+
+🧠 如果你想「自己控制路徑」<br>
+可以改成 bind mount：<br>
+volumes:  - ./ollama:/root/.ollama  - ./data:/app/backend/data
+👉 這樣資料就會在： ~/openwebui/ollama~/openwebui/data
+📌 好處：<br>
+容易備份<br>
+看得到檔案<br>
+可直接操作<br>
+
+📌 壞處：<br>
+權限要自己管<br>
+比較容易誤刪<br>
+
+🧾 總結<br>
+你目前這份設定：<br>
+👉 資料實際位置<br>
+/var/lib/docker/volumes/<br>
+👉 compose 檔所在位置<br>
+~/openwebui/docker-compose.yml<br>
+👉 兩者是分開的！<br>
