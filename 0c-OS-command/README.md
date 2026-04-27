@@ -58,10 +58,14 @@ GB10這這個設定如果沒有啟動是連不上的 GB10 Settings,System,Deskto
 <br>
 ![cmd-1](images/cmd-1.jpg)
 <br>
-🧩watch -n 1 接上你要下的指令 ; 每秒下一次指令連續更新畫面輸出,參數1這個是代表每秒跑一次 , 如果不想再行 Ctrl+c複合鍵中斷跳出執行
-watch -n 1 free         ; free是顯示目前記憶體使用量
-watch -n 1 nvidia-smi   ; nvidia-smi是顯示目前GPU記憶體使用量
-不想每秒跑一次就直接下指令 , 
-![cmd-2](images/cmd-2.jpg)
+🧩watch -n 1 接上你要下的指令 ; 每秒下一次指令連續更新畫面輸出,參數1這個是代表每秒跑一次 , 如果不想再行 Ctrl+c複合鍵中斷跳出執行<br>
+watch -n 1 free         ; free是顯示目前記憶體使用量<br>
+watch -n 1 nvidia-smi   ; nvidia-smi是顯示目前GPU記憶體使用量<br>
+不想每秒跑一次就直接下指令,不需要輸入 watch -n 1  , <br>
+![cmd-2](images/cmd-2.jpg) <br>
+
+🧩Linux 命令列下的純文字編輯器 , vi , nano 這兩種呈式選一種,把存檔/離開,這兩個功能鍵記起來<br>
+
+🧩docker 容器相關的指令 docker ps <br>
 
 
