@@ -1,4 +1,4 @@
-安裝 Open WebUI 與 Ollama 應用大語言模型開始交談
+## 開始你的第一個AI應用 安裝 Open WebUI 與 Ollama 應用大語言模型開始交談
 
 🚀 快速上手：在 DGX Spark（Dell Pro MAX GB10） 部署 Open WebUI (整合 Ollama)
 想在你的 DGX Spark 上擁有像 ChatGPT 一樣漂亮的操作介面，同時確保所有資料都保存在本地端嗎？
