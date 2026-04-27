@@ -13,4 +13,13 @@ Dell Pro MAX GB10 網路採用晶片分別是<br>
 4.DAC-40G QSFP<br>
 5.DAC-100G QSFP28<br>
 
-gb10-cable-switch.jpg
+
+
+![nic-1](images/gb10-cable-switch.jpg)
+![nic-2](images/2gb10.jpg)
+![nic-3](images/DAC-400G-Q112-1.jpg)
+![nic-4](images/DAC-400G-Q112-2.jpg)
+
+![nic-5](images/nic-200.jpg)
+![nic-6](images/nic-100.jpg)
+![nic-7](images/nic-40.jpg)
