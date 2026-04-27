@@ -52,10 +52,16 @@ GB10這這個設定如果沒有啟動是連不上的 GB10 Settings,System,Deskto
 
 
 # 💻 Linux 生態指令
-
-
-🧩pwd
-🧩df -h
-🧩ip a
-
+🧩pwd 指令列目前所在的目錄路徑            <br>
+🧩df -h 查看目前作業系統目錄容量使用率    <br>
+🧩ip a  查看網路卡狀態                  <br>
+<br>
 ![cmd-1](images/cmd-1.jpg)
+<br>
+🧩watch -n 1 接上你要下的指令 ; 每秒下一次指令連續更新畫面輸出,參數1這個是代表每秒跑一次 , 如果不想再行 Ctrl+c複合鍵中斷跳出執行
+watch -n 1 free         ; free是顯示目前記憶體使用量
+watch -n 1 nvidia-smi   ; nvidia-smi是顯示目前GPU記憶體使用量
+不想每秒跑一次就直接下指令 , 
+![cmd-2](images/cmd-2.jpg)
+
+
