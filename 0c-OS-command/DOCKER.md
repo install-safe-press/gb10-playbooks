@@ -64,7 +64,7 @@ volumes:  - open-webui:/app/backend/data  - open-webui-ollama:/root/.ollama<br>
 🧠 如果你想「自己控制路徑」<br>
 可以改成 bind mount：<br>
 volumes:  - ./ollama:/root/.ollama  - ./data:/app/backend/data
-👉 這樣資料就會在： ~/openwebui/ollama~/openwebui/data
+👉 這樣資料就會在 ~/openwebui/ollama~/openwebui/data
 📌 好處：<br>
 容易備份<br>
 看得到檔案<br>
