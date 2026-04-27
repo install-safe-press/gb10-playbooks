@@ -89,4 +89,4 @@ ________________________________________<br>
 
 目前針對 interface 名稱未深入留待後續補充
 <br>
-
+另外附了S4112F-ON switch config 在此子目錄 scripts/S4112F-ON-CONFIG.txt
