@@ -126,6 +126,7 @@ docker-compose down
 
 對於像 Open WebUI + Ollama 這種需要多個組件協作的應用，使用 Docker Compose 是最推薦的專業做法，因為它讓「管理」變得像「讀文件」一樣直觀。
 
+## 細節說明
 
 🧩 1️⃣ 定義多個服務（services）
 services:
@@ -242,3 +243,4 @@ open-webui：提供 UI（透過 HTTP 呼叫 ollama）
 用 volume 保存模型與資料
 用 host + bridge 混合網路讓兩者溝通
 
+## 結果輸出
