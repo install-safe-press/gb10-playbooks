@@ -7,4 +7,4 @@
 ```text
 docker ps
 ```
-
+![docker-ps](images/docker-ps.jpg)
