@@ -9,7 +9,7 @@ docker ps
 ```
 ![docker-ps](images/docker-ps.jpg)
 
-💻🗄️🧩 簡單理解 docker-compose.yml 設定檔,  Docker Compose 使用的設定檔，用來定義並一次啟動多個 Docker 容器服務。
+💻🗄️🧩 簡單理解 docker-compose.yml 設定檔,  Docker Compose 使用的設定檔，用來定義並一次啟動多個 Docker 容器服務。<br>
 👉 它就像「服務的藍圖」<br>
 把一整個系統（例如：Web + DB + Cache）寫在一個檔案裡，一鍵啟動。<br>
 📦 主要功能<br>
@@ -19,6 +19,9 @@ docker ps
 掛載資料（volume）<br>
 控制啟動順序與依賴<br>
 
-
-
+🚀 常用指令<br>
+docker-compose up -d     # 啟動全部服務<br>
+docker-compose down      # 停止並刪除<br>
+docker-compose logs      # 查看 log<br>
+<br>
 
