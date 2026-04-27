@@ -66,6 +66,6 @@ watch -n 1 nvidia-smi   ; nvidia-smi是顯示目前GPU記憶體使用量<br>
 
 🧩Linux 命令列下的純文字編輯器 , vi , nano 這兩種呈式選一種,把存檔/離開,這兩個功能鍵記起來<br>
 
-🧩docker 容器相關的指令 docker ps <br>
+🧩docker 容器相關的指令很多,後面再補充. docker ps <br>
 
 
