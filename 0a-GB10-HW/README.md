@@ -34,8 +34,10 @@ Lenovo USB-C Travel HUB 正常
 開機電源指示燈在前面左邊由下往上第三排第一格六角形內有一個小綠燈,等待初始化畫面如下
 ![hw-7](images/IMG_20260417_083832_1.jpg)
 Dell Pro Max GB10/Nvidia DGX Spark 系列產品底部是一片磁吸底座透要開啟透過下方類型小工具
-本文不特別介紹分解,拆解有風險請詳閱 user-manual  目錄下相關文件說明 作者不負責
+本文不特別介紹分解,拆解有風險請詳閱 user-manual  目錄下 Dell Pro Max with GB10 FCM1253 Owner's Manual 文件說明 作者不負責
 ![hw-8](images/mosaic-IMG_20260420_102840_1.jpg)
+上圖馬賽克或遮蔽處為service tag品序號, 報修商品服務需要這個號碼
 
+Dell Pro Max with GB10 FCM1253 202604 產品購買配置規格選擇有2T或4T容量SSD,1~3保固支援可供選擇
 
 
