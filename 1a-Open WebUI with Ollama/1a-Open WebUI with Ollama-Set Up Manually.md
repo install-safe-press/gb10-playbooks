@@ -26,11 +26,8 @@ Step 3: Start the Open WebUI container (啟動容器)
 註解：
 
 --gpus=all: 讓容器能使用顯示卡硬體加速，這對執行 AI 模型至關重要。
-
 -v: 建立「持久化儲存」，確保你下載的模型和對話紀錄不會在關閉容器後消失。
-
 -p 8080:8080: 開啟網頁連線門戶。
-
 Start the Open WebUI container by running:
 
 Bash
@@ -104,24 +101,20 @@ docker volume rm open-webui open-webui-ollama
 
 ## 2. 第二種方式：Docker Compose 分離部署
 這使用的是標準的 微服務架構，將 Ollama 和 Open WebUI 分成兩個獨立的容器執行。
-
 架構：兩個獨立容器，透過網路（及 host.docker.internal）通訊。
 
 優點：
-
 模組化：你可以隨時更換 ollama/ollama:latest 為特定版本，而不影響前端。
-
 專業管理：透過 Docker Compose，你可以更細緻地設定 GPU 分配（deploy.resources 區塊）。
-
 擴充性強：你的 Ollama 容器現在是一個獨立的「模型伺服器」，除了 Open WebUI，你也可以讓其他的工具同時連進來使用。
-
 網路配置靈活：例如你將埠位改成了 12000:8080，避免了常見的 8080 埠位衝突。
 
 缺點：
+配置較複雜：需要撰寫 YAML 檔案，並正確設定環境變數（如 OLLAMA_BASE_URL）來讓兩者對接。<br>
+請參考目錄下 1a-Open WebUI with Ollama-docker-compose.md 
 
-配置較複雜：需要撰寫 YAML 檔案，並正確設定環境變數（如 OLLAMA_BASE_URL）來讓兩者對接。
 
 ## 總結建議
-如果你只是想快速試玩，看看 AI 跑起來長什麼樣子，選 第一種。
+如果你只是想快速試玩，看看 AI 跑起來長什麼樣子，選第一種。但你早晚要面對事實寫docker compose yml .
 
 如果你是想要在伺服器或工作站長期使用，且未來可能會嘗試不同的 AI 模型或介面，建議選 第二種 (Docker Compose)。這種方式更符合運維的最佳實踐，也更容易進行故障排除。
