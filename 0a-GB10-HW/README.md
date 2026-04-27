@@ -20,10 +20,10 @@ https://www.dell.com/support/kbdoc/zh-tw/000398800/dell-pro-max-with-gb-10-fcm12
 使用方式1需確保無線網路狀態定,如果狀態不穩定會出現請使用方式2連線
 
 以下說明手邊可以拿到使用的Type C 集線器分別是<br>
-Dell Pro 擴充基座 – WD25 正常  <br>
-Dell DA200方型旅行用集線器-不匹配無法使用<br>
-Dell DA300圓型旅行用集線器-正常<br>
-無法識別型號台製USB HUB 外加Type C轉接頭<br>
+ -Dell Pro 擴充基座 – WD25 正常  <br>
+ -Dell DA200方型旅行用集線器-不匹配無法使用<br>
+ -Dell DA300圓型旅行用集線器-正常<br>
+ -無法識別型號台製USB HUB 外加Type C轉接頭<br>
 以上透過轉接有線/無線 鍵盤滑鼠連接測試 <br>
 
 ![hw-5](images/IMG_20260417_105015_1.jpg)
