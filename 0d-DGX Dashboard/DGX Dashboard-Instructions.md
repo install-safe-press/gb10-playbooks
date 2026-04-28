@@ -56,7 +56,82 @@ ssh -L 11000:localhost:11000 user@GB10-IP
 刷新網頁之後就會出現 JupterLAB工作區網頁
 ![jupyter](images/ji-5.jpg)<br>
 
+開一個新的python Notebook<br>
+![jupyter](images/jupyter-create.png)<br>
 
+
+https://build.nvidia.com/spark/dgx-dashboard/instructions Step 4 Test with sample AI workload 
+
+底下這段Python程式貼上<br>
+程式說明：此程式會載入 Stable Diffusion XL 模型並自動使用 GPU（CUDA）或 CPU 執行。
+根據設定的文字提示（Prompt）生成一張 1024x1024 高品質 AI 圖像。
+最後顯示圖片並儲存為 sdxl_output.png。
+<br>
+
+```text
+import warnings
+warnings.filterwarnings('ignore', message='.*cuda capability.*')
+import tqdm.auto
+tqdm.auto.tqdm = tqdm.std.tqdm
+
+from diffusers import DiffusionPipeline
+import torch
+from PIL import Image
+from datetime import datetime
+from IPython.display import display
+
+# --- Model setup ---
+MODEL_ID = "stabilityai/stable-diffusion-xl-base-1.0"
+dtype = torch.float16 if torch.cuda.is_available() else torch.float32
+
+pipe = DiffusionPipeline.from_pretrained(
+    MODEL_ID,
+    torch_dtype=dtype,
+    variant="fp16" if dtype==torch.float16 else None,
+)
+pipe = pipe.to("cuda" if torch.cuda.is_available() else "cpu")
+
+# --- Prompt setup ---
+prompt = "a cozy modern reading nook with a big window, soft natural light, photorealistic"
+negative_prompt = "low quality, blurry, distorted, text, watermark"
+
+# --- Generation settings ---
+height = 1024
+width = 1024
+steps = 30
+guidance = 7.0
+
+# --- Generate ---
+result = pipe(
+    prompt=prompt,
+    negative_prompt=negative_prompt,
+    num_inference_steps=steps,
+    guidance_scale=guidance,
+    height=height,
+    width=width,
+)
+
+# --- Save to file ---
+image: Image.Image = result.images[0]
+display(image)
+image.save(f"sdxl_output.png")
+print(f"Saved image as sdxl_output.png")
+
+```
+
+
+
+
+
+
+Test with sample AI workload , 貼上SDXL範例 prompt = "一個舒適的現代閱讀角落，配有大窗戶，柔和的自然光，照片級真實感"   <br>
+![jupyter](images/jupyter-post.png)<br>
+執行SDXL範例生成圖片<br>
+![jupyter](images/jupyter-run-sd.png)<br>
+
+
+檢視SDXL範例生成圖片實際存在的目錄與開啟圖片<br>
+![sdxl-output](images/sdzl-output.jpg)<br>
 
 
 
