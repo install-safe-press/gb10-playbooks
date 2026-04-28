@@ -82,8 +82,8 @@ MSI EdgeXpert MS-C931
 | MSI EdgeXpert MS-C931 | 工業級邊緣 AI 節點 | NVIDIA Stack + 工業管理介面 | 耐震 / 耐溫 / 工業規格 | 工廠 / OT / 自動化系統 | Edge AI / 工業現場 |
 | Acer Veriton GN100 | 成本導向 AI 工作站 | 基礎 NVIDIA Stack（標準化） | 高性價比 / 易大量部署 | 教育 / 公部門 / 大規模採購 | 教育機構 / 批量部署 |
 ---
-# 核心差異總結 ： 現煮時~唯一首選 Dell Pro MAX GB10    
-市售各品牌WIFI晶片與儲存容量價格可能有所差異！ 
+# 核心差異總結 ：   
+市售各品牌WIFI晶片與儲存容量價格可能有所差異！ 外型設計品牌不一樣
 
 💡 build.nvidia.com 網站 是 NVIDIA 提供的 AI 模型與服務平台，主打可直接透過 API 使用的模型目錄與工具。
 平台內建 NVIDIA NIM 微服務，讓開發者快速測試、部署生成式 AI 模型與應用。同時提供線上試用與開發環境，讓你不用自建 GPU 基礎設施就能開發 AI 應用。

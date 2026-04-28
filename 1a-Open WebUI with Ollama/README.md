@@ -1,4 +1,4 @@
-安裝 Open WebUI 與 Ollama 應用大語言模型開始交談
+## 開始你的第一個AI應用 安裝 Open WebUI 與 Ollama 應用大語言模型開始交談
 
 🚀 快速上手：在 DGX Spark（Dell Pro MAX GB10） 部署 Open WebUI (整合 Ollama)
 想在你的 DGX Spark 上擁有像 ChatGPT 一樣漂亮的操作介面，同時確保所有資料都保存在本地端嗎？
@@ -69,3 +69,6 @@ GB10 配備了 200Gbps 的 ConnectX-7 網卡。這意味著如果你有兩台以
 需要訓練或微調（Fine-tuning）超大型參數模型。
 
 一句話總結： GB10 讓你在手掌大小的體積內，獲得了以往需要「半台伺服器」才能實現的大模型運行能力。
+
+## 操作細節請參考目錄下各自 md 檔案說明
+

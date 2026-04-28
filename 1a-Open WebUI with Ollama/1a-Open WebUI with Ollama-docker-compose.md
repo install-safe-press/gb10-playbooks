@@ -123,5 +123,124 @@ docker-compose down
 ```
 ( 這會同時停止並移除清單中所有的容器，非常乾淨 )
 
-## 總結
+
 對於像 Open WebUI + Ollama 這種需要多個組件協作的應用，使用 Docker Compose 是最推薦的專業做法，因為它讓「管理」變得像「讀文件」一樣直觀。
+
+## 細節說明
+
+🧩 1️⃣ 定義多個服務（services）
+services:
+  ollama:
+  open-webui:
+
+👉 你這裡定義了 兩個服務：
+
+ollama：跑 LLM（模型服務）
+open-webui：提供 Web UI 介面
+
+📌 重點：
+這兩個容器會一起被 Docker Compose 管理與啟動
+
+🐳 2️⃣ 設定映像（image）或建置方式（build）
+ollama:
+  image: ollama/ollama:latest
+open-webui:
+  image: ghcr.io/open-webui/open-webui:main
+
+👉 這裡使用的是 image（現成映像），沒有用 build
+
+📌 代表：
+
+直接從 Docker Hub / GHCR 拉 image
+不需要自己寫 Dockerfile
+🌐 3️⃣ 設定網路（network）
+ollama
+network_mode: host
+
+👉 使用 host network
+
+容器直接用主機網路
+port 直接開在主機上（11434）
+open-webui
+ports:
+  - "12000:8080"
+
+👉 使用 Docker 預設 bridge network
+
+主機 12000 → 容器 8080
+兩者如何互通？
+environment:
+  - OLLAMA_BASE_URL=http://host.docker.internal:11434
+extra_hosts:
+  - "host.docker.internal:host-gateway"
+
+👉 這段是關鍵：
+
+open-webui 透過 host.docker.internal
+去連 host 上的 ollama
+
+📌 因為：
+
+ollama 用 host network
+open-webui 在 bridge network
+➡️ 不能直接用 container name 連
+💾 4️⃣ 掛載資料（volumes）
+volumes:
+  - open-webui-ollama:/root/.ollama
+
+👉 ollama 模型存放位置
+（模型下載後不會消失）
+
+volumes:
+  - open-webui:/app/backend/data
+
+👉 open-webui 的資料（帳號、設定）
+
+volumes:
+  open-webui:
+  open-webui-ollama:
+
+👉 宣告兩個 volume（由 Docker 管理）
+
+📌 重點：
+
+容器刪掉，資料還在
+避免模型重新下載（很重要）
+🔗 5️⃣ 控制啟動順序與依賴
+
+👉 這份 沒有寫 depends_on
+
+例如你可以加：
+
+depends_on:
+  - ollama
+
+📌 目前狀況是：
+
+open-webui 可能比 ollama 早啟動
+但通常會自動 retry（問題不大）
+🚀 補充：GPU 設定（你這份很關鍵）
+deploy:
+  resources:
+    reservations:
+      devices:
+        - driver: nvidia
+          count: all
+          capabilities: [gpu]
+
+👉 讓 ollama 使用 NVIDIA GPU
+
+📌 前提：
+
+有裝 NVIDIA driver
+有裝 nvidia-container-toolkit
+🧾 總結（你的架構）
+
+👉 這份 compose 在做的事是：
+
+ollama：跑模型（用 GPU + host network）
+open-webui：提供 UI（透過 HTTP 呼叫 ollama）
+用 volume 保存模型與資料
+用 host + bridge 混合網路讓兩者溝通
+
+## 結果輸出

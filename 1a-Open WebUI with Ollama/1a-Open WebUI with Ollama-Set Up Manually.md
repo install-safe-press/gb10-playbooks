@@ -1,11 +1,10 @@
+
+
 Step 1: Configure Docker permissions (配置 Docker 權限)
 註解：此步驟是為了讓你不需要每次輸入 sudo 就能執行 Docker。透過將使用者加入 docker 群組，提升操作便利性。
 
-```bash
 docker ps: 測試目前是否有權限存取 Docker 守護行程。
-
 sudo usermod -aG docker $USER: 將當前使用者加入 Docker 群組。
-
 newgrp docker: 立即套用群組變更，無需登出重新登入。
 
 To easily manage containers without sudo, you must be in the docker group. If you choose to skip this step, you will need to run Docker commands with sudo. Open a new terminal and test Docker access. In the terminal, run:
@@ -17,6 +16,7 @@ If you see a permission denied error, add your user to the docker group:
 Bash
 sudo usermod -aG docker $USER
 newgrp docker
+
 Step 2: Verify Docker setup and pull container (驗證設定並拉取映像檔)
 註解：從 GitHub 伺服器下載整合了 Ollama 引擎的 Open WebUI 映像檔。這是「全功能版」，一個容器內就包含介面與模型執行環境。
 
@@ -28,11 +28,8 @@ Step 3: Start the Open WebUI container (啟動容器)
 註解：
 
 --gpus=all: 讓容器能使用顯示卡硬體加速，這對執行 AI 模型至關重要。
-
 -v: 建立「持久化儲存」，確保你下載的模型和對話紀錄不會在關閉容器後消失。
-
 -p 8080:8080: 開啟網頁連線門戶。
-
 Start the Open WebUI container by running:
 
 Bash
@@ -103,26 +100,23 @@ docker volume rm open-webui open-webui-ollama
 
 耦合度高：如果你想讓其他應用程式（例如另一個介面）連線到這個 Ollama，設定會比較麻煩。
 
+
 ## 2. 第二種方式：Docker Compose 分離部署
 這使用的是標準的 微服務架構，將 Ollama 和 Open WebUI 分成兩個獨立的容器執行。
-
 架構：兩個獨立容器，透過網路（及 host.docker.internal）通訊。
 
 優點：
-
 模組化：你可以隨時更換 ollama/ollama:latest 為特定版本，而不影響前端。
-
 專業管理：透過 Docker Compose，你可以更細緻地設定 GPU 分配（deploy.resources 區塊）。
-
 擴充性強：你的 Ollama 容器現在是一個獨立的「模型伺服器」，除了 Open WebUI，你也可以讓其他的工具同時連進來使用。
-
 網路配置靈活：例如你將埠位改成了 12000:8080，避免了常見的 8080 埠位衝突。
 
 缺點：
+配置較複雜：需要撰寫 YAML 檔案，並正確設定環境變數（如 OLLAMA_BASE_URL）來讓兩者對接。<br>
+請參考目錄下 1a-Open WebUI with Ollama-docker-compose.md 
 
-配置較複雜：需要撰寫 YAML 檔案，並正確設定環境變數（如 OLLAMA_BASE_URL）來讓兩者對接。
 
 ## 總結建議
-如果你只是想快速試玩，看看 AI 跑起來長什麼樣子，選 第一種。
+如果你只是想快速試玩，看看 AI 跑起來長什麼樣子，選第一種。但你早晚要面對事實寫docker compose yml .
 
 如果你是想要在伺服器或工作站長期使用，且未來可能會嘗試不同的 AI 模型或介面，建議選 第二種 (Docker Compose)。這種方式更符合運維的最佳實踐，也更容易進行故障排除。
