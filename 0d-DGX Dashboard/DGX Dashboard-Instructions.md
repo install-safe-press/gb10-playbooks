@@ -24,6 +24,27 @@
 沒有安裝 NVIDIA Sync？在此安裝 https://build.nvidia.com/spark/connect-to-your-spark/sync
 //就是用成圖形化APP記錄裝置進行啟動 選項 C： SSH 隧道
 
+![nv-sync-1](images/nsync-1.jpg)<br>
+![nv-sync-2](images/nsync-2.jpg)<br>
+![nv-sync-3](images/nsync-3.jpg)<br>
+
+
 選項 C：手動下指令建立 SSH 隧道
 如需在不使用 NVIDIA Sync 的情況下手動遠端訪問，您必須先手動設定 SSH 隧道。
 您必須為 Dashboard 伺服器（連接埠 11000）和 JupyterLab 開啟一個隧道（如果您想遠端存取 JupyterLab）。每個使用者帳戶都會被指派一個不同的 JupyterLab 連接埠號碼。
+```text
+ssh -L 11000:localhost:11000 user@GB10-IP
+```
+
+![jupyter](images/ji-1.jpg)<br>
+![jupyter](images/ji-2.jpg)<br>
+![jupyter](images/ji-3.jpg)<br>
+![jupyter](images/ji-4.jpg)<br>
+![jupyter](images/ji-5.jpg)<br>
+
+
+
+
+
+
+
