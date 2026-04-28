@@ -4,7 +4,7 @@
 2.啟用 JupyterLab 互動式開發環境（IDE）專為資料科學、AI 開發、Python 編程與研究工作設計. <br>
 
 GB10系統桌面有一個捷徑-DGX Spark Resources,點擊之禝就是開啟網頁 https://build.nvidia.com/spark 
-![dashboard-2](images/dashboard-0.jpg)
+![dashboard-0](images/dashboard-0.jpg)
 
 ![dashboard-1](images/build.nvidia.com-spark.jpg)
 
