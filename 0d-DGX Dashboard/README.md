@@ -30,8 +30,31 @@ Launch JupyterLab instance <br>
 開一個新的python Notebook<br>
 ![jupyter](images/jupyter-create.png)<br>
 
-Test with sample AI workload , 貼上SDXL範例<br>
+Test with sample AI workload , 貼上SDXL範例 prompt = "一個舒適的現代閱讀角落，配有大窗戶，柔和的自然光，照片級真實感"   <br>
 ![jupyter](images/jupyter-post.png)<br>
 執行SDXL範例生成圖片<br>
 ![jupyter](images/jupyter-run-sd.png)<br>
 
+Stable Diffusion XL（簡稱 SDXL）是由 Stability AI 推出的高階文字生成圖片（Text-to-Image）AI 模型
+本地 AI 圖像工作站GB10 透過 SDXL 輸入文字 → 自動生成高品質圖像
+常見用途
+
+👍創作者
+插畫
+封面設計
+YouTube 縮圖
+Logo 草圖
+
+👍商業應用
+商品圖
+廣告素材
+行銷視覺
+
+👍技術玩家
+本地 GPU 部署
+AI 工作站
+自架圖片生成平台
+
+
+
+在執行的過程中可切換至DGX Dashboard觀察資源使用量
