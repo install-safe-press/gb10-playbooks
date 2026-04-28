@@ -22,12 +22,14 @@
 點選「DGX 控制面板」啟動控制面板
 控制面板將透過自動 SSH 隧道在您的預設 Web 瀏覽器中打開，位址為 http://localhost:11000
 沒有安裝 NVIDIA Sync？在此安裝 https://build.nvidia.com/spark/connect-to-your-spark/sync
-//就是用成圖形化APP記錄裝置進行啟動 選項 C： SSH 隧道
 
+啟動Nvidia Sync
 ![nv-sync-1](images/nsync-1.jpg)<br>
+加入GB10 IP 帳號
 ![nv-sync-2](images/nsync-2.jpg)<br>
-![nv-sync-3](images/nsync-3.jpg)<br>
 
+啟動Nvidia Sync可能會遇到的錯誤--檢查是否有重覆執行或改用選項 C：手動下指令建立 SSH 隧道
+![nv-sync-3](images/nsync-3.jpg)<br>
 
 選項 C：手動下指令建立 SSH 隧道
 如需在不使用 NVIDIA Sync 的情況下手動遠端訪問，您必須先手動設定 SSH 隧道。
@@ -35,11 +37,23 @@
 ```text
 ssh -L 11000:localhost:11000 user@GB10-IP
 ```
-
+把GB10 port 對映到本機PC的port
 ![jupyter](images/ji-1.jpg)<br>
+
+這個畫面是本機開啟的DGX Dashboard,注意URL是本機PC Windows 的 localhost port 已經透過ssh tunnel到GB10,<br>
+接著可以啟動JupterLAB <Start>
 ![jupyter](images/ji-2.jpg)<br>
+按下open in browser
 ![jupyter](images/ji-3.jpg)<br>
+開啟的網頁是空白？JupterLAB WEB port 11002並沒有對映過來PC Windows <br>
+
+
 ![jupyter](images/ji-4.jpg)<br>
+開一個新CMD 加一筆對映<br>
+```text
+ssh -L 11000:localhost:11000 user@GB10-IP
+```
+刷新網頁之後就會出現 JupterLAB工作區網頁
 ![jupyter](images/ji-5.jpg)<br>
 
 
