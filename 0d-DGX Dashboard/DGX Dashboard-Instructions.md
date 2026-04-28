@@ -119,21 +119,18 @@ print(f"Saved image as sdxl_output.png")
 
 ```
 
-
-
-
-
-
 Test with sample AI workload , 貼上SDXL範例 prompt = "一個舒適的現代閱讀角落，配有大窗戶，柔和的自然光，照片級真實感"   <br>
 ![jupyter](images/jupyter-post.png)<br>
 執行SDXL範例生成圖片<br>
 ![jupyter](images/jupyter-run-sd.png)<br>
 
-
 檢視SDXL範例生成圖片實際存在的目錄與開啟圖片<br>
-![sdxl-output](images/sdzl-output.jpg)<br>
+![sdxl-output](images/sdxl-output.jpg)<br>
 
-
+後續步驟:<br>
+DGX Dashboard 設定完成後，您可以：<br>
+為不同專案建立額外的 JupyterLab 環境<br>
+使用 DGX Dashboard 管理系統維護和更新<br>
 
 
 
