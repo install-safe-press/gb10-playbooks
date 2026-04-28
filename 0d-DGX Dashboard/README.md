@@ -30,8 +30,8 @@ Launch JupyterLab instance <br>
 開一個新的python Notebook<br>
 ![jupyter](images/jupyter-create.png)<br>
 
-Test with sample AI workload , 貼上SDXL範例<br>
+Test with sample AI workload , 貼上SDXL範例 prompt = "一個舒適的現代閱讀角落，配有大窗戶，柔和的自然光，照片級真實感"   <br>
 ![jupyter](images/jupyter-post.png)<br>
 執行SDXL範例生成圖片<br>
 ![jupyter](images/jupyter-run-sd.png)<br>
-
+在執行的過程中可切換至DGX Dashboard觀察資源使用量
