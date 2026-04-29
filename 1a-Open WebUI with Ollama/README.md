@@ -1,11 +1,25 @@
 ## 開始你的第一個AI應用 安裝 Open WebUI 與 Ollama 應用大語言模型開始交談
 
-🚀 快速上手：在 DGX Spark（Dell Pro MAX GB10） 部署 Open WebUI (整合 Ollama)
-想在你的 DGX Spark 上擁有像 ChatGPT 一樣漂亮的操作介面，同時確保所有資料都保存在本地端嗎？
-透過 Open WebUI 結合 Ollama，你可以直接在瀏覽器上調用 GPU 的強大算力來跑本地 AI 模型。
+🚀 快速上手：在 DGX Spark（Dell Pro MAX GB10） 部署 Open WebUI (整合 Ollama) <br>
+想在你的 DGX Spark 上擁有像 ChatGPT 一樣漂亮的操作介面，同時確保所有資料都保存在本地端嗎？<br>
+透過 Open WebUI 結合 Ollama，你可以直接在瀏覽器上調用 GPU 的強大算力來跑本地 AI 模型。<br>
 
-在 Dell Pro Max GB10 上執行 Ollama 與 Open WebUI，與傳統 PC 或 Server 端的最大差異，在於它並非單純的「電腦」，而是一台專為 AI 設計的 DGX Spark 級別微型工作站。
-這就像是用「改裝賽車」與「家用轎車」跑賽道的差別：雖然都能跑，但底層邏輯完全不同。
+●Open WebUI是什麼： 本地或私有化的 AI 聊天介面（像自己的 ChatGPT 網頁版）。<br>
+功能： 提供聊天視窗、模型切換、多人使用、文件上傳、RAG 知識庫、API 整合。<br>
+可以做到：建立私人 ChatGPT ,公司內部 AI 助手 ,本地知識問答 ,管理多種 LLM（如 Llama、Mistral）<br>
+
+●Ollama是什麼： 本地大型語言模型管理與執行工具。<br>
+功能： 一鍵下載、安裝、運行各種 LLM 模型。<br>
+可以做到：本地執行 AI 模型,離線聊天,API 提供給其他工具使用,快速部署如 Llama 3、Qwen、DeepSeek 等模型<br>
+
+// 簡單比喻：<br>
+Ollama = AI 引擎<br>
+Open WebUI = AI 操作介面<br>
+組合後：<br>
+●Ollama + Open WebUI = 自建本地版 ChatGPT<br>
+
+在 Dell Pro Max GB10 上執行 Ollama 與 Open WebUI，與傳統 PC 或 Server 端的最大差異，在於它並非單純的「電腦」，而是一台專為 AI 設計的 DGX Spark 級別微型工作站。<br>
+這就像是用「改裝賽車」與「家用轎車」跑賽道的差別：雖然都能跑，但底層邏輯完全不同。<br>
 
 ```text
 +--------------+-----------------------+-----------------------+-----------------------+
@@ -29,7 +43,6 @@
 +--------------+-----------------------+-----------------------+-----------------------+
 ```
 *NVIDIA DGX OS 是以Ubuntu Linux 為基底的系統
-**它沒統計到 MAC Pro , 頂規 MAC Pro   大規模語言模型 (LLM) 推理 或多台 MAC Pro  分佈式訓練
 
 深度對比：為什麼 GB10 比較強？
 1. 「統一記憶體」的絕對優勢 (Unified Memory)
@@ -71,4 +84,10 @@ GB10 配備了 200Gbps 的 ConnectX-7 網卡。這意味著如果你有兩台以
 一句話總結： GB10 讓你在手掌大小的體積內，獲得了以往需要「半台伺服器」才能實現的大模型運行能力。
 
 ## 操作細節請參考目錄下各自 md 檔案說明
+
+# 那些不是 GB10 的強項/或者是直不行 
+。要跑windows 玩 Steam 3A 大作請去買 PC+5090 , 頂多只能玩玩接龍
+。CPU 是 ARM 不是 x86/64 : 多數x86 Linux app 都不能用 除非有針對arch/arm 架構編譯過 , 或跨平台應用程式
+。
+
 
