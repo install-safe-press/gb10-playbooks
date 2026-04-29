@@ -85,9 +85,7 @@ B = Billion（十億）
 Click on "Select a model", type gpt-oss:20b, and click Pull from Ollama.com. Wait for the progress bar to finish.<br>
 
 模型下載完成後左上清單模型名稱就會出現在其中<br>
-![model-sel]images/model-sel.jpg)<br>
-
-
+![model-sel](images/model-sel.jpg)<br>
 
 Step 6: Test the model (測試模型)
 註解：發送指令測試模型反應速度與正確性。若 GPU 設定正確，回覆速度會非常快。(如果選定的是比較大的模型一開始要等一下)
