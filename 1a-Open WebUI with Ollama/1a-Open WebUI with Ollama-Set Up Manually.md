@@ -1,29 +1,28 @@
+原文 https://build.nvidia.com/spark/open-webui/instructions <br>
 
+Step 1: Configure Docker permissions (配置 Docker 權限)<br>
+註解：此步驟是為了讓你不需要每次輸入 sudo 就能執行 Docker。透過將使用者加入 docker 群組，提升操作便利性。<br>
 
-Step 1: Configure Docker permissions (配置 Docker 權限)
-註解：此步驟是為了讓你不需要每次輸入 sudo 就能執行 Docker。透過將使用者加入 docker 群組，提升操作便利性。
-
-docker ps: 測試目前是否有權限存取 Docker 守護行程。
-sudo usermod -aG docker $USER: 將當前使用者加入 Docker 群組。
-newgrp docker: 立即套用群組變更，無需登出重新登入。
-
-To easily manage containers without sudo, you must be in the docker group. If you choose to skip this step, you will need to run Docker commands with sudo. Open a new terminal and test Docker access. In the terminal, run:
-
-Bash
+測試目前是否有權限存取 Docker 守護行程。 <br>
+```text
 docker ps
-If you see a permission denied error, add your user to the docker group:
-
-Bash
+```
+將當前使用者加入 Docker 群組,預設是沒有所以每次都要sudo所以要加下面這一行
+```text
 sudo usermod -aG docker $USER
+```
+立即套用群組變更，無需登出重新登入。
+```text
 newgrp docker
+```
 
 Step 2: Verify Docker setup and pull container (驗證設定並拉取映像檔)
 註解：從 GitHub 伺服器下載整合了 Ollama 引擎的 Open WebUI 映像檔。這是「全功能版」，一個容器內就包含介面與模型執行環境。
-
-Pull the Open WebUI container image with integrated Ollama:
-
-Bash
+```text
 docker pull ghcr.io/open-webui/open-webui:ollama
+```
+
+
 Step 3: Start the Open WebUI container (啟動容器)
 註解：
 
@@ -32,24 +31,37 @@ Step 3: Start the Open WebUI container (啟動容器)
 -p 8080:8080: 開啟網頁連線門戶。
 Start the Open WebUI container by running:
 
-Bash
+```text
 docker run -d -p 8080:8080 --gpus=all \
   -v open-webui:/app/backend/data \
   -v open-webui-ollama:/root/.ollama \
   --name open-webui ghcr.io/open-webui/open-webui:ollama
-This will start the Open WebUI container and make it accessible at http://localhost:8080.
+```
+如果是照上面這些指令,將啟動 Open WebUI 容器，並使其可透過瀏覽器 http://localhost:8080 開啟OpenWebUI網頁。<br>
+(圖片範例是使用port 12000詳見使用docker-compose.yml佈建方式細節)<br>
+![openwebui-1](images/owui-1.jpg)<br>
 
-Step 4: Create administrator account (建立管理員帳號)
-註解：第一次進入網頁時需註冊。這是本地帳號，僅存存在你的電腦內，用於保護你的 Web 介面。
+Step 4: Create administrator account (建立管理員帳號)<br>
+設定 Open WebUI 的初始管理員帳戶。點擊“開始使用”並填寫表單以存取主介面。<br>
+註解：第一次進入網頁時需註冊。這是本地帳號，僅存存在你的電腦內，用於保護你的 Web 介面。<br>
 
-Set up the initial administrator account for Open WebUI. Click "Get Started" and fill out the form to access the main interface.
+Step 5: Download and configure a model (下載與配置模型)<br>
+步驟:按右的圓圈 >選單 AdminPanel <br>
+註解：在介面中輸入模型名稱，系統會自動從 Ollama 官方庫下載模型權重。<br>
+步驟:按右的圓圈 >選單 AdminPanel 之後Settings >Models >右上方的Manage >Manage Models<br>
+![openwebui-2](images/owui-2.jpg)<br>
+click here. 這是點擊開啟olloma網站的模型清單 https://ollama.com/library <br>
 
-Step 5: Download and configure a model (下載與配置模型)
-註解：在介面中輸入模型名稱，系統會自動從 Ollama 官方庫下載模型權重。
+![openwebui-3](images/owui-3.jpg)<br>
+以llama3.1為例 8b模型 在標示5的這一欄位就是要輸入 llama3.1:8b <br>
+![ollama-lib](images/ollama-lib.jpg)<br>
+https://ollama.com/library/llama3.1
 
 gpt-oss:20b: 這是一個具有 200 億參數的模型範例，下載時間取決於網路速度。
 
 Click on "Select a model", type gpt-oss:20b, and click Pull from Ollama.com. Wait for the progress bar to finish.
+
+
 
 Step 6: Test the model (測試模型)
 註解：發送指令測試模型反應速度與正確性。若 GPU 設定正確，回覆速度會非常快。
