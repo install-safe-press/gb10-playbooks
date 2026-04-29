@@ -85,9 +85,9 @@ GB10 配備了 200Gbps 的 ConnectX-7 網卡。這意味著如果你有兩台以
 
 ## 操作細節請參考目錄下各自 md 檔案說明
 
-# 那些不是 GB10 的強項/或者是直不行 
-。要跑windows 玩 Steam 3A 大作請去買 PC+5090 , 頂多只能玩玩接龍
-。CPU 是 ARM 不是 x86/64 : 多數x86 Linux app 都不能用 除非有針對arch/arm 架構編譯過 , 或跨平台應用程式
+# 那些不是 GB10 的強項/或者是直不行 <br>
+。要跑windows 玩 Steam 3A 大作請去買 PC+5090 , 頂多只能玩玩接龍  <br> 
+。CPU 是 ARM 不是 x86/64 : 多數x86 Linux app 都不能用 除非有針對arch/arm 架構編譯過 , 或跨平台應用程式<br>
 。
 
-
+Open WebUI網站https://openwebui.com/ , Ollama網站 https://ollama.com/
