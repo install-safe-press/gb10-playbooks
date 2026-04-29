@@ -21,15 +21,8 @@ Step 2: Verify Docker setup and pull container (驗證設定並拉取映像檔)
 ```text
 docker pull ghcr.io/open-webui/open-webui:ollama
 ```
-
-
 Step 3: Start the Open WebUI container (啟動容器)
-註解：
 
---gpus=all: 讓容器能使用顯示卡硬體加速，這對執行 AI 模型至關重要。
--v: 建立「持久化儲存」，確保你下載的模型和對話紀錄不會在關閉容器後消失。
--p 8080:8080: 開啟網頁連線門戶。
-Start the Open WebUI container by running:
 
 ```text
 docker run -d -p 8080:8080 --gpus=all \
@@ -37,6 +30,11 @@ docker run -d -p 8080:8080 --gpus=all \
   -v open-webui-ollama:/root/.ollama \
   --name open-webui ghcr.io/open-webui/open-webui:ollama
 ```
+參數註解：<br>
+--gpus=all: 讓容器能使用顯示卡硬體加速，這對執行 AI 模型至關重要。<br>
+-v: 建立「持久化儲存」，確保你下載的模型和對話紀錄不會在關閉容器後消失。<br>
+-p 8080:8080: 開啟網頁連線門戶。<br>
+
 如果是照上面這些指令,將啟動 Open WebUI 容器，並使其可透過瀏覽器 http://localhost:8080 開啟OpenWebUI網頁。<br>
 (圖片範例是使用port 12000詳見使用docker-compose.yml佈建方式細節)<br>
 ![openwebui-1](images/owui-1.jpg)<br>
@@ -57,16 +55,45 @@ click here. 這是點擊開啟olloma網站的模型清單 https://ollama.com/lib
 ![ollama-lib](images/ollama-lib.jpg)<br>
 https://ollama.com/library/llama3.1
 
-gpt-oss:20b: 這是一個具有 200 億參數的模型範例，下載時間取決於網路速度。
+![openwebui-4](images/owui-4.jpg)<br>
+![openwebui-5](images/owui-5.jpg)<br>
 
-Click on "Select a model", type gpt-oss:20b, and click Pull from Ollama.com. Wait for the progress bar to finish.
+在 llama3.1:8b 裡面的 8B，代表的是：
+B = Billion（十億）
+也就是模型大約有：
+8 Billion Parameters（80億參數）
+簡單理解：
+參數（Parameters）可以想像成 AI 模型的大腦神經連結數量。
+3B = 30億參數
+7B / 8B = 70~80億參數
+13B = 130億參數
+70B = 700億參數
+參數越大代表什麼？
+優點：
+理解能力更強
+回答更準確
+推理更好
+長文處理能力提升
+缺點：
+吃更多 VRAM / RAM
+回應速度較慢
+硬體需求更高
+![openwebui-5](images/owui-5.jpg)<br>
+
+
+原廠範例是用gpt-oss:20b容量大約14G下載需要一些時間等待
+Click on "Select a model", type gpt-oss:20b, and click Pull from Ollama.com. Wait for the progress bar to finish.<br>
+
+模型下載完成後左上清單模型名稱就會出現在其中<br>
+![model-sel]images/model-sel.jpg)<br>
 
 
 
 Step 6: Test the model (測試模型)
-註解：發送指令測試模型反應速度與正確性。若 GPU 設定正確，回覆速度會非常快。
+註解：發送指令測試模型反應速度與正確性。若 GPU 設定正確，回覆速度會非常快。(如果選定的是比較大的模型一開始要等一下)
 
 Enter: Write me a haiku about GPUs. in the chat area to verify the setup.
+
 
 Step 7: Next steps (後續操作)
 註解：說明如何更新軟體以及如何下載更多不同的模型（如 Llama 3 或 Mistral）。
