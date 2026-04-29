@@ -143,4 +143,4 @@ Playbook 是一套「一步一步帶你完成 AI 專案」的實戰教學
 
 
 
-## 本專案採用 DELL PRO MAX GB10 操作示範 , 非常歡迎 HP Lenovo Nvidia 等品牌 . 還有雙A , 至於 Gigabyte MSI也可以 
+## 本專案採用 DELL PRO MAX GB10 操作示範 , 非常歡迎其它品牌交充支援.
