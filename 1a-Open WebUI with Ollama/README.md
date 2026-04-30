@@ -1,25 +1,23 @@
-## 開始你的第一個AI應用 安裝 Open WebUI 與 Ollama 應用大語言模型開始交談
+## 開始你的第一個 AI 應用：安裝 Open WebUI 與 Ollama，打造本地大語言模型對話環境
 
-🚀 快速上手：在 DGX Spark（Dell Pro MAX GB10） 部署 Open WebUI (整合 Ollama) <br>
-想在你的 DGX Spark 上擁有像 ChatGPT 一樣漂亮的操作介面，同時確保所有資料都保存在本地端嗎？<br>
-透過 Open WebUI 結合 Ollama，你可以直接在瀏覽器上調用 GPU 的強大算力來跑本地 AI 模型。<br>
+🚀 **快速上手：在 DGX Spark（Dell Pro Max GB10）部署 Open WebUI（整合 Ollama）**<br>
+想在你的 DGX Spark 上擁有類似 ChatGPT 的美觀操作介面，同時確保所有資料完全保存在本地端嗎？<br>
+透過 Open WebUI 結合 Ollama，你可以直接在瀏覽器中調用 GPU 的強大算力，運行本地 AI 模型。<br>
 
-●Open WebUI是什麼： 本地或私有化的 AI 聊天介面（像自己的 ChatGPT 網頁版）。<br>
-功能： 提供聊天視窗、模型切換、多人使用、文件上傳、RAG 知識庫、API 整合。<br>
-可以做到：建立私人 ChatGPT ,公司內部 AI 助手 ,本地知識問答 ,管理多種 LLM（如 Llama、Mistral）<br>
+●**Open WebUI 是什麼：** 本地或私有化的 AI 聊天操作介面（可理解為自己的 ChatGPT 網頁版）。<br>
+**功能：** 提供聊天視窗、模型切換、多使用者支援、文件上傳、RAG 知識庫、API 整合。<br>
+**可以做到：** 建立私人 ChatGPT、企業內部 AI 助手、本地知識問答、管理多種 LLM（如 Llama、Mistral）。<br>
 
-●Ollama是什麼： 本地大型語言模型管理與執行工具。<br>
-功能： 一鍵下載、安裝、運行各種 LLM 模型。<br>
-可以做到：本地執行 AI 模型,離線聊天,API 提供給其他工具使用,快速部署如 Llama 3、Qwen、DeepSeek 等模型<br>
+●**Ollama 是什麼：** 本地大型語言模型管理與執行工具。<br>
+**功能：** 一鍵下載、安裝、執行各類大型語言模型。<br>
+**可以做到：** 本地執行 AI 模型、離線聊天、API 串接其他工具、快速部署如 Llama 3、Qwen、DeepSeek 等模型。<br>
 
 // 簡單比喻：<br>
 Ollama = AI 引擎<br>
 Open WebUI = AI 操作介面<br>
-組合後：<br>
-●Ollama + Open WebUI = 自建本地版 ChatGPT<br>
 
-在 Dell Pro Max GB10 上執行 Ollama 與 Open WebUI，與傳統 PC 或 Server 端的最大差異，在於它並非單純的「電腦」，而是一台專為 AI 設計的 DGX Spark 級別微型工作站。<br>
-這就像是用「改裝賽車」與「家用轎車」跑賽道的差別：雖然都能跑，但底層邏輯完全不同。<br>
+組合後：<br>
+●**Ollama + Open WebU = 類似 本地自建 ChatGPT / Gemini 
 
 ```text
 +--------------+-----------------------+-----------------------+-----------------------+
@@ -42,52 +40,86 @@ Open WebUI = AI 操作介面<br>
 |              | 手掌大小 (1.3kg)       | 龐大機殼              | 機架式機房設備          |
 +--------------+-----------------------+-----------------------+-----------------------+
 ```
-*NVIDIA DGX OS 是以Ubuntu Linux 為基底的系統
 
-深度對比：為什麼 GB10 比較強？
-1. 「統一記憶體」的絕對優勢 (Unified Memory)
-在 PC 端：如果你想跑一個 70B 的 Llama 模型，你的 24GB 顯卡會裝不下，系統會強行把模型拆分到超慢的系統 RAM（記憶體）裡，導致速度從 50 tok/s 掉到 2 tok/s，變得幾乎無法使用。
 
-在 GB10 上：GPU 跟 CPU 共享這 128GB。只要模型在 128GB 以內，它都視為在「顯存」裡跑，這讓你可以流暢運行那些 PC 跑不動的中大型模型。
+*NVIDIA DGX OS 是基於 Ubuntu Linux 深度優化的 AI 作業系統。*
 
-2. 算力與效率 (Blackwell 架構)
-GB10 搭載的是 NVIDIA Blackwell GPU 架構，支援全新的 FP4 精度，運算效能可達 1 Petaflop。
+# 深度對比：為什麼 GB10 更適合本地大型 AI？
 
-相較於 PC 端的 RTX 顯卡，GB10 在進行 AI 推論時的每瓦效能更高，且散熱設計是針對 AI 長時間滿載運算設計的。
+## 1. 統一記憶體的核心優勢（Unified Memory）
 
-3. 網路與擴充性 (ConnectX-7)
-PC 通常只有 1GbE 或 2.5GbE 網路。
+### 在一般 PC 上：
+若要執行 70B 等級的 Llama 模型，RTX 4090 的 24GB VRAM 通常不足，系統必須將部分模型轉移至速度較慢的系統記憶體（RAM），導致推論速度可能從 50 tok/s 降至 2 tok/s，實用性大幅下降。<br>
 
-GB10 配備了 200Gbps 的 ConnectX-7 網卡。這意味著如果你有兩台以上的 GB10，你可以透過高速網路將它們串聯，像玩樂高一樣疊加算力來跑更巨大的模型。
+### 在 GB10 上：
+GPU 與 CPU 共用 128GB 高頻寬統一記憶體，只要模型容量在範圍內，即可接近顯存級運作，大幅提升中大型模型執行效率。<br>
 
-💡 總結：你該如何選擇？
-選擇 Dell Pro Max GB10 的時機：
+---
 
-你需要處理 30B、70B 甚至更大 的模型。
+## 2. Blackwell 架構的算力與能源效率
 
-你非常在意隱私，想在辦公室桌上就擁有伺服器等級的 AI 算力，而不想建置吵雜的機房。
+GB10 採用 NVIDIA Blackwell GPU 架構，支援新一代 FP4 精度運算，理論效能可達 1 Petaflop。<br>
 
-你想開發需要與硬體底層（DGX 軟體棧）深度整合的 AI 應用。
+### 相較傳統 RTX 顯卡：
+- AI 推論效率更高  
+- 每瓦性能更佳  
+- 長時間高負載散熱更穩定  
+- 更適合企業級 AI 應用部署<br>
 
-選擇 一般 PC 的時機：
+---
 
-預算有限。
+## 3. 高速網路與叢集擴充能力（ConnectX-7）
 
-主要跑小型模型 (8B 以下) 或是需要兼顧遊戲效能。
+### 一般 PC 網路速度：
+- 1GbE  
+- 2.5GbE<br>
 
-選擇 Server 的時機：
+### GB10 配備：
+- 200Gbps ConnectX-7 高速網卡<br>
 
-需要支援數百名使用者同時存取（並行量極高）。
+### 帶來的優勢：
+多台 GB10 可透過高速互聯形成小型 AI Cluster，如同堆疊積木般擴充算力，支援更大型模型部署。<br>
 
-需要訓練或微調（Fine-tuning）超大型參數模型。
+---
 
-一句話總結： GB10 讓你在手掌大小的體積內，獲得了以往需要「半台伺服器」才能實現的大模型運行能力。
+# 💡 總結：你該如何選擇？
 
-## 操作細節請參考目錄下各自 md 檔案說明
+## 選擇 Dell Pro Max GB10 的時機：
+- 需要執行 30B、70B 或更大型模型  
+- 重視隱私，希望完全本地端運算  
+- 希望在桌面設備中擁有接近伺服器級 AI 能力  
+- 需開發與 NVIDIA DGX 軟體棧深度整合的應用<br>
 
-# 那些不是 GB10 的強項/或者是直不行 <br>
-。要跑windows 玩 Steam 3A 大作請去買 PC+5090 , 頂多只能玩玩接龍  <br> 
-。CPU 是 ARM 不是 x86/64 : 多數x86 Linux app 都不能用 除非有針對arch/arm 架構編譯過 , 或跨平台應用程式<br>
-。
+## 選擇一般 PC 的時機：
+- 預算有限  
+- 主要運行 8B 以下模型  
+- 同時兼顧遊戲與一般用途<br>
 
-Open WebUI網站https://openwebui.com/ , Ollama網站 https://ollama.com/
+## 選擇傳統 Server 的時機：
+- 支援大量使用者高並發  
+- 進行超大型模型訓練或 Fine-tuning  
+- 建置完整企業級 AI 基礎設施<br>
+
+---
+
+## 一句話總結：
+**GB10 讓你在手掌大小的設備中，獲得過去需要半台伺服器才能實現的大模型運行能力。**
+
+---
+
+## 操作細節
+請參考目錄下各自 md 檔案說明。
+
+---
+
+# 那些不是 GB10 的強項 / 目前限制
+
+- 若主要需求是 Windows、Steam 3A 遊戲，建議選擇 PC + RTX 5090。GB10 並非遊戲平台。<br>
+- CPU 採用 ARM 架構，而非 x86/64：多數傳統 x86 Linux 或 Windows 軟體無法直接執行，除非已有 ARM 版本或具備跨平台支援。<br>
+- 更適合作為 AI 開發、推論與私有化部署平台，而非傳統桌機替代品。<br>
+
+---
+
+## 官方網站
+- Open WebUI：https://openwebui.com/  
+- Ollama：https://ollama.com/
