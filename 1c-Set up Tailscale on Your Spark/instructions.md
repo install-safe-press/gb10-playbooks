@@ -3,7 +3,12 @@
 > 原始說明 https://build.nvidia.com/spark/tailscale/instructions
 ---
 1.https://tailscale.com/ >>註冊申請帳號 右上方Get Started - it's free
+![ts-2](images/tailscale-2.jpg)<br>
+
 2.下載你PC/NB 對映的作業系統安裝檔執行安裝 Download Tailscale for Windows
+![ts-3](images/tailscale-3.jpg)<br>
+
+
 3.GB10 
 
 步驟1
@@ -84,6 +89,13 @@ sudo apt install -y tailscale
 驗證 Tailscale 安裝
 在進行身份驗證之前，請確認 Tailscale 已正確安裝在您的 DGX Spark 裝置上。
 
+![ts-4](images/tailscale-4.jpg)<br>
+![ts-5](images/tailscale-5.jpg)<br>
+
+
+
+
+
 # Check Tailscale version
 ```text
 tailscale version
@@ -102,20 +114,26 @@ sudo systemctl status tailscaled --no-pager
 ```text
 sudo tailscale up
 ```
+![ts-6](images/tailscale-6.jpg)<br>
+![ts-7](images/tailscale-7.jpg)<br>
 
 會拿到一段 URL ,貼到瀏覽器 認證進入 Tailscal
 就會看到兩邊設備都在同一群驗證是否可以互連 ping 
+![ts-8](images/tailscale-8.jpg)<br>
+
 
 Windows CMD: 
 ```text
 ipconfig
 ```
- 
+![ts-10](images/tailscale-10.jpg)<br>
+
 GB10 : 
 ```text
 ip a 
 ```
 會看到二者相對映IP地址
+
 
 設定已完成就可以使用  SSH, RDP, HTTP 連線GB10  Tailscal 發送給GB10的IP 
 還有更多管理功能請造訪tailscale admin page
