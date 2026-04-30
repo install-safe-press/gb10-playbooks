@@ -64,6 +64,11 @@ watch -n 1 nvidia-smi   ; nvidia-smi是顯示目前GPU記憶體使用量<br>
 不想每秒跑一次就直接下指令,不需要輸入 watch -n 1  , <br>
 ![cmd-2](images/cmd-2.jpg) <br>
 
+GB10與一般 x64+GPU 在 nviaia-smi的輸出比對
+
+![nvidia-smi](images/nvidia-smi.jpg) <br>
+
+
 🧩Linux 命令列下的純文字編輯器 , vi , nano 這兩種呈式選一種,把存檔/離開,這兩個功能鍵記起來<br>
 
 🧩docker 容器相關的指令很多,獨立一個說明檔. <br>
