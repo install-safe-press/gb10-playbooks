@@ -1,5 +1,6 @@
 # 如何在自己的 PC/NB 連上並顯示 GB10 的 DGX Dashboard / JupyterLab Web
-
+> 原文參考：　　https://build.nvidia.com/spark/dgx-dashboard/troubleshooting
+---
 ## 背景說明
 
 GB10 上的服務只綁定在本機：
