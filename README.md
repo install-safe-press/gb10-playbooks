@@ -1,72 +1,105 @@
-##  Dell Pro MAX GB10 / Nvidia DGX Spark 可以做什麼?
+## Dell Pro Max GB10 / NVIDIA DGX Spark 可以做什麼？
 ![summary](00-00-TARGET/summary-1.jpg)
 
 ## gb10-playbooks 專案目標
-* 透過spark playbooks 熟悉各種應用並將其作記錄
+* 透過 Spark Playbooks 熟悉各種應用場景，並將實際操作經驗完整記錄下來。  
 
-NVIDIA GB10 Grace Blackwell 超級晶片上運行 AI 工作負載的說明和範例,<br>
-## 依據 https://build.nvidia.com/spark 網站playbooks(範例劇本) 進行操作為基底 <br>
-spark playbooks 至目前看來有三十項,將每一個子項分成一個目錄進行作業.<br>
-除此之外於基礎項目增加硬體與基本作業系統相關說明.<br>
-製作成影片收錄於大叔裝機安gb10-playbooks 播放清單  https://www.youtube.com/playlist?list=PLTfgcc_ky0u4sMNSJLS288erbZ4YMv3Zs   .<br>
-<br>
-## 閱讀與操作說明<br>
-每個子目錄都是一項分類主題,子目錄中的README.md主頁是主要說明,目錄中的其它 .md是附屬相關說明 <br>
-pdf為額外參考文件,image目錄只是放文件會用到的圖檔, 
-## ( 白話文 -  就是每一個都點進去看看就知道了 ).
+本專案聚焦於 **NVIDIA GB10 Grace Blackwell 超級晶片** 上的 AI 工作負載應用說明與實作範例。<br>
 
-<br>
+## 依據 NVIDIA 官方 Spark Playbooks 為操作基礎
+https://build.nvidia.com/spark <br>
 
-## 分類與目錄
+Spark Playbooks 目前約有三十項以上範例劇本，本專案將每一個子項目獨立拆分成單獨目錄進行實作與整理。<br>
 
-| 順序 | 分類               | 順序+標題                                                    | 原始描述                                                                                                        | 主題說明                                                                                                       |
-|------|--------------------|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
-| 00   | (基礎入門)         | 00-project-intro                                             | Nvidia DGX Spark Dell Pro Max GB10 專案簡介                                                                     | Nvidia DGX Spark Dell Pro Max GB10 專案簡介                                                                    |
-| 0a   | (基礎入門)         | 0a-GB10-Hardware                                             |  Dell Pro Max GB10硬體相關                                                                                      |  Dell Pro Max GB10硬體相關                                                                                     |
-| 0b   | (基礎入門)         | 0b-DAC Cable Network NIC Basic                               | GB10 DAC Cable 有關QSFP網路連接                                                                                 | GB10 DAC Cable 有關QSFP網路連接                                                                                |
-| 0c   | (基礎入門)         | 0c-OS-command                                                | 作業系統相關應用的指令                                                                                          | 作業系統想關應用的指令                                                                                         |
-| 0d   | (基礎入門)         | 0d-DGX Dashboard                                             | Monitor your DGX system and launch JupyterLab                                                                   | 即時掌握 DGX 伺服器硬體狀態的同時，一鍵啟動 JupyterLab 進行 AI 模型開發。                                      |
-| 1a   | (基礎入門)         | 1a-Open WebUI with Ollama                                    | Install Open WebUI and use Ollama to chat with models on your Spark                                             | 本地 AI 對話平台，讓你在 Spark 系統上透過 Ollama 運行大模型，並搭配 Open WebUI 如同 ChatGPT 般的流暢操作介面。 |
-| 1b   | (基礎入門)         | 1b-VS Code                                                   | Install and use VS Code locally or remotely                                                                     | 在本地或遠端安裝並使用 VS Code                                                                                 |
-| 1c   | (基礎入門)         | 1c-Set up Tailscale on Your Spark                            | Use Tailscale to connect to your Spark on your home network no matter where you are                             | 無論身在何處，都可以使用 Tailscale 連接到家庭網路上的 Spark                                                    |
-| 1d   | (基礎入門)         | 1d-Comfy UI                                                  | Install and use Comfy UI to generate images                                                                     | 這是一個像接水管般的節點式 AI 繪圖工具，讓你視覺化地自訂自動化產圖流程。                                       |
-| 1e   | (基礎入門)         | 1e-LM Studio on DGX Spark                                    | Deploy LM Studio and serve LLMs on a Spark device; use LM Link to access models remotely.                       | 部署 LM Studio 並在 Spark 設備上提供 LLM；使用 LM Link 遠端存取模型。                                          |
-| 1f   | (基礎入門)         | 1f-Vibe Coding in VS Code                                    | Use DGX Spark as a local or remote Vibe Coding assistant with Ollama and Continue                               | 使用 Ollama 和 Continue 將 DGX Spark 用作本地或遠端 Vibe Coding 助手                                           |
-| 2a   | (AI Agent應用)     | 2a-OpenClaw 🦞                                               | Run OpenClaw locally on DGX Spark with LM Studio or Ollama                                                      | 在 DGX Spark 上使用 LM Studio 或 Ollama 本地運行 OpenClaw                                                      |
-| 2b   | (AI Agent應用)     | 2b-Secure Long Running AI Agents with OpenShell on DGX Spark | Run OpenClaw with local models in an NVIDIA OpenShell sandbox on DGX Spark                                      | 在 DGX Spark 上的 NVIDIA OpenShell 沙箱中使用本地模型運行 OpenClaw                                             |
-| 2c   | (AI Agent應用)     | 2c-NemoClaw with Nemotron 3 Super and Telegram on DGX Spark  | Install NemoClaw on DGX Spark with local Ollama inference and Telegram bot integration                          | 在 DGX Spark 上安裝 NemoClaw，並整合本地 Ollama 推理和 Telegram 機器人                                         |
-| 3a   | (模型推理)         | 3a-NIM on Spark                                              | Deploy a NIM on Spark                                                                                           | 在 Spark 上部署 NIM                                                                                            |
-| 3b   | (模型推理)         | 3b-TRT LLM for Inference                                     | Install and use TensorRT-LLM on DGX Spark                                                                       | 在 DGX Spark 上安裝並使用 TensorRT-LLM                                                                         |
-| 3c   | (模型推理)         | 3c-NVFP4 Quantization                                        | Quantize a model to NVFP4 to run on Spark using TensorRT Model Optimizer                                        | 使用 TensorRT 模型優化器將模型量化為 NVFP4 格式，以便在 Spark 上運行                                           |
-| 3d   | (模型推理)         | 3d-Multi-modal Inference                                     | Setup multi-modal inference with TensorRT                                                                       | 使用 TensorRT 設定多模態推理                                                                                   |
-| 3e   | (模型推理)         | 3e-Speculative Decoding                                      | Learn how to set up speculative decoding for fast inference on Spark                                            | 學習如何在 Spark 上設定推測性解碼以實現快速推理                                                                |
-| 3f   | (模型推理)         | 3f-vLLM for Inference                                        | Install and use vLLM on DGX Spark                                                                               | 在 DGX Spark 上安裝並使用 vLLM                                                                                 |
-| 3g   | (模型推理)         | 3g-Nemotron-3-Nano with llama.cpp                            | Run Nemotron-3-Nano-30B model using llama.cpp on DGX Spark                                                      | 在 DGX Spark 上使用 llama.cpp 運行 Nemotron-3-Nano-30B 模型                                                    |
-| 3h   | (模型推理)         | 3h-SGLang for Inference                                      | Install and use SGLang on DGX Spark                                                                             | 在 DGX Spark 上安裝並使用 SGLang                                                                               |
-| 3i   | (模型推理)         | 3i-Build and Deploy a Multi-Agent Chatbot                    | Deploy a multi-agent chatbot system and chat with agents on your Spark                                          | 部署多代理聊天機器人系統，並在 Spark 上與代理進行聊天                                                          |
-| 4a   | (模型微調)         | 4a-LLaMA Factory                                             | Install and fine-tune models with LLaMA Factory                                                                 | 使用 LLaMA Factory 安裝和微調模型                                                                              |
-| 4b   | (模型微調)         | 4b-Fine-tune with Pytorch                                    | Use Pytorch to fine-tune models locally                                                                         | 使用 PyTorch 在本地微調模型                                                                                    |
-| 4c   | (模型微調)         | 4c-FLUX.1 Dreambooth LoRA Fine-tuning                        | Fine-tune FLUX.1-dev 12B model using Dreambooth LoRA for custom image generation                                | 使用 Dreambooth LoRA 微調 FLUX.1-dev 12B 模型以產生自訂影像                                                    |
-| 4e   | (模型微調)         | 4e-Fine-tune with NeMo                                       | Use NVIDIA NeMo to fine-tune models locally                                                                     | 使用 NVIDIA NeMo 在本地微調模型                                                                                |
-| 4f   | (模型微調)         | 4f-Unsloth on DGX Spark                                      | Optimized fine-tuning with Unsloth                                                                              | 使用 Unsloth 優化微調                                                                                          |
-| 5a   | (加速運算)         | 5a-CUDA-X Data Science                                       | Install and use NVIDIA cuML and NVIDIA cuDF to accelerate UMAP, HDBSCAN, pandas and more with zero code changes | 安裝並使用 NVIDIA cuML 和 NVIDIA cuDF，無需任何程式碼變更即可加速 UMAP、HDBSCAN、pandas 等工具                 |
-| 5b   | (加速運算)         | 5b-Text to Knowledge Graph                                   | Transform unstructured text into interactive knowledge graphs with LLM inference and graph visualization        | 使用 LLM 推理和圖視覺化將非結構化文字轉換為互動式知識圖譜                                                      |
-| 5c   | (加速運算)         | 5c-Optimized JAX                                             | Optimize JAX to run on Spark                                                                                    | 優化 JAX 以在 Spark 上運行                                                                                     |
-| 5d   | (加速運算)         | 5d-Portfolio Optimization                                    | GPU-Accelerated portfolio optimization using cuOpt and cuML                                                     | 使用 cuOpt 和 cuML 進行 GPU 加速的投資組合最佳化                                                               |
-| 5e   | (加速運算)         | 5e-Single-cell RNA Sequencing                                | An end-to-end GPU-powered workflow for scRNA-seq using RAPIDS                                                   | 使用 RAPIDS 建構端到端的 GPU 加速 scRNA-seq 工作流程                                                           |
-| 5f   | (加速運算)         | 5f-RAG Application in AI Workbench                           | Install and use AI Workbench to clone and run a reproducible RAG application                                    | 安裝並使用 AI Workbench 克隆並運行可復現的 RAG 應用程式                                                        |
-| 5g   | (加速運算)         | 5g-Build a Video Search and Summarization (VSS) Agent        | Run the VSS Blueprint on your Spark                                                                             | 在 Spark 上運行 VSS Blueprint                                                                                  |
-| 5h   | (加速運算)         | 5h-Run models with llama.cpp on DGX Spark                    | Build llama.cpp with CUDA and serve models via an OpenAI-compatible API (Gemma 4 31B IT as example)             | 使用 CUDA 建立 llama.cpp，並透過 OpenAI 相容的 API（例如 Gemma 4 31B IT）提供模型                              |
-| 6a   | (集群與網路)       | 6a-Connect Two Sparks                                        | Connect two Spark devices and setup them up for inference and fine-tuning                                       | 連接兩個 Spark 設備並設定它們以進行推理和微調                                                                  |
-| 6b   | (集群與網路)       | 6b-NCCL for Two Sparks                                       | Install and test NCCL on two Sparks                                                                             | 在兩台 Spark 設備上安裝並測試 NCCL                                                                             |
-| 6c   | (集群與網路)       | 6c-Connect Three DGX Spark in a Ring Topology                | Connect and set up three DGX Spark devices in a ring topology                                                   | 以環形拓撲結構連接並設定三台 DGX Spark 設備                                                                    |
-| 6d   | (集群與網路)       | 6d-Connect Multiple DGX Spark through a Switch               | Set up a cluster of DGX Spark devices that are connected through Switch                                         | 設定透過交換器連接的 DGX Spark 設備集群                                                                        |
-| 7a   | (即時視覺推理)     | 7a-Live VLM WebUI                                            | Real-time Vision Language Model interaction with webcam streaming                                               | 透過網路攝影機串流進行即時視覺語言模型交互                                                                     |
-| 8a   | (數位孿生與模擬)   | 8a-Install and Use Isaac Sim and Isaac Lab                   | Build Isaac Sim and Isaac Lab from source for Spark                                                             | 從原始碼建立適用於 Spark 的 Isaac Sim 和 Isaac Lab                                                             |
-| 9a   | (多模態互動)       | 9a-Spark & Reachy Photo Booth                                | AI augmented photo booth using the DGX Spark and Reachy Mini.                                                   | 使用 DGX Spark 和 Reachy Mini 建造 AI 增強型照相亭。                                                           |
- <br>
-本專案為大叔裝機安人腦輔以各式AI工具創建. 創建起始日 2026.4.20
+除官方內容外，另額外補充：  
+- 硬體架構說明  
+- 基本作業系統操作  
+- 網路與叢集建置  
+- AI 應用部署經驗<br>
+
+並同步製作成影片，收錄於：  
+**大叔裝機安 GB10 Playbooks 播放清單**  
+https://www.youtube.com/playlist?list=PLTfgcc_ky0u4sMNSJLS288erbZ4YMv3Zs <br>
+
+---
+
+## 閱讀與操作說明
+每個子目錄代表一個分類主題：<br>
+
+- `README.md` = 該主題的主要說明文件  
+- 其它 `.md` = 延伸教學或補充文件  
+- `pdf` = 額外參考資料  
+- `image` = 文件內使用的圖片素材  
+
+## （白話文）
+**每個目錄都點進去看看，你就能快速理解 GB10 的各種玩法。**
+
+---
+
+# 分類與目錄
+
+| 順序 | 分類 | 順序+標題 | 原始描述 | 主題說明 |
+|------|------|------------|----------|----------|
+| 00 | 基礎入門 | 00-project-intro | Nvidia DGX Spark Dell Pro Max GB10 專案簡介 | 專案整體介紹與定位 |
+| 0a | 基礎入門 | 0a-GB10-Hardware | Dell Pro Max GB10 硬體相關 | 硬體架構、規格與設備說明 |
+| 0b | 基礎入門 | 0b-DAC Cable Network NIC Basic | GB10 DAC Cable 有關 QSFP 網路連接 | 高速網路與 DAC/QSFP 基礎 |
+| 0c | 基礎入門 | 0c-OS-command | 作業系統相關應用指令 | Linux / DGX OS 常用指令 |
+| 0d | 基礎入門 | 0d-DGX Dashboard | Monitor your DGX system and launch JupyterLab | 即時監控硬體並啟動 JupyterLab |
+| 1a | 基礎入門 | 1a-Open WebUI with Ollama | Install Open WebUI and use Ollama | 本地 ChatGPT 平台部署 |
+| 1b | 基礎入門 | 1b-VS Code | Install and use VS Code locally or remotely | 本地 / 遠端開發環境 |
+| 1c | 基礎入門 | 1c-Set up Tailscale on Your Spark | Remote network access | 遠端安全連線 |
+| 1d | 基礎入門 | 1d-Comfy UI | AI image generation | 節點式 AI 繪圖工具 |
+| 1e | 基礎入門 | 1e-LM Studio on DGX Spark | Deploy LM Studio | 本地模型服務平台 |
+| 1f | 基礎入門 | 1f-Vibe Coding in VS Code | Coding assistant | AI 程式開發助手 |
+| 2a | AI Agent 應用 | 2a-OpenClaw | Local AI agent | 本地 AI Agent |
+| 2b | AI Agent 應用 | 2b-OpenShell | Secure sandbox AI agents | 安全長時間 AI Agent |
+| 2c | AI Agent 應用 | 2c-NemoClaw | Telegram integration | Telegram AI Bot |
+| 3a | 模型推理 | 3a-NIM on Spark | Deploy NIM | NVIDIA 推理服務 |
+| 3b | 模型推理 | 3b-TRT LLM | TensorRT-LLM | 高效能推理 |
+| 3c | 模型推理 | 3c-NVFP4 Quantization | Model quantization | 模型量化 |
+| 3d | 模型推理 | 3d-Multi-modal Inference | Multi-modal setup | 多模態推理 |
+| 3e | 模型推理 | 3e-Speculative Decoding | Fast inference | 推測式解碼 |
+| 3f | 模型推理 | 3f-vLLM | vLLM deployment | 高吞吐量推理 |
+| 3g | 模型推理 | 3g-Nemotron-3-Nano | llama.cpp | 本地大模型部署 |
+| 3h | 模型推理 | 3h-SGLang | SGLang deployment | 推理框架 |
+| 3i | 模型推理 | 3i-Multi-Agent Chatbot | Multi-agent system | 多代理聊天系統 |
+| 4a | 模型微調 | 4a-LLaMA Factory | Fine-tuning | 模型微調 |
+| 4b | 模型微調 | 4b-PyTorch | Local fine-tune | PyTorch 微調 |
+| 4c | 模型微調 | 4c-FLUX Dreambooth | Image fine-tune | AI 繪圖模型客製化 |
+| 4e | 模型微調 | 4e-NeMo | NVIDIA NeMo | 專業模型微調 |
+| 4f | 模型微調 | 4f-Unsloth | Optimized fine-tune | 高效率微調 |
+| 5a | 加速運算 | 5a-CUDA-X Data Science | RAPIDS tools | GPU 加速資料科學 |
+| 5b | 加速運算 | 5b-Text to Knowledge Graph | Knowledge graph | 知識圖譜 |
+| 5c | 加速運算 | 5c-Optimized JAX | JAX optimization | JAX 加速 |
+| 5d | 加速運算 | 5d-Portfolio Optimization | Financial optimization | 金融 AI |
+| 5e | 加速運算 | 5e-scRNA Sequencing | Bioinformatics | 生物資訊 |
+| 5f | 加速運算 | 5f-RAG Application | AI Workbench | RAG 系統 |
+| 5g | 加速運算 | 5g-Video Search Agent | VSS Blueprint | AI 視訊搜尋 |
+| 5h | 加速運算 | 5h-llama.cpp API | OpenAI-compatible API | 本地 API 模型服務 |
+| 6a | 集群與網路 | 6a-Connect Two Sparks | Dual-node setup | 雙機叢集 |
+| 6b | 集群與網路 | 6b-NCCL | NCCL setup | 多機通訊 |
+| 6c | 集群與網路 | 6c-Three Spark Ring | Ring topology | 三機環形 |
+| 6d | 集群與網路 | 6d-Multi Spark Switch | Switch cluster | 多機交換器叢集 |
+| 7a | 即時視覺推理 | 7a-Live VLM WebUI | Real-time webcam VLM | 即時視覺推理 |
+| 8a | 數位孿生與模擬 | 8a-Isaac Sim | Isaac ecosystem | 機器人模擬 |
+| 9a | 多模態互動 | 9a-Reachy Photo Booth | AI photo booth | 多模態互動展示 |
+
+---
+---
+
+# 注意事項提示區
+* **GB10 採用 ARM 架構（非 x86/x64）**  
+* 使用前請特別注意軟體相容性問題  
+* 部分傳統 Windows / Linux x64 軟體可能無法直接執行  
+* 建議優先選擇：
+  - ARM 原生程式  
+  - Docker 容器  
+  - 跨平台工具
+ 
+---
+
+## 專案文件建立資訊
+本專案由 **大叔裝機安** 結合人類實測經驗與多種 AI 工具共同建立。  
+**創建起始日：2026.4.20**
 
 
-#注意點提示區
-*它是arm架構不是x64架構，注意程式相容性
