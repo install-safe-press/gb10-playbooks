@@ -1,60 +1,215 @@
-## DGX Dashboard Monitor your DGX system and launch JupyterLab<br>
 
-1.DGX Dashboard Monitor: WEB式GPU與記憶體用量儀錶板<br>
-2.啟用 JupyterLab 互動式開發環境（IDE）專為資料科學、AI 開發、Python 編程與研究工作設計. <br>
+## DGX Dashboard：Monitor your DGX system and launch JupyterLab
 
-GB10系統桌面有一個捷徑-DGX Spark Resources,點擊之禝就是開啟網頁 https://build.nvidia.com/spark <br>
-![dashboard-0](images/dashboard-0.jpg)<br>
-進入DGX Dashboard項目
-![dashboard-1](images/build.nvidia.com-spark.jpg)<br>
+DGX Dashboard 提供兩大核心功能：
 
+---
 
-1.DGX Dashboard Monitor: WEB式GPU與記憶體用量儀錶板的操作說明就是指引開啟本地11000 port在網頁顯示圖形化的儀錶板 <br>
-![dashboard-2](images/dashboard-1.jpg)<br>
-Settings提供系統更新update功能
-![dashboard-3](images/dashboard-2.jpg)<br>
-如果要改系統名稱可在Settings > System Edit Hostname<br>
-![dashboard-4](images/dashboard-3.jpg)<br>
+### 1️⃣ DGX Dashboard Monitor（系統監控）
 
-Docs是開啟DGX Spark使用手冊  https://docs.nvidia.com/dgx/dgx-spark/   <br>
-Forums是開啟Nvidia 開發者討論區  https://forums.developer.nvidia.com/c/accelerated-computing/dgx-spark-gb10/ <br>
-注意:這些操作都是開啟本機localhost資源,是從別台要開啟請參考DGX Dashboard-Instructions.md 文件說明<br>
+- 以 Web 方式呈現 GPU / 記憶體使用狀態
+- 類似「即時儀錶板（Dashboard）」
+- 用來觀察 AI 運算負載、資源消耗
 
-2.啟用 JupyterLab 互動式開發環境在這個環境之中直接進行程式開發作業<br>
-按JupyterLab Start啟動服務,第一次執行需要等待一些時間,完成時按下Open in Browser開啟新增 JupyterLab 的網頁
+---
 
-Launch JupyterLab instance <br>
-![jupyter](images/jupyter-1.jpg)<br>
-進入JupyterLab作業區<br>
-![jupyter](images/jupyter-2.jpg)<br>
-開一個新的python Notebook<br>
-![jupyter](images/jupyter-create.png)<br>
+### 2️⃣ JupyterLab（互動式開發環境）
 
-Test with sample AI workload , 貼上SDXL範例 prompt = "一個舒適的現代閱讀角落，配有大窗戶，柔和的自然光，照片級真實感"   <br>
-![jupyter](images/jupyter-post.png)<br>
-執行SDXL範例生成圖片<br>
-![jupyter](images/jupyter-run-sd.png)<br>
+- 一鍵啟動 JupyterLab
+- 適合：
+  - AI 開發
+  - Python 程式設計
+  - 資料科學分析
+  - 實驗與研究
 
-Stable Diffusion XL（簡稱 SDXL）是由 Stability AI 推出的高階文字生成圖片（Text-to-Image）AI 模型
-本地 AI 圖像工作站GB10 透過 SDXL 輸入文字 → 自動生成高品質圖像
-常見用途
+---
 
-👍創作者
-插畫
-封面設計
-YouTube 縮圖
-Logo 草圖
+## GB10 入口捷徑
 
-👍商業應用
-商品圖
-廣告素材
-行銷視覺
+在 GB10 桌面上會看到：
 
-👍技術玩家
-本地 GPU 部署
-AI 工作站
-自架圖片生成平台
+👉 **DGX Spark Resources**
 
+點擊後會開啟：
 
+🔗 https://build.nvidia.com/spark
 
-在執行的過程中可切換至DGX Dashboard觀察資源使用量
+---
+
+![dashboard-0](images/dashboard-0.jpg)
+
+進入後可看到 DGX Dashboard 入口頁面：
+
+![dashboard-1](images/build.nvidia.com-spark.jpg)
+
+---
+
+## DGX Dashboard Monitor 操作說明
+
+DGX Dashboard Monitor 的本質是：
+
+👉 在本機開啟 **http://localhost:11000**  
+👉 透過 Web UI 顯示 GPU / 記憶體圖形化資訊
+
+---
+
+### Dashboard 主畫面
+
+![dashboard-2](images/dashboard-1.jpg)
+
+---
+
+### 系統更新（Settings）
+
+- 可進行系統 Update
+- 更新韌體或套件
+
+![dashboard-3](images/dashboard-2.jpg)
+
+---
+
+### 修改主機名稱
+
+路徑：
+
+👉 Settings → System → Edit Hostname
+
+![dashboard-4](images/dashboard-3.jpg)
+
+---
+
+## 文件與社群資源
+
+### 📘 官方文件
+
+- DGX Spark 使用手冊  
+  https://docs.nvidia.com/dgx/dgx-spark/
+
+### 💬 開發者論壇
+
+- NVIDIA DGX Spark 討論區  
+  https://forums.developer.nvidia.com/c/accelerated-computing/dgx-spark-gb10/
+
+---
+
+📌 注意：
+
+以上連結與 Dashboard 操作皆為 **本機 localhost 資源**
+
+如果是從其他設備存取，請參考：
+
+👉 `DGX Dashboard-Instructions.md`
+
+---
+
+## 2️⃣ 啟用 JupyterLab（AI 開發環境）
+
+JupyterLab 是 GB10 上的核心開發環境，用於：
+
+- Python 程式開發
+- AI 模型測試
+- Notebook 實驗
+- GPU 加速運算
+
+---
+
+### ▶ 啟動方式
+
+點擊：
+
+👉 **JupyterLab → Start**
+
+首次啟動可能需要：
+
+⏳ 等待初始化數分鐘
+
+完成後點擊：
+
+👉 **Open in Browser**
+
+---
+
+### JupyterLab 啟動畫面
+
+![jupyter](images/jupyter-1.jpg)
+
+---
+
+### 進入工作區
+
+![jupyter](images/jupyter-2.jpg)
+
+---
+
+### 建立 Python Notebook
+
+![jupyter](images/jupyter-create.png)
+
+---
+
+## 🧪 AI 測試範例（SDXL）
+
+在 Notebook 中貼上 Prompt：
+
+```
+
+一個舒適的現代閱讀角落，配有大窗戶，柔和的自然光，照片級真實感
+
+```
+
+---
+
+### 執行 AI 生成流程
+
+![jupyter](images/jupyter-post.png)
+
+---
+
+### SDXL 圖像生成結果
+
+![jupyter](images/jupyter-run-sd.png)
+
+---
+
+## 🧠 SDXL 簡單說明
+
+Stable Diffusion XL（SDXL）是：
+
+👉 由 Stability AI 推出的高階文字生成圖片模型（Text-to-Image）
+
+---
+
+### 在 GB10 上的運作方式
+
+輸入文字 Prompt → GPU 運算 → 自動生成圖片
+
+---
+
+## 🎯 常見應用場景
+
+### 👍 創作者
+- 插畫
+- 封面設計
+- YouTube 縮圖
+- Logo 草圖
+
+### 👍 商業應用
+- 商品圖生成
+- 廣告素材
+- 行銷視覺設計
+
+### 👍 技術玩家
+- 本地 GPU AI 部署
+- AI 工作站開發
+- 自建圖像生成服務
+
+---
+
+## 📊 實務操作建議
+
+在執行 SDXL 或 AI 任務時：
+
+👉 可以同時開啟 DGX Dashboard  
+👉 觀察 GPU / RAM 使用率變化  
+👉 用來理解 AI 運算負載狀態
+```
