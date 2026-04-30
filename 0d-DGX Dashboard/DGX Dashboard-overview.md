@@ -1,6 +1,5 @@
-```md id="p9q7k1"
 # DGX Dashboard 基本概念（入門版）
-
+> 原文參考：https://build.nvidia.com/spark/dgx-dashboard
 ---
 
 ## 🧠 基本概念
@@ -113,4 +112,4 @@ Stable Diffusion XL（SDXL）相關 Python 程式碼：
 👉 可在 GitHub 上取得
 
 （用於執行文字生成圖片 AI 範例）
-```
+
