@@ -1,4 +1,7 @@
 這種方式：Docker Compose 分離部署
+> 原文： 沒有...這段是自已生出來的
+---
+
 這使用的是標準的 微服務架構，將 Ollama 和 Open WebUI 分成兩個獨立的容器執行。
 
 架構：兩個獨立容器，透過網路（及 host.docker.internal）通訊。
@@ -150,9 +153,9 @@ open-webui:
 👉 這裡使用的是 image（現成映像），沒有用 build
 
 📌 代表：
-
 直接從 Docker Hub / GHCR 拉 image
 不需要自己寫 Dockerfile
+
 🌐 3️⃣ 設定網路（network）
 ollama
 network_mode: host
@@ -219,7 +222,8 @@ depends_on:
 
 open-webui 可能比 ollama 早啟動
 但通常會自動 retry（問題不大）
-🚀 補充：GPU 設定（你這份很關鍵）
+
+🚀 補充：GPU 設定
 deploy:
   resources:
     reservations:
@@ -243,4 +247,6 @@ open-webui：提供 UI（透過 HTTP 呼叫 ollama）
 用 volume 保存模型與資料
 用 host + bridge 混合網路讓兩者溝通
 
-## 結果輸出
+## 這是很基本的範例 , 更多修改應用留待您自已開發
+
+
