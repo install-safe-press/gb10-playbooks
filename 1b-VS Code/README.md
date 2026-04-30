@@ -1,6 +1,6 @@
 # 1b｜VS Code 遠端開發環境
 
-> 原始參考：https://build.nvidia.com/spark/vscode
+> 原文參考：https://build.nvidia.com/spark/vscode
 
 ---
 
