@@ -1,7 +1,8 @@
 1b-VS Code	Install and use VS Code locally or remotely	本地 / 遠端開發環境
 >原始內容 https://build.nvidia.com/spark/vscode
 ---
-## 本章節內容與原始不同,主要著重於 Windows PC/NB VS Code 連線到 GB10 ; 因為我習慣用我的Windows PC/NB 之前就有安裝 VS Code. 
+## 本章節內容與原始不同,主要著重於 Windows PC/NB VS Code 連線到 GB10 ; 
+因為我習慣用我的Windows PC/NB 之前就有安裝 VS Code. 
 
 VS Code 是什麼？VS Code（Visual Studio Code） 是一個由Microsoft 開發的免費程式碼編輯器。
 你可以把它理解成：一個「專門寫程式用的超強記事本」
