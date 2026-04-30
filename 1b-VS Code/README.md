@@ -31,6 +31,7 @@ Remote - SSH
 ```
 > 作者是 Microsoft，安裝後左側會出現一個電腦螢幕圖示。
 
+![vs-1](images/vs-1.jpg)<br>
 ---
 
 ### Step 2：新增 SSH 連線設定
@@ -58,7 +59,7 @@ ssh your-username@192.168.x.x
 ```
 SSH: 192.168.x.x
 ```
-
+![vs-2](images/vs-2.jpg)<br>
 ---
 
 ### Step 4：開啟 GB10 上的資料夾
@@ -67,13 +68,13 @@ SSH: 192.168.x.x
 2. 點「**Open Folder**」
 3. 選擇你想開啟的目錄（例如 `/home/your-username`）
 4. 再次輸入密碼確認
-
+![vs-3](images/vs-3.jpg)<br>
 ---
 
 ### Step 5：安裝遠端 Python 環境套件
 
 連線成功後，在 VS Code 的 Extensions 頁面，搜尋 `Python` 並點「**Install in SSH: GB10**」，這樣 VS Code 才能在遠端執行與偵錯 Python。
-
+![vs-4](images/vs-4.jpg)<br>
 ---
 
 ### Step 6：開啟終端機測試
@@ -85,8 +86,20 @@ nvidia-smi
 ```
 
 看到 GPU 資訊就代表完全連線成功 ✅
-
+![vs-5](images/vs-5.jpg)<br>
 ---
+
+# Create test directory and file
+參照原廠範例 Step 6 Validate setup and test functionality,寫一段簡單的python並執行,在下方的終端機貼上 , 在右上的 Run Python File 點擊執行（長的像三角形▶️那個）
+```text
+mkdir ~/vscode-test
+cd ~/vscode-test
+echo 'print("Hello from DGX Spark!")' > test.py
+code test.py
+```
+
+![vs-6](images/vs-6.jpg)<br>
+
 
 ### 💡 小提示
 
