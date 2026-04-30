@@ -1,6 +1,7 @@
 # DGX 控制面板存取指南
-
+> 原文參考：https://build.nvidia.com/spark/dgx-dashboard/instructions
 ---
+
 
 ## 步驟 1：存取 DGX 控制面板
 
