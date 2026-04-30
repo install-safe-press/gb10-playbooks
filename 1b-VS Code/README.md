@@ -49,6 +49,7 @@ ssh your-username@192.168.x.x
 ---
 
 ### Step 3：連線到 GB10
+![vs-2](images/vs-2.jpg)<br>
 
 1. 按 `Ctrl+Shift+P` → 選 `Remote-SSH: Connect to Host`
 2. 選擇剛才新增的 GB10 主機
@@ -59,7 +60,7 @@ ssh your-username@192.168.x.x
 ```
 SSH: 192.168.x.x
 ```
-![vs-2](images/vs-2.jpg)<br>
+
 ---
 
 ### Step 4：開啟 GB10 上的資料夾
@@ -68,7 +69,7 @@ SSH: 192.168.x.x
 2. 點「**Open Folder**」
 3. 選擇你想開啟的目錄（例如 `/home/your-username`）
 4. 再次輸入密碼確認
-![vs-3](images/vs-3.jpg)<br>
+![vs-3](images/vs-3.jpg)
 ---
 
 ### Step 5：安裝遠端 Python 環境套件
