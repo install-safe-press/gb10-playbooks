@@ -1,24 +1,53 @@
-1c-Set up Tailscale on Your Spark
->原文參考https://build.nvidia.com/spark/tailscale
+# 1c｜透過 Tailscale 從外部連線到 GB10
+
+> 原始參考：https://build.nvidia.com/spark/tailscale
+
 ---
 
-Tailscale 是一款基於 WireGuard® 協議的虛擬私人網路（VPN）服務，它的核心目標是「讓聯網變得簡單且安全」。與傳統 VPN 不同，它採用 P2P（點對點）全網狀架構（Mesh Network），讓不同網路環境下的裝置就像連在同一個 Wi-Fi 下。
+## 什麼是 Tailscale？
 
-以下是 Tailscale 的核心功能與特色：
+**Tailscale** 是一款基於 **WireGuard®** 協議的現代化 VPN 服務，核心目標是「**讓聯網變得簡單且安全**」。
 
-1. 零配置虛擬內網 (Mesh VPN)
-這是 Tailscale 最基本的功能。只要在裝置（如電腦、手機、NAS、伺服器）安裝並登入同一個帳號，這些裝置就會獲得一個固定的內部 IP（Tailscale IP）。
+你可以把它理解成：不管你人在哪裡（家裡、咖啡廳、公司），只要雙方設備都安裝了 Tailscale 並登入同一個帳號，這些裝置就會自動連在一起，就像插在同一個 Wi-Fi 路由器下一樣。
 
-突破 NAT 與防火牆： 即使裝置在不同的路由器後方，或是在公司、咖啡廳的防火牆內，通常不需要設定轉址（Port Forwarding）就能直接連通。
+---
 
-全網狀連接： 裝置之間是直接點對點傳輸，不會所有流量都經過中央伺服器，延遲更低。
+## Tailscale 的核心功能
 
-2. Taildrop (跨平台檔案傳輸)
-這功能類似於 Apple 的 AirDrop，但不受限於同一個區域網路。你可以在 Android、iOS、Windows、Linux、macOS 之間互相傳送圖片或檔案，只要裝置都有安裝 Tailscale 並登入即可。
+### 1. 零配置虛擬內網（Mesh VPN）
 
-總結來說：
-如果你需要遠端存取家裡的 NAS、在公司連回家的開發環境、或是想要一個極簡化的跨裝置連網方案，Tailscale 目前是公認門檻最低且最穩定的選擇之一。
+這是 Tailscale 最核心的功能。
+
+只要在任何裝置（電腦、手機、NAS、伺服器）上安裝並登入同一個 Tailscale 帳號，每台裝置就會獲得一個**固定的內部 IP（Tailscale IP）**，讓裝置之間可以直接互連。
+
+**兩大關鍵優勢：**
+
+- **突破 NAT 與防火牆：** 即使裝置在不同路由器後方，或位於公司、咖啡廳的防火牆內，通常**不需要設定 Port Forwarding** 就能直接連通。
+- **全網狀（Mesh）連接：** 裝置之間是**直接點對點傳輸**，流量不經過中央伺服器，延遲更低、速度更快。
+
+---
+
+### 2. Taildrop（跨平台檔案傳輸）
+
+類似 Apple 的 AirDrop，但**不受限於同一個區域網路**。
+
+只要裝置都安裝了 Tailscale 並登入，就可以在 **Android、iOS、Windows、Linux、macOS** 之間互相傳送圖片或檔案，不論人在哪裡。
+
+---
+
+## 為什麼選擇 Tailscale？
+
+> 如果你需要：
+> - 從外部遠端連回 GB10 進行開發
+> - 在公司或咖啡廳連回家裡的設備
+> - 一個設定門檻極低、穩定可靠的跨裝置連網方案
+>
+> Tailscale 目前是公認**門檻最低且最穩定**的選擇之一。
 
 ![ts-1](images/tailscale-1.png)<br>
 
-透過這一章節的操作, 將可以建立從外部連線到GB10的方式.
+---
+
+## 本章節目標
+
+完成本章節的操作後，你將能夠透過 Tailscale **從外部網路連線到 GB10**，不論人在哪裡都能遠端存取你的設備。
