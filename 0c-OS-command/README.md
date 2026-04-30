@@ -64,7 +64,7 @@ watch -n 1 nvidia-smi   ; nvidia-smi是顯示目前GPU記憶體使用量<br>
 不想每秒跑一次就直接下指令,不需要輸入 watch -n 1  , <br>
 ![cmd-2](images/cmd-2.jpg) <br>
 
-GB10與一般 x64+GPU 在 nviaia-smi的輸出比對
+GB10與一般 x64+GPU 在 nviaia-smi的輸出比對(看出差異了嗎？提示 GPU 記憶體 ) , 另外目前nvitop 在GB10系統是跑不起來的
 
 ![nvidia-smi](images/nvidia-smi.jpg) <br>
 
