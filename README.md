@@ -99,7 +99,7 @@ https://www.youtube.com/playlist?list=PLTfgcc_ky0u4sMNSJLS288erbZ4YMv3Zs <br>
 ---
 
 ## 專案文件建立資訊
-本專案由 **大叔裝機安** 結合人類實測經驗與多種 AI 工具共同建立。  
+本專案由 大叔裝機安混合多種 AI 工具共同建立。 一切內容依 https://build.nvidia.com/spark 及各官方網站為主 
 **創建起始日：2026.4.20**
 
 
