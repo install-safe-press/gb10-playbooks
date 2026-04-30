@@ -19,7 +19,6 @@ Tailscale 是一款基於 WireGuard® 協議的虛擬私人網路（VPN）服務
 總結來說：
 如果你需要遠端存取家裡的 NAS、在公司連回家的開發環境、或是想要一個極簡化的跨裝置連網方案，Tailscale 目前是公認門檻最低且最穩定的選擇之一。
 
-![ts-1](images/tailscale-1.jpg)<br>
-![ts-2](images/tailscale-2.jpg)<br>
-![ts-3](images/tailscale-3.jpg)<br>
-![ts-4](images/tailscale-4.jpg)<br>
+![ts-1](images/tailscale-1.png)<br>
+
+透過這一章節的操作, 將可以建立從外部連線到GB10的方式.
