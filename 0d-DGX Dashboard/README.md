@@ -1,6 +1,7 @@
 
 ## DGX Dashboard：Monitor your DGX system and launch JupyterLab
-
+> 原文參考：https://build.nvidia.com/spark/dgx-dashboard
+---
 DGX Dashboard 提供兩大核心功能：
 
 ---
