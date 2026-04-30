@@ -1,4 +1,6 @@
 Open WebUI with Ollama 
+> 原文參考：https://build.nvidia.com/spark/open-webui
+---
 
 💡 核心概念
 Open WebUI：你的 AI 控制面板（WEB介面）。
