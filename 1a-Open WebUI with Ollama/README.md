@@ -1,5 +1,8 @@
 ## 開始你的第一個 AI 應用：安裝 Open WebUI 與 Ollama，打造本地大語言模型對話環境
 
+> 原文參考：[https://build.nvidia.com/spark/dgx-dashboard](https://build.nvidia.com/spark/open-webui)
+---
+
 🚀 **快速上手：在 DGX Spark（Dell Pro Max GB10）部署 Open WebUI（整合 Ollama）**<br>
 想在你的 DGX Spark 上擁有類似 ChatGPT 的美觀操作介面，同時確保所有資料完全保存在本地端嗎？<br>
 透過 Open WebUI 結合 Ollama，你可以直接在瀏覽器中調用 GPU 的強大算力，運行本地 AI 模型。<br>
