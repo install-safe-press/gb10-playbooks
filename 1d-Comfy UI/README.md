@@ -61,8 +61,10 @@ Web 瀏覽器存取連接<SPARK_IP>:8188埠
 requirements.txt- ComfyUI 安裝所需的 Python 依賴項
 main.py- ComfyUI 伺服器應用程式的主要入口點
 v1-5-pruned-emaonly-fp16.safetensors- 穩定擴散 1.5 檢查點模型
+
 時間與風險
 預計時間： 30-45分鐘（含模型下載）
+
 風險等級：中等
 模型下載檔案較大（約2GB），可能因網路問題而失敗。
 連接埠 8188 必須可存取才能使用 Web 介面功能。
