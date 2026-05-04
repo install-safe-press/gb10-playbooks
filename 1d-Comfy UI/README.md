@@ -2,10 +2,33 @@ Comfy UI ： 安裝與使用 AI 繪圖工具 Comfy UI 生成圖像.
 > 原始出處 https://build.nvidia.com/spark/comfy-ui
 ---
 
+ComfyUI = 「在網頁用文字描述提示詞, 令 AI 產出繪圖」
+
 基本思路
 ComfyUI 是一款開源的 Web 伺服器應用程序，用於使用 SDXL、Flux 等基於擴散的模型生成 AI 影像。它擁有基於瀏覽器的使用者介面，允許使用者建立、編輯和運行包含多個步驟的圖像生成和編輯工作流程。這些生成和編輯步驟（例如，載入模型、新增文字或取樣）在使用者介面中以節點的形式進行配置，使用者可以透過連接線將節點連接起來，從而形成工作流程。
 
-ComfyUI 使用主機的 GPU 進行推理，因此您可以將其安裝在GB10 DGX Spark 或者是帶有Nvidia GPU 的桌機筆電上，並直接在您的裝置上完成所有影像產生和編輯。
+ComfyUI = Stable Diffusion 的模組化工作站級控制平台。
+
+
+簡單架構圖
+
+使用者操作
+     ↓
+Web UI 前端
+     ↓
+節點流程控制
+     ↓
+Python Backend
+     ↓
+模型載入（SD/LoRA/VAE/ControlNet）
+     ↓
+GPU 推理
+     ↓
+生成圖片 / 影片
+
+
+
+ComfyUI 使用主機的 GPU 進行推理，因此您可以將其安裝在GB10 DGX Spark ，並直接在您的裝置上完成所有影像產生和編輯。
 
 工作流程以 JSON 檔案格式儲存，因此您可以對其進行版本控制，以便將來進行工作、協作和可重現性管理。
 
