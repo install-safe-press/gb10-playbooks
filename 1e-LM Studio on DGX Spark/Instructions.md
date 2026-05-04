@@ -51,15 +51,24 @@ lms server start --bind 0.0.0.0 --port 1234
 
 > `--bind 0.0.0.0` 表示允許同一區域網路內的所有裝置連線。請確認連線的裝置都是你信任的裝置。
 
+![lm-3](images/lm-3.jpg)<br>
+
+
 **測試筆電是否能連上 GB10：**
 
-在筆電的終端機執行（將 `<SPARK_IP>` 替換為 GB10 的實際 IP）：
+在筆電開啟瀏覽器（將 `<GB10_IP>` 替換為 GB10 的實際 IP）：
 
-```bash
-curl http://<GB10_IP>:1234/api/v1/models
 ```
+http://<GB10_IP>:1234/api/v1/models
+```
+![lm-5](images/lm-5.jpg)<br>
+
+
+
 ## Step 4 Windows NB LM Studio GUI APP
 
+![lm-6](images/lm-6.jpg)<br>
+![lm-7](images/lm-7.jpg)<br>
 
 
 
@@ -71,9 +80,15 @@ curl http://<GB10_IP>:1234/api/v1/models
 lms get nvidia/nemotron-3-nano-omni
 ```
 
+![lm-3](images/lm-3.jpg)<br>
+
+
+
+
+
 > 📦 模型檔案較大26GB，下載需要一段時間，請耐心等待。
 模型檔案存在那？ 模型檔案會以gguf格式存在如下
-> 
+>![lm-4](images/lm-4.jpg)<br> 
 
 GGUF (GPT-Generated Unified Format) 是由 llama.cpp 創始人 Georgi Gerganov 定義的二進位大模型檔案格式，主要用於在消費級硬體（尤其是 CPU+GPU 環境）上高效運行 LLM。它是專為量化後的模型推理而設計的單一檔案格式，具備加載速度快、相容性高以及能完整包含模型數據的優點。
 
@@ -128,6 +143,7 @@ lms ls
 
 看到模型名稱出現在清單中即代表下載成功 ✅
 
+
 ---
 
 ## Step 6：載入模型
@@ -140,7 +156,7 @@ lms load nvidia/nemotron-3-nano-omni
 
 > 載入完成後，模型即處於待機狀態，可以開始接收推理請求。
 
-
+![lm-8](images/lm-8.jpg)<br>
 
 ---
 
