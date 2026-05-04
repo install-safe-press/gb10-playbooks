@@ -142,7 +142,7 @@ lms ls
 ```
 
 看到模型名稱出現在清單中即代表下載成功 ✅
-
+![lm-7-2](images/lm-7-2.jpg)<br>
 
 ---
 
@@ -160,8 +160,6 @@ lms load nvidia/nemotron-3-nano-omni
 
 ---
 
-## Step 7：從筆電發送測試提示
-
 
 ## Step 8（Windows NB LM Studio 連到GB10 ）：設定 LM Link 加密連線
 
@@ -178,6 +176,10 @@ lms load nvidia/nemotron-3-nano-omni
 > 📋 **目前限制（預覽版）：** 最多 2 位使用者免費使用，每位最多 5 台裝置（共 10 台）。
 
 ---
+
+
+
+
 
 
 
