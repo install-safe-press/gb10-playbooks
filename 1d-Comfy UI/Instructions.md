@@ -161,16 +161,13 @@ http://<GB_IP>:8188
 
 ---
 
-
-
-
-
+Comfy UI程式中斷與離開: ssh cli 文字界面Ctrl+c 中斷離開 WEB 8188 就會失效
 
 ## Step 9（選用）：清理與還原
 
 > **⚠️ 警告：** 執行以下指令將刪除所有已安裝的套件與已下載的模型，且無法還原。
 
-**完整移除 ComfyUI：**
+**完整移除 ComfyUI：刪除虛擬環境。 **
 
 ```bash
 deactivate
@@ -178,8 +175,6 @@ rm -rf comfyui-env/
 rm -rf ComfyUI/
 ```
 
-**若安裝過程中想中止：**  
-按 `Ctrl+C` 停止伺服器，再刪除虛擬環境即可。
 
 ---
 
@@ -201,11 +196,12 @@ rm -rf ComfyUI/
 ```bash
 nvidia-smi
 ```
-
 > ⏱️ 圖像生成通常在 **30～60 秒**內完成，實際時間視模型大小與硬體配置而定。
 
----
+ComfyUI有很多模型與工作流 有興趣的可以參考以下
+| [https://comfyui-wiki.com) | 有關於ComfyUI 相關推薦 |
 
+---
 ## 相關資源
 
 | 資源 | 說明 |
@@ -214,3 +210,5 @@ nvidia-smi
 | [DGX Spark 文件](https://docs.nvidia.com/dgx-spark) | 硬體與系統設定參考 |
 | [DGX Spark 論壇](https://forums.developer.nvidia.com) | 社群問答與討論 |
 | [DGX Spark 使用者效能指南](https://build.nvidia.com/spark) | 效能優化建議 |
+
+
