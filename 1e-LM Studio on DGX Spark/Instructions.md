@@ -65,22 +65,10 @@ lms server start --bind 0.0.0.0 --port 1234
 ```bash
 curl http://<GB10_IP>:1234/api/v1/models
 ```
+## Step 4 Windows NB LM Studio GUI APP
 
-## Step 4（選用）：設定 LM Link 加密連線
 
-> 如果你的筆電與 GB10 **不在同一個區域網路**，或不想手動記 IP 位址，可以使用 **LM Link** 透過端對端加密連線遠端存取模型。
 
-**設定步驟：**
-
-1. **建立連結：** 前往 https://lmstudio.ai/link，依照「建立你的連結」的步驟建立私人 LM Link 網路
-2. **連接兩台裝置：** 分別在 GB10（llmster）和筆電上登入並加入同一個 Link
-3. **使用遠端模型：** 在筆電上開啟 LM Studio，GB10 上的模型會自動出現在模型載入器中
-
-連線成功後，所有工具只需指向 `localhost:1234` 即可使用 GB10 上的模型，**不需要修改任何端點設定**，相容工具包括 LM Studio SDK、Codex、Claude Code、OpenCode 以及 Step 7 的腳本。
-
-> 📋 **目前限制（預覽版）：** 最多 2 位使用者免費使用，每位最多 5 台裝置（共 10 台）。
-
----
 
 ## Step 5：下載 AI 模型到 GB10
 
@@ -165,42 +153,30 @@ lms load nvidia/nemotron-3-nano-omni
 
 ## Step 7：從筆電發送測試提示
 
-在筆電上安裝對應語言的 SDK，並執行 Step 2 下載的腳本。
 
-> ⚠️ **執行前請先編輯腳本**，將其中的 `<SPARK_IP>` 替換為 GB10 的實際 IP 位址。
+## Step 8（Windows NB LM Studio 連到GB10 ）：設定 LM Link 加密連線
 
----
+> 如果你的筆電與 GB10 **不在同一個區域網路**，或不想手動記 IP 位址，可以使用 **LM Link** 透過端對端加密連線遠端存取模型。
 
-### JavaScript
+**設定步驟：**
 
-**前置需求：** 已安裝 `npm` 與 `node`
+1. **建立連結：** 前往   https://lmstudio.ai/link    依照「建立你的連結」的步驟建立私人 LM Link 網路
+2. **連接兩台裝置：** 分別在 GB10（llmster）和筆電上登入並加入同一個 Link
+3. **使用遠端模型：** 在筆電上開啟 LM Studio，GB10 上的模型會自動出現在模型載入器中
 
-```bash
-npm install @lmstudio/sdk
-node run.js
-```
+連線成功後，所有工具只需指向 `localhost:1234` 即可使用 GB10 上的模型，**不需要修改任何端點設定**，相容工具包括 LM Studio SDK、Codex、Claude Code、OpenCode 以及 Step 7 的腳本。
 
----
-
-### Python
-
-**前置需求：** 已安裝 `uv`
-
-```bash
-uv run --script run.py
-```
+> 📋 **目前限制（預覽版）：** 最多 2 位使用者免費使用，每位最多 5 台裝置（共 10 台）。
 
 ---
 
-### Bash
 
-**前置需求：** 已安裝 `jq` 與 `curl`
 
-```bash
-bash run.sh
-```
 
----
+
+
+
+
 
 ## Step 8：後續擴充
 
