@@ -276,3 +276,6 @@ Open WebUI、AnythingLLM、Python 腳本、LangChain、Flowise、VS Code 插件�
 | [DGX Spark 文件](https://docs.nvidia.com/dgx-spark) | 硬體與系統參考 |
 | [DGX Spark 論壇](https://forums.developer.nvidia.com) | 社群問答 |
 | [LM Studio Discord](https://discord.gg/lmstudio) | 即時社群支援 |
+
+## Q&A
+可以在GB10上創建WEB UI 對LM 進行操作嗎？ A: 使用OpenWebUI對接
