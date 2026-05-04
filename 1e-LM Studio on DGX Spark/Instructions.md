@@ -7,7 +7,7 @@
 | 步驟 | 說明 | 執行位置 |
 |------|------|----------|
 | Step 1 | 安裝 llmster | GB10 終端機 |
-| Step 2 | 下載輔助腳本 | 筆電本機終端機 |
+| Step 2 | 下載輔助腳本 | 筆電本機終端機 |  //此為原範例 , 本說明無採用 ,採另一種方案
 | Step 3 | 啟動 LM Studio API 伺服器 | GB10 終端機 |
 | Step 4 | （選用）設定 LM Link 加密連線 | GB10 + 筆電 |
 | Step 5 | 下載 AI 模型 | GB10 終端機 |
@@ -28,23 +28,16 @@
 curl -fsSL https://lmstudio.ai/install.sh | bash
 ```
 
+
 安裝完成後，請依照終端機輸出的說明，將 `lms` 加入 **PATH 環境變數**，這樣你才能在任何目錄下直接執行 `lms` 指令。
+
+![lm-1](images/lm-1.jpg)<br>
+
 
 > 💡 **`lms` 是什麼？**  
 > 這是 LM Studio 的命令列工具（CLI），後續所有操作（下載模型、啟動伺服器、載入模型）都會用到它。
 
 ---
-
-## Step 2：下載輔助腳本
-
-在你的**終端機**執行以下指令，下載後續測試用的腳本。依你偏好的語言選擇其中一個（或全部下載）：
-
-```bash
-# Bash
-curl -L -O https://raw.githubusercontent.com/lmstudio-ai/docs/main/_assets/nvidia-spark-playbook/bash/run.sh
-```
-
-> 這些腳本將在 **Step 7** 用來向 GB10 發送測試提示，驗證整個連線流程是否正常。
 
 ---
 
