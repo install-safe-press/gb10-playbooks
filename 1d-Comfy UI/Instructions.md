@@ -27,6 +27,7 @@ pip3 --version
 nvcc --version
 nvidia-smi
 ```
+![step-1](images/step-1.jpg)<br>
 
 **預期結果：**
 - `python3` 顯示 3.8 以上版本
@@ -35,6 +36,8 @@ nvidia-smi
 - `nvidia-smi` 顯示 GPU 偵測資訊
 
 ---
+
+
 
 ## Step 2：建立 Python 虛擬環境
 
@@ -57,6 +60,7 @@ source comfyui-env/bin/activate
 
 看到這個前綴就代表虛擬環境已正確啟動 ✅
 
+![step-2](images/step-2.jpg)<br>
 ---
 
 ## Step 3：安裝支援 CUDA 的 PyTorch
@@ -69,6 +73,8 @@ pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu13
 
 > 此版本專為 GB10 的 Blackwell 架構 GPU 與 CUDA 13.0 設計，請勿替換為其他版本。
 
+![step-3-1](images/step-3-1.jpg)<br>
+![step-3-2](images/step-3-2.jpg)<br>
 ---
 
 ## Step 4：下載 ComfyUI 原始碼
@@ -82,6 +88,7 @@ cd ComfyUI/
 
 > 執行完成後，你的工作目錄會切換到 `ComfyUI/` 資料夾內，後續步驟都在此目錄中執行。
 
+![step-4](images/step-4.jpg)<br>
 ---
 
 ## Step 5：安裝 ComfyUI 相依套件
@@ -94,6 +101,8 @@ pip install -r requirements.txt
 
 > 這會自動安裝所有必要元件，包含網頁介面元件與模型處理函式庫，視網路速度需要幾分鐘。
 
+![step-5-1](images/step-5-1.jpg)<br>
+![step-5-2](images/step-5-2.jpg)<br>
 ---
 
 ## Step 6：下載 Stable Diffusion 模型
@@ -109,6 +118,7 @@ cd ../../
 > 📦 檔案大小約 **2GB**，下載時間視網路速度而定，請耐心等待。  
 > 下載完成後，`cd ../../` 會將目錄切回 `ComfyUI/` 根目錄。
 
+![step-6](images/step-6.jpg)<br>
 ---
 
 ## Step 7：啟動 ComfyUI 伺服器
@@ -118,9 +128,12 @@ cd ../../
 ```bash
 python main.py --listen 0.0.0.0
 ```
+![step-7-1](images/step-7-1.jpg)<br>
 
 > `--listen 0.0.0.0` 表示伺服器會監聽所有網路介面，讓你能從 Windows PC 的瀏覽器連入。  
 > 伺服器預設使用 **Port 8188**。
+
+![step-7-2](images/step-7-2.jpg)<br>
 
 ---
 
@@ -139,13 +152,19 @@ curl -I http://localhost:8188
 在你的 Windows PC 瀏覽器輸入：
 
 ```
-http://<SPARK_IP>:8188
+http://<GB_IP>:8188
 ```
 
-> 將 `<SPARK_IP>` 替換為 GB10 的實際 IP 位址（例如 `192.168.101.159`）。  
+> 將 `<GB10_IP>` 替換為 GB10 的實際 IP 位址（例如 `192.168.101.159`）。  
 > 若使用 Tailscale，則替換為 Tailscale 分配的 IP。
+![step-8](images/step-8.jpg)<br>
 
 ---
+
+
+
+
+
 
 ## Step 9（選用）：清理與還原
 
@@ -168,7 +187,13 @@ rm -rf ComfyUI/
 
 安裝完成後，試著用預設工作流程生成第一張圖像：
 
-1. 在瀏覽器開啟 `http://<SPARK_IP>:8188`
+![step-8a](images/step-8a.jpg)<br>
+
+![step-8b](images/step-8b.jpg)<br>
+
+![step-8c](images/step-8c.jpg)<br>
+
+1. 在瀏覽器開啟 `http://<GB10_IP>:8188`
 2. 進入介面後，**預設工作流程應自動載入**
 3. 點擊「**Queue Prompt**（執行）」開始生成
 4. 在另一個終端機視窗執行以下指令，監控 GPU 使用狀況：
