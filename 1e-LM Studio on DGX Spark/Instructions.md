@@ -96,9 +96,50 @@ lms get nvidia/nemotron-3-nano-omni
 
 GGUF (GPT-Generated Unified Format) 是由 llama.cpp 創始人 Georgi Gerganov 定義的二進位大模型檔案格式，主要用於在消費級硬體（尤其是 CPU+GPU 環境）上高效運行 LLM。它是專為量化後的模型推理而設計的單一檔案格式，具備加載速度快、相容性高以及能完整包含模型數據的優點。
 
+Nemotron 3 Nano Omni 30B A3B Reasoning 這是什麼模型
+NVIDIA 的 Nemotron 3 Nano Omni 30B A3B Reasoning 是一款 開源多模態推理大型語言模型（LLM），主要設計給企業 AI Agent、文件理解、影音分析與本地部署使用。它屬於 Nemotron 3 系列中的 Nano Omni 版本。
+
+簡單拆解名稱
+Nemotron 3：第三代 Nemotron 模型家族
+Nano：較高效率、小型化版本（適合成本與速度）
+Omni：支援多模態（文字、圖片、音訊、影片）
+30B：總參數量約 300 億
+A3B：每次推理約啟用 30 億左右有效參數（MoE 架構）
+Reasoning：具備思考鏈與複雜推理能力
+
+核心特色
+多模態輸入：文字 / 圖像 / 音訊 / 影片
+MoE 混合專家架構：降低硬體需求，提高推理效率
+推理模式：適合 AI 助理、RAG、工具調用、複雜工作流
+長上下文支援：最高可處理超大型文件
+可本地部署：支援 Ollama、llama.cpp、TensorRT 等
+企業友善：開放權重、可商業應用
+
+適合用途
+本地企業 AI 助理
+文件與 PDF 智能分析
+視覺 + 語音客服 Agent
+自動化操作（Computer Use）
+私有化知識庫 / RAG 系統
+硬體需求（大致）
+4-bit 量化：約 24–32GB VRAM / RAM
+FP8 / BF16：需高階 GPU（如 NVIDIA RTX 5090 / A100 / H100）
+
+與一般模型差異
+相比純文字模型（如 Llama 或 Mistral）：
+
+更強推理
+原生影音能力
+更適合企業級 Agent
+更高吞吐效率（官方稱可達 9x）
+
+一句話總結 Nemotron 3 Nano Omni 30B A3B Reasoning = NVIDIA 推出的高效率、多模態、本地企業級 AI Agent 模型。
+
+**  **
 
 
-**下載完成後，確認模型已成功存在：**
+
+**回到GB10系統,下載完成後，確認模型已成功存在：**
 
 ```bash
 lms ls
