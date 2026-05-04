@@ -279,3 +279,4 @@ Open WebUI、AnythingLLM、Python 腳本、LangChain、Flowise、VS Code 插件�
 
 ## Q&A
 可以在GB10上創建WEB UI 對LM 進行操作嗎？ A: 使用OpenWebUI對接
+可以在Windows 上安裝LM Studio APP下載模型嗎？ A: 可以,如果你的資源夠大 
