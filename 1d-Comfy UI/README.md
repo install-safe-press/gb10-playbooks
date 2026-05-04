@@ -1,73 +1,83 @@
-Comfy UI ： 安裝與使用 AI 繪圖工具 Comfy UI 生成圖像.
-> 原始出處 https://build.nvidia.com/spark/comfy-ui
+# ComfyUI：在 GB10 上安裝與使用 AI 繪圖工具
+
+> 原始出處：https://build.nvidia.com/spark/comfy-ui
+
 ---
 
-ComfyUI = 「在網頁用文字描述提示詞, 令 AI 產出繪圖」
+## 什麼是 ComfyUI？
 
-基本思路
-ComfyUI 是一款開源的 Web 伺服器應用程序，用於使用 SDXL、Flux 等基於擴散的模型生成 AI 影像。它擁有基於瀏覽器的使用者介面，允許使用者建立、編輯和運行包含多個步驟的圖像生成和編輯工作流程。這些生成和編輯步驟（例如，載入模型、新增文字或取樣）在使用者介面中以節點的形式進行配置，使用者可以透過連接線將節點連接起來，從而形成工作流程。
+> 💡 **一句話理解：** 在網頁上輸入文字描述（提示詞），讓 AI 自動幫你畫圖。
 
-ComfyUI = Stable Diffusion 的模組化工作站級控制平台。
+**ComfyUI** 是一款開源的網頁應用程式，使用 **SDXL、Flux** 等 AI 擴散模型來生成圖像。
 
+它的特色是以「**節點（Node）**」的方式設計工作流程——每個步驟（例如載入模型、輸入提示詞、執行生成）都是一個節點，節點之間用連接線串起來，組成完整的圖像生成流程。你可以在瀏覽器中直接建立、編輯和執行這些工作流程，不需要寫任何程式碼。
 
-簡單架構圖
+---
 
-使用者操作
-     ↓
-Web UI 前端
-     ↓
-節點流程控制
-     ↓
-Python Backend
-     ↓
-模型載入（SD/LoRA/VAE/ControlNet）
-     ↓
-GPU 推理
-     ↓
-生成圖片 / 影片
+## 整體運作架構
 
+```
+使用者輸入提示詞
+       ↓
+   Web UI 前端（瀏覽器操作）
+       ↓
+   節點流程控制（工作流程）
+       ↓
+   Python 後端
+       ↓
+   模型載入（SD / LoRA / VAE / ControlNet）
+       ↓
+   GPU 推理運算
+       ↓
+   生成圖片 / 影片
+```
 
+ComfyUI 使用 GB10 的 **GPU** 進行推理運算，所有圖像生成都在本機完成，不需要依賴雲端服務。
 
-ComfyUI 使用主機的 GPU 進行推理，因此您可以將其安裝在GB10 DGX Spark ，並直接在您的裝置上完成所有影像產生和編輯。
+工作流程以 **JSON 檔案**格式儲存，方便版本控制、團隊協作與日後重現相同結果。
 
-工作流程以 JSON 檔案格式儲存，因此您可以對其進行版本控制，以便將來進行工作、協作和可重現性管理。
+---
 
-你將會取得的成就
-您將在 NVIDIA GB10 DGX Spark 裝置上安裝和設定 ComfyUI，以便您可以使用統一記憶體來處理大型模型。
+## 你將完成的目標
 
-開始前需要了解什麼
-具備使用 Python 虛擬環境和套件管理的經驗
-熟悉命令列操作和終端使用
-對深度學習模型部署和檢查點有基本的了解
-了解容器工作流程與 GPU 加速概念
-了解存取 Web 服務所需的網路配置
-先決條件
+在 **NVIDIA GB10 DGX Spark** 上安裝並設定 ComfyUI，讓你能夠利用 GB10 的統一記憶體（UMA）架構處理大型 AI 模型，並在本機產生高品質圖像。
 
-硬體需求：
-NVIDIA Grace Blackwell GB10 超級晶片系統
-穩定擴散模型至少需要 8GB GPU 顯存 
-至少 20GB 可用儲存空間
-軟體需求：
+---
 
-已安裝 Python 3.8 或更高版本：python3 --version
-pip 套件管理器可用：pip3 --version
-與 Blackwell 相容的 CUDA 工具包：nvcc --version
-Git 版本控制：git --version
-透過網路存取 Hugging Face 下載模型
-Web 瀏覽器存取連接<SPARK_IP>:8188埠
-輔助文件
-所有必需的資源都可以在 GitHub 上的 ComfyUI 程式碼庫中找到。
+## 開始前需要具備的基礎知識
 
-requirements.txt- ComfyUI 安裝所需的 Python 依賴項
-main.py- ComfyUI 伺服器應用程式的主要入口點
-v1-5-pruned-emaonly-fp16.safetensors- 穩定擴散 1.5 檢查點模型
+| 知識領域 | 說明 |
+|----------|------|
+| Python 虛擬環境 | 了解如何建立與使用 `venv` 或 `conda` 環境 |
+| 命令列操作 | 熟悉在終端機輸入指令 |
+| 深度學習模型基礎 | 了解模型檔案（checkpoint）的基本概念 |
+| Docker / GPU 加速 | 對容器工作流程與 GPU 運算有基本認識 |
+| 網路配置 | 了解如何透過 IP 位址與埠位存取網頁服務 |
 
-時間與風險
-預計時間： 30-45分鐘（含模型下載）
+> 💡 如果你是完全初學者，建議先完成前幾章節的 DGX Dashboard 與 VS Code 設定，再回來操作本章。
 
-風險等級：中等
-模型下載檔案較大（約2GB），可能因網路問題而失敗。
-連接埠 8188 必須可存取才能使用 Web 介面功能。
-回滾：可以刪除虛擬環境以移除所有已安裝的軟體套件。可以手動從檢查點目錄中刪除已下載的模型。
-最後更新時間： 2025年11月10日
-將 ComfyUI PyTorch 更新至 CUDA 13.0
+---
+
+## 先決條件
+
+### 硬體需求
+
+- NVIDIA Grace Blackwell **GB10** 超級晶片系統
+- 至少 **8GB GPU 顯存**（執行 Stable Diffusion 模型所需）
+- 至少 **20GB 可用儲存空間**（用於存放模型檔案）
+
+### 軟體需求
+
+在開始安裝前，請先在 GB10 終端機確認以下工具均已就緒：
+
+| 工具 | 確認指令 | 說明 |
+|------|----------|------|
+| Python 3.8+ | `python3 --version` | 執行 ComfyUI 的基礎環境 |
+| pip 套件管理器 | `pip3 --version` | 用於安裝 Python 套件 |
+| CUDA 工具包 | `nvcc --version` | 需與 Blackwell 架構相容 |
+| Git | `git --version` | 用於下載 ComfyUI 原始碼 |
+
+### 網路需求
+
+- 可連線至 **Hugging Face**（用於下載模型）
+- 瀏覽器能存取 `http://<GB10_IP>:8188`（ComfyUI 網頁介面的預設埠位）
