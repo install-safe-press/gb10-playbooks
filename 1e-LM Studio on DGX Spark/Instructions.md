@@ -91,6 +91,12 @@ lms get nvidia/nemotron-3-nano-omni
 ```
 
 > 📦 模型檔案較大26GB，下載需要一段時間，請耐心等待。
+模型檔案存在那？ 模型檔案會以gguf格式存在如下
+> 
+
+GGUF (GPT-Generated Unified Format) 是由 llama.cpp 創始人 Georgi Gerganov 定義的二進位大模型檔案格式，主要用於在消費級硬體（尤其是 CPU+GPU 環境）上高效運行 LLM。它是專為量化後的模型推理而設計的單一檔案格式，具備加載速度快、相容性高以及能完整包含模型數據的優點。
+
+
 
 **下載完成後，確認模型已成功存在：**
 
@@ -111,6 +117,8 @@ lms load nvidia/nemotron-3-nano-omni
 ```
 
 > 載入完成後，模型即處於待機狀態，可以開始接收推理請求。
+
+
 
 ---
 
