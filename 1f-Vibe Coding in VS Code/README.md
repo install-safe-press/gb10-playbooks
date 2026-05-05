@@ -52,7 +52,7 @@
 ---
 
 輸出結果
+https://github.com/install-safe-press/gb10-playbooks/blob/main/1f-Vibe%20Coding%20in%20VS%20Code/images/vsocde-vibe-30fps-1920.gif
 
 
-![vscode-vide](images/vscode-vibe.gif)
-![vscode-vide](images/vscode-vibe-30fps-1920.gif)
+
