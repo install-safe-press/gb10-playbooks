@@ -125,6 +125,7 @@ sudo dpkg -i DOWNLOADED_PACKAGE_NAME
 ---
 
 ## Step 6：設定 Windows 筆電連線到 GB10 Ollama（遠端使用）
+確認 vs code 有連到Remote server , 有登入
 
 > 此步驟在 **Windows 筆電的 VS Code** 中執行，讓筆電的 Continue 使用 GB10 上的 Ollama 模型。
 
