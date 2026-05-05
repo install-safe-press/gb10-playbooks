@@ -1,7 +1,6 @@
 # Vibe Coding 安裝與設定步驟
 
 ---
-
 ## 整體流程概覽
 
 | 步驟 | 說明 | 執行位置 |
@@ -15,7 +14,7 @@
 
 ---
 
-## Step 1：安裝 Ollama 並下載模型
+## Step 1：安裝 Ollama 並下載模型 （之前就做完了省略）
 
 在 **GB10 終端機**執行以下指令，安裝最新版 Ollama：
 
@@ -33,12 +32,14 @@ ollama pull gpt-oss:120b
 
 ---
 
-## Step 2（選用）：啟用遠端存取
+## Step 2（採用這種模式）：啟用遠端存取
 
 > 如果你只打算在 GB10 本機使用 VS Code，可以跳過此步驟。  
 > 若要從 Windows 筆電的 VS Code 遠端連線到 GB10 的 Ollama，則必須完成此步驟。
+![vs-1](images/vs-1.jpg)<br>
 
-### 2-1. 修改 Ollama 服務設定
+
+### 2-1. 修改 Ollama 服務設定 （之前就做完了省略）
 
 ```bash
 sudo systemctl edit ollama
@@ -54,7 +55,7 @@ Environment="OLLAMA_ORIGINS=*"
 
 儲存後離開編輯器。
 
-### 2-2. 重新載入並重啟服務
+### 2-2. 重新載入並重啟服務 （之前就做完了省略）
 
 ```bash
 sudo systemctl daemon-reload
@@ -80,7 +81,7 @@ curl -v http://YOUR_SPARK_IP:11434/api/version
 
 ---
 
-## Step 3：安裝 VS Code
+## Step 3：安裝 VS Code （之前就做完了省略--裝在Windows）
 
 ### 在 GB10 上安裝（ARM64 架構）
 
@@ -92,7 +93,7 @@ curl -v http://YOUR_SPARK_IP:11434/api/version
 sudo dpkg -i DOWNLOADED_PACKAGE_NAME
 ```
 
-### 在 Windows 筆電上安裝（遠端使用）
+### 在 Windows 筆電上安裝（遠端使用） （之前就做完了省略）
 
 同樣前往上方下載頁面，選擇對應你系統架構的版本安裝即可。
 
@@ -120,6 +121,7 @@ sudo dpkg -i DOWNLOADED_PACKAGE_NAME
 
 > 自動偵測完成後，你下載的模型（例如 `gpt-oss:120b`）就會成為預設的推理模型 ✅
 
+
 ---
 
 ## Step 6：設定 Windows 筆電連線到 GB10 Ollama（遠端使用）
@@ -129,6 +131,10 @@ sudo dpkg -i DOWNLOADED_PACKAGE_NAME
 ### 6-1. 安裝 Continue 擴充套件
 
 依照 Step 4 的說明，在筆電的 VS Code 中也安裝 Continue 擴充套件。
+![vs-2](images/vs-2.jpg)<br>
+![vs-3](images/vs-3.jpg)<br>
+![vs-4](images/vs-4.jpg)<br>
+
 
 ### 6-2. 進入設定
 
@@ -138,6 +144,8 @@ sudo dpkg -i DOWNLOADED_PACKAGE_NAME
 4. 選擇 **Ollama**，模型選 **Autodetect**
 
 > ⚠️ 此時 Continue 會顯示無法偵測到模型，這是正常的——因為模型在 GB10 上，不在筆電本機。
+看不懂上面這一段對不對！ 對我也看不懂 別管6-2 直接做 6-3
+
 
 ### 6-3. 手動編輯設定檔
 
@@ -145,6 +153,9 @@ sudo dpkg -i DOWNLOADED_PACKAGE_NAME
 2. 在左側面板點擊「**Models（模型）**」
 3. 在「Chat」下方的第一個下拉選單旁邊，點擊**齒輪圖示**
 4. `config.yaml` 設定檔會自動開啟
+
+![vs-5](images/vs-5.jpg)<br>
+
 
 ### 6-4. 貼上以下設定內容
 
@@ -169,9 +180,15 @@ models:
       - autocomplete
 ```
 
+
 儲存後，Continue 就會透過網路連線到 GB10 的 Ollama 伺服器。
 
+![vs-6](images/vs-6.jpg)<br>
+
+
 > 💡 如果想使用 GB10 上其他的 Ollama 模型，只需在 `models` 區塊中新增額外的模型條目即可。
+
+![vs-7](images/vs-7.jpg)<br>
 
 ---
 
