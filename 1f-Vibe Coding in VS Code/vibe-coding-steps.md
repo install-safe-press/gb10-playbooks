@@ -188,6 +188,8 @@ models:
 
 > 💡 如果想使用 GB10 上其他的 Ollama 模型，只需在 `models` 區塊中新增額外的模型條目即可。
 
+vs code 多了個Continue 插件視窗 , 開始交談  第一次回應比較慢 
+
 ![vs-7](images/vs-7.jpg)<br>
 
 ---
