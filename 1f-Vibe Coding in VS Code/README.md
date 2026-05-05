@@ -1,35 +1,53 @@
-Vibe Coding in VS Code AI 程式開發助手
-> 原始出處 https://build.nvidia.com/spark/vibe-coding
+# Vibe Coding in VS Code：AI 程式開發助手
+
+> 原始出處：https://build.nvidia.com/spark/vibe-coding  
 ---
-使用 DGX Spark（GB10） 作為本地或遠端 Vibe Coding 助手，配合 Ollama 和 Continue.dev Extension AI 程式碼助手
 
-https://www.continue.dev/
+## 什麼是 Vibe Coding？
 
-本指南將引導您完成 DGX Spark 的設置，使其成為Vibe 編碼助理——既可以本地使用，也可以透過 Continue.dev 將其作為 VSCode 的遠端編碼助理。
-本指南使用Ollama和GPT-OSS 120B，方便您將編碼助理部署到 VSCode。指南中包含進階說明，指導您如何讓 DGX Spark 和 Ollama 透過本地網路提供編碼助理。
-本指南基於全新安裝的作業系統編寫。如果您的作業系統並非全新安裝，並且遇到問題，請參閱故障排除標籤。
+**Vibe Coding** 是一種以 AI 輔助為核心的程式開發方式——你描述想要的功能，AI 幫你寫出程式碼，讓開發流程更快、更直覺。
 
-你將會取得的成就
-您將擁有一個配置完整的 DGX Spark 系統，該系統具備以下功能：
+本章節將帶你把 **DGX Spark（GB10）** 設定為本地或遠端的 AI 程式碼助手，搭配以下工具組合：
 
-透過 Ollama 運行本地程式碼協助。
-為 Continue 和 VSCode 整合提供遠端服務模式。
-使用統一記憶體託管大型 LLM，例如 GPT-OSS 120B。
+| 工具 | 說明 |
+|------|------|
+| **Ollama** | 在 GB10 上本地執行 LLM |
+| **GPT-OSS 120B** | 作為程式碼助手的 AI 模型 |
+| **Continue.dev** | VS Code 的 AI 程式碼助手擴充套件 |
 
-先決條件
-DGX Spark（建議使用 128GB 統一記憶體）
-Ollama和您選擇的 LLM（例如gpt-oss:120b）
-VSCode
+🔗 Continue.dev 官網：https://www.continue.dev/
 
-繼續VSCode 擴展
-用於模型下載的互聯網接入
-具備開啟 Linux 終端機、複製貼上指令的基本操作能力。
-擁有 sudo 權限。
-可選：遠端存取配置的防火牆控制
+---
 
-時間與風險
-時長：約30分鐘
-風險：由於網路問題導致資料下載緩慢或失敗
-回滾：在正常使用過程中未對系統進行任何永久性變更。
-最後更新日期： 2025年10月21日
-首次發表
+## 本章節目標
+
+完成設定後，你的 GB10 將具備以下能力：
+
+- 透過 **Ollama** 在本機執行 AI 程式碼輔助
+- 作為**遠端服務**，供 VS Code 的 Continue 擴充套件連線使用
+- 利用 GB10 的**統一記憶體（UMA）** 執行 GPT-OSS 120B 等大型模型
+
+> 📝 本指南以**全新安裝的作業系統**為基礎撰寫。若你的系統非全新安裝且遇到問題，請參閱故障排除頁籤。
+
+---
+
+## 先決條件
+
+### 硬體需求
+
+- **DGX Spark（GB10）**，建議使用 128GB 統一記憶體版本
+
+### 軟體需求
+
+- **Ollama**（已安裝於 GB10）及你選擇的 LLM（例如 `gpt-oss:120b`）
+- **VS Code**（安裝於 Windows 筆電）
+- **Continue** VS Code 擴充套件
+- 可連線至網際網路（用於下載模型）
+
+### 操作能力需求
+
+- 能夠開啟 Linux 終端機並複製貼上指令
+- 擁有 GB10 的 `sudo` 權限
+- （選用）具備防火牆設定能力（用於遠端存取配置）
+
+---
