@@ -5,11 +5,12 @@
 * 透過 Spark Playbooks 熟悉各種應用場景，並將實際操作經驗完整記錄下來。  
 
 本專案聚焦於 **NVIDIA GB10 Grace Blackwell 超級晶片** 上的 AI 工作負載應用說明與實作範例。<br>
-## 依據 NVIDIA 官方 Spark Playbooks 為操作基礎,進行中文註解補充說明,一切版權為各原廠所有. 
 
-https://build.nvidia.com/spark <br>
+##本專案一切為NVIDIA GB10相關用戶輔助學習使用,依據 NVIDIA 官方 Spark Playbooks 為操作基礎,進行中文註解補充說明,一切版權為原廠所有. 
+合理引用原則下,遵照NVIDIA TOU https://assets.ngc.nvidia.com/products/api-catalog/legal/NVIDIA_Technology_Access_TOU.pdf 
 
-Spark Playbooks 目前約有三十項以上範例劇本，本專案將每一個子項目獨立拆分成單獨目錄進行實作與整理。<br>
+
+依據 https://build.nvidia.com/spark <br> Playbooks 目前約有三十項以上範例劇本，本專案將每一個子項目獨立拆分成單獨目錄進行實作與整理。<br>
 
 除官方內容外，另額外補充：  
 - 硬體架構說明  
