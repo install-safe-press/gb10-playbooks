@@ -29,6 +29,7 @@
 
 ---
 
+![vscode-vide](images/vscode-vibe-30fps-1920.gif)
 ## 先決條件
 
 ### 硬體需求
@@ -49,4 +50,7 @@
 1b｜VS Code 遠端開發環境 <br>
 
 ---
+
+輸出結果
+
 
