@@ -29,7 +29,7 @@
 
 ---
 
-![vscode-vide](images/vscode-vibe-30fps-1920.gif)
+
 ## 先決條件
 
 ### 硬體需求
@@ -54,3 +54,5 @@
 輸出結果
 
 
+![vscode-vide](images/vscode-vibe.gif)
+![vscode-vide](images/vscode-vibe-30fps-1920.gif)
