@@ -175,6 +175,12 @@ models:
 
 ---
 
+輸出結果（底下URL請開啟新視窗）
+https://github.com/install-safe-press/gb10-playbooks/blob/main/1f-Vibe%20Coding%20in%20VS%20Code/images/vsocde-vibe-30fps-1920.gif
+同時使用 free , top  驗證ollama啟動作業 gpt-oss:120b 有吃記憶體。
+
+
+
 ## 故障排除
 
 | 症狀 | 可能原因 | 解決方式 |
