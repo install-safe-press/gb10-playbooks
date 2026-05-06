@@ -48,3 +48,75 @@ Portainer 讓你用瀏覽器就能完整控制 Docker 生態，特別適合 GB10
 
 >原廠站站 https://www.portainer.io/
 ---
+開始在GB以容器的方式佈署portainer 
+
+1.建立portainer目錄
+```bash
+mkdir portainer
+```
+2.進入portainer目錄
+```bash
+cd portainer/
+```
+3.使用任意編輯器 vi / nano 建立 docker-compose.yml 內容如下
+```text
+version: "3.8"
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    ports:
+      - "8000:8000"
+      - "9443:9443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+volumes:
+  portainer_data:
+```
+4.佈署啟動
+```bash
+ docker compose up -d
+```
+5.確認docker啟動狀態
+```bash
+ docker ps
+```
+6.查看portainer啟動的log
+```bash
+ docker logs portainer
+```
+
+![portainer-1](images/portainer-1.jpg)<br>
+
+7.開啟portainer web https://GB10_IP:/9443 
+第一次要設定 admin密碼
+
+![portainer-2](images/portainer-2.jpg)<br>
+
+portainer 的Quick  start > Environment Wizard > Get Started 
+![portainer-3](images/portainer-3.jpg)<br>
+
+畫面顯示的是local本地docker的狀態 > Live connect 進入本地環境的資訊狀態Dashboard
+![portainer-4](images/portainer-4.jpg)<br>
+
+Dashboard , Environment info . 發現有4個Containers , 點進去看細節
+![portainer-5](images/portainer-5.jpg)<br>
+
+Containers 列表 , 有沒有很像 docker ps 所呈現出來的樣子
+![portainer-6](images/portainer-6.jpg)<br>
+
+![portainer-7](images/portainer-7.jpg)<br>
+
+![portainer-8](images/portainer-8.jpg)<br>
+
+
+![portainer-9](images/portainer-9.jpg)<br>
+
+![portainer-10](images/portainer-10.jpg)<br>
+
+![portainer-11](images/portainer-11.jpg)<br>
+
