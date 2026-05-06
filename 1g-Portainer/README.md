@@ -1,67 +1,75 @@
-部署 Portainer ，讓你的 GB10 現在具備完整圖形化 Docker 管理能力。
+# 部署 Portainer：GB10 圖形化 Docker 管理介面
 
-Portainer CE 就像是 Docker 的「網頁控制台」，把原本需要輸入指令的管理工作改成圖形化操作。
+> 官方網站：https://www.portainer.io/
 
-Portainer 可以做什麼？
-1. 管理容器（Containers）
-
-你可以直接：
-
-啟動 / 停止
-重啟
-刪除
-查看日誌
-進入 Console（類似 SSH 到容器內）
-2. 管理映像檔（Images）
-拉取新 Image
-刪除舊版
-更新版本
-查看容量使用
-3. 管理 Volume（資料卷）
-查看資料儲存位置
-建立永久儲存
-刪除未使用 Volume
-4. 管理 Network（網路）
-查看容器互聯方式
-建立自訂網段
-排查 Port 問題
-
-| 功能         | Docker CLI  | Portainer |
-| ---------- | ----------- | --------- |
-| 查看容器       | docker ps   | Web UI    |
-| 停止容器       | docker stop | 按鈕        |
-| 查看日誌       | docker logs | 圖形化       |
-| Compose 部署 | CLI         | Web 表單    |
-| 資源監控       | 指令          | Dashboard |
-
-
-最大優勢
-初學者：
-
-不用背指令。
-
-進階使用者：
-
-集中管理多服務、多主機。
-
-Portainer 讓你用瀏覽器就能完整控制 Docker 生態，特別適合 GB10、本地 AI Server、NAS 與 HomeLab。
-
->原廠站站 https://www.portainer.io/
 ---
-開始在GB以容器的方式佈署portainer 
+（本章節不屬於 Nvidia DGX Spark playbooks , 是針對容器好管理所創建的工具）
 
-1.建立portainer目錄
+## 什麼是 Portainer？
+
+**Portainer CE** 就像是 Docker 的「**網頁控制台**」，把原本需要記憶並輸入指令的管理工作，全部改成在瀏覽器中點擊按鈕操作。
+另有商業版請看Portainer官方網站。
+
+---
+
+## Portainer 可以做什麼？
+
+### 管理容器（Containers）
+
+直接在網頁上對容器進行：啟動 / 停止、重啟、刪除、查看日誌、進入 Console（類似 SSH 進入容器內部）
+
+### 管理映像檔（Images）
+
+拉取新 Image、刪除舊版、更新版本、查看容量使用狀況
+
+### 管理 Volume（資料卷）
+
+查看資料儲存位置、建立永久儲存、刪除未使用的 Volume
+
+### 管理 Network（網路）
+
+查看容器互聯方式、建立自訂網段、排查 Port 連線問題
+
+---
+
+## CLI 指令 vs Portainer 比較
+
+| 功能 | Docker CLI 指令 | Portainer 操作方式 |
+|------|----------------|-------------------|
+| 查看容器 | `docker ps` | Web UI 一覽表 |
+| 停止容器 | `docker stop` | 按鈕點擊 |
+| 查看日誌 | `docker logs` | 圖形化即時顯示 |
+| Compose 部署 | CLI 指令 | Web 表單 |
+| 資源監控 | 指令查詢 | Dashboard 圖表 |
+
+> 💡 **最大優勢：**  
+> 初學者不用背指令，進階使用者可集中管理多個服務與主機。  
+> Portainer 特別適合 GB10、本地 AI Server、NAS 與 HomeLab 環境。
+
+---
+
+## 開始部署 Portainer
+
+以下步驟均在 **GB10 終端機**執行。
+
+### Step 1：建立 Portainer 目錄
+
 ```bash
 mkdir portainer
 ```
-2.進入portainer目錄
+
+### Step 2：進入目錄
+
 ```bash
 cd portainer/
 ```
-3.使用任意編輯器 vi / nano 建立 docker-compose.yml 內容如下
-```text
-version: "3.8"
 
+### Step 3：建立 docker-compose.yml 設定檔
+
+使用任意編輯器（`vi` 或 `nano`）建立檔案，內容如下：
+
+```yaml
+version: "3.8"
 services:
   portainer:
     image: portainer/portainer-ce:latest
@@ -73,54 +81,110 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
-
 volumes:
   portainer_data:
 ```
-4.佈署啟動
+
+> **Port 說明：**
+> - `8000`：Agent 通訊用（多主機管理時使用）
+> - `9443`：Portainer 網頁介面（HTTPS）
+
+### Step 4：啟動 Portainer 容器
+
 ```bash
- docker compose up -d
+docker compose up -d
 ```
-5.確認docker啟動狀態
+
+### Step 5：確認容器是否正常執行
+
 ```bash
- docker ps
+docker ps
 ```
-6.查看portainer啟動的log
+
+看到 `portainer` 容器狀態為 `Up` 即代表啟動成功 ✅
+
+### Step 6：查看 Portainer 啟動日誌
+
 ```bash
- docker logs portainer
+docker logs portainer
 ```
 
 ![portainer-1](images/portainer-1.jpg)<br>
 
-7.開啟portainer web https://GB10_IP:/9443 
-第一次要設定 admin密碼
+---
+
+## 首次設定 Portainer
+
+### Step 7：開啟 Portainer 網頁介面
+
+在瀏覽器輸入以下網址（將 `GB10_IP` 替換為 GB10 的實際 IP）：
+
+```
+https://GB10_IP:9443
+```
+
+> 第一次開啟時，系統會要求你設定 **admin 帳號密碼**，請設定一組你記得住的密碼。
 
 ![portainer-2](images/portainer-2.jpg)<br>
 
-portainer 的Quick  start > Environment Wizard > Get Started 
+---
+
+### Step 8：完成初始設定精靈
+
+登入後依序點擊：**Quick Start** → **Environment Wizard** → **Get Started**
+
 ![portainer-3](images/portainer-3.jpg)<br>
 
-畫面顯示的是local本地docker的狀態 > Live connect 進入本地環境的資訊狀態Dashboard
+畫面會顯示 GB10 本地 Docker 的運行狀態。點擊 **Live connect** 進入本地環境的詳細 Dashboard。
+
 ![portainer-4](images/portainer-4.jpg)<br>
 
-Dashboard , Environment info . 發現有4個Containers , 點進去看細節
+---
+
+## 使用 Portainer 管理容器
+
+### Dashboard 總覽
+
+進入後可以看到 **Dashboard** 與 **Environment info**，顯示目前有幾個容器在運行。點擊數字可查看容器清單細節。
+
 ![portainer-5](images/portainer-5.jpg)<br>
 
-Containers 列表 , 有沒有很像 docker ps 所呈現出來的樣子
+### 容器清單（等同 docker ps）
+
+容器清單頁面列出所有容器的狀態——是不是很像 `docker ps` 指令的輸出？
+
 ![portainer-6](images/portainer-6.jpg)<br>
 
-進入ollama 這個容器, 可以看狀態或進行操作  >_ Console 進入這個容器的指令操作 
+### 進入容器操作
+
+點擊 **ollama** 容器，可以查看詳細狀態或對它進行操作。點擊 **`>_ Console`** 可以進入該容器的命令列介面。
+
 ![portainer-8](images/portainer-8.jpg)<br>
 
-Connect 進入這個容器的cli console
+點擊 **Connect** 連入容器的 CLI Console：
+
 ![portainer-9](images/portainer-9.jpg)<br>
 
-進入這個容器的cli console 命令列的樣子就可以在這個畫面下指令
+進入 Console 後，就像在終端機中操作一樣，可以直接在這個畫面對容器下指令：
+
 ![portainer-10](images/portainer-10.jpg)<br>
 
-試一下 ollama list 指令 , 列出現在裡面的模型
+### 在容器內執行指令範例
+
+**列出 Ollama 容器內的所有模型：**
+
+```bash
+ollama list
+```
+
 ![portainer-11](images/portainer-11.jpg)<br>
 
-df-h 看現在磁碟空間容量
+**查看容器內的磁碟空間使用狀況：**
+
+```bash
+df -h
+```
+
 ![portainer-12](images/portainer-12.jpg)<br>
 
+> ⚠️ **注意：** 以上指令都是在 **ollama 容器的內部環境**執行，不是在 GB10 主機系統上。離開 Console 後，這些操作不會影響到 GB10 本身。
