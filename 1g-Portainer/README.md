@@ -187,3 +187,7 @@ df -h
 ![portainer-12](images/portainer-12.jpg)<br>
 
 > ⚠️ **注意：** 以上指令都是在 **ollama 容器的內部環境**執行，不是在 GB10 主機系統上。離開 Console 後，這些操作不會影響到 GB10 本身。
+
+後續： 對於容器的任何作業都可以透過  portainer web 來操作
+
+
