@@ -109,14 +109,18 @@ Dashboard , Environment info . 發現有4個Containers , 點進去看細節
 Containers 列表 , 有沒有很像 docker ps 所呈現出來的樣子
 ![portainer-6](images/portainer-6.jpg)<br>
 
-![portainer-7](images/portainer-7.jpg)<br>
-
+進入ollama 這個容器, 可以看狀態或進行操作  >_ Console 進入這個容器的指令操作 
 ![portainer-8](images/portainer-8.jpg)<br>
 
-
+Connect 進入這個容器的cli console
 ![portainer-9](images/portainer-9.jpg)<br>
 
+進入這個容器的cli console 命令列的樣子就可以在這個畫面下指令
 ![portainer-10](images/portainer-10.jpg)<br>
 
+試一下 ollama list 指令 , 列出現在裡面的模型
 ![portainer-11](images/portainer-11.jpg)<br>
+
+df-h 看現在磁碟空間容量
+![portainer-12](images/portainer-12.jpg)<br>
 
