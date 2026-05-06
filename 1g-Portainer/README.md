@@ -1,7 +1,6 @@
 # 部署 Portainer： WEB 圖形化 Docker 管理介面
 
-> 官方網站：https://www.portainer.io/  提供企業解決方案詳見網站資訊, 本章節是採用（Community Edition，社群版）
-
+> 官方網站：https://www.portainer.io/  
 ---
 （本章節不屬於 Nvidia DGX Spark playbooks , 是針對容器管理所創建的工具 ）
 
