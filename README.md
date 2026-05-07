@@ -1,4 +1,4 @@
-## Dell Pro Max GB10 / NVIDIA DGX Spark 可以做什麼？
+## Dell Pro Max GB10 本地 AI 迷你工作站 / NVIDIA DGX Spark 可以做什麼？ 
 ![summary](00-00-TARGET/summary-1.jpg)
 
 ## gb10-playbooks 專案目標
