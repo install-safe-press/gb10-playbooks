@@ -198,6 +198,33 @@ nvidia-smi
 ```
 > ⏱️ 圖像生成通常在 **30～60 秒**內完成，實際時間視模型大小與硬體配置而定。
 
+跳離 Comfy  , Ctrl + C 
+
+再次進入 Comfy   ~/ComfyUI$目錄下
+
+```
+source comfyui-env/bin/activate
+```
+
+(comfyui-env) user@promaxgb10-0a25:~/ComfyUI$ 
+```
+python main.py --listen 0.0.0.0
+```
+。。。
+To see the GUI go to: http://0.0.0.0:8188
+```
+
+跳離 Comfy  , Ctrl + C  之後要 離開 venv 
+```
+deactivate
+```
+原本：
+(comfyui-env) user@promaxgb10-0a25:~/ComfyUI$
+會變成：
+user@promaxgb10-0a25:~/ComfyUI$
+代表已退出虛擬環境。
+
+
 ComfyUI有很多模型與工作流 有興趣的可以參考以下
 | [https://comfyui-wiki.com) | 有關於ComfyUI 相關推薦 |
 
