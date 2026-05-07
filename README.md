@@ -52,6 +52,7 @@ https://www.youtube.com/playlist?list=PLTfgcc_ky0u4sMNSJLS288erbZ4YMv3Zs <br>
 | 1d | 基礎入門 | 1d-Comfy UI | AI image generation | 節點式 AI 繪圖工具 |
 | 1e | 基礎入門 | 1e-LM Studio on DGX Spark | Deploy LM Studio | 本地模型服務平台 |
 | 1f | 基礎入門 | 1f-Vibe Coding in VS Code | Coding assistant | AI 程式開發助手 |
+| 1g | 基礎入門 | 1g-Portainer | container management | 容器WEB管理 |
 | 2a | AI Agent 應用 | 2a-OpenClaw | Local AI agent | 本地 AI Agent |
 | 2b | AI Agent 應用 | 2b-OpenShell | Secure sandbox AI agents | 安全長時間 AI Agent |
 | 2c | AI Agent 應用 | 2c-NemoClaw | Telegram integration | Telegram AI Bot |
