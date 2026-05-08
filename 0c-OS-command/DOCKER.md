@@ -81,3 +81,42 @@ volumes:  - ./ollama:/root/.ollama  - ./data:/app/backend/data
 👉 compose 檔所在位置<br>
 ~/openwebui/docker-compose.yml<br>
 👉 兩者是分開的！<br>
+
+
+
+
+
+在外層確認 ollama 有使用到 GPU
+
+沒用到
+```
+user@promaxgb10-0a25:~/Desktop$ docker exec ollama ollama ps
+NAME           ID              SIZE     PROCESSOR    CONTEXT    UNTIL              
+qwen3.5:35b    3460ffeede54    32 GB    100% CPU     262144     3 minutes from now    
+user@promaxgb10-0a25:~/Desktop$
+``
+
+有用到
+```
+user@promaxgb10-0a25:~/openwebui$ docker exec ollama ollama ps
+NAME           ID              SIZE     PROCESSOR    CONTEXT    UNTIL              
+qwen3.5:35b    3460ffeede54    34 GB    100% GPU     262144     4 minutes from now    
+user@promaxgb10-0a25:~/openwebui$
+```
+
+問題在於 docker compose yml 
+   deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+Config 有 GPU 設定，但 container 沒有重建過。執行：
+bashcd ~/openwebui
+docker compose down
+docker compose up -d
+然後等 30 秒，再確認：
+bashdocker exec ollama ollama ps
+應該變成 100% GPU。
