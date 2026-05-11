@@ -638,3 +638,6 @@ openclaw pairing approve telegram 00000000
 接下來telegram 應該就可以正常對話 <br>
 
 接下來大多數設定可以使用交談式方法叫openclaw 來設定
+
+## 至於如何讓openclaw 變的更強就請參考 https://clawhub.ai/
+
