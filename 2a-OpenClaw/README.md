@@ -2,7 +2,7 @@
 
 > NVIDIA DGX Spark Playbooks 參考：https://build.nvidia.com/spark/openclaw  
 > OpenClaw 官方網站：https://openclaw.ai/  
-> ⚠️ 本章節的做法與描述與原廠說明不同，原廠網址僅供參考。
+> ⚠️ 本章節的做法與描述與原廠說明不同，請自行對照參考。
 
 ---
 
