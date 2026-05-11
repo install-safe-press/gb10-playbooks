@@ -109,7 +109,7 @@ OpenClaw **最大的價值所在**，透過外掛元件擴展 AI 的能力，可
 **實際執行操作**的節點，可控制網頁、手機應用與系統層級操作。
 
 ### 養龍蝦 需要什麼？
-1.一個裝龍蝦的系統/電腦.. windows , linux, MACOS ...實體機 虛擬機 容器都可以<br>
+1.一個裝龍蝦的系統/電腦.. windows , linux, Mac OS ...實體機 虛擬機 容器都可以<br>
 2.LLM Provider（模型供應商 / API Provider）： 接雲端服務供應商（OpenAI,Claude.....） , <br>
                                           地端自建 (ollama,LM Studio,vllm, Nvidia NIM)<br>
                                           
