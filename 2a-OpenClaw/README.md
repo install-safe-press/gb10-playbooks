@@ -111,12 +111,12 @@ OpenClaw **最大的價值所在**，透過外掛元件擴展 AI 的能力，可
 ### 養龍蝦 需要什麼？
 1.一個裝龍蝦的系統/電腦.. windows , linux, Mac OS ...實體機 虛擬機 容器都可以<br>
 2.LLM Provider（模型供應商 / API Provider）： 接雲端服務供應商（OpenAI,Claude.....） , <br>
-                                          地端自建 (ollama,LM Studio,vllm, Nvidia NIM)<br>
+                                          或地端自建 (ollama,LM Studio,vllm, Nvidia NIM)<br>
                                           
-透過先前章節的作業 已經有做以下:<br>
+本章節範例透過先前章節的作業 已經有做以下模型操作:<br>
 1a-Open WebUI with Ollama<br>
 1e-LM Studio on DGX Spark<br>
-本章將利用在 GB10上安裝OpenClaw 接上 1a-Open WebUI with Ollama 來進行演示
+將利用在 GB10上安裝OpenClaw 接上 1a-Open WebUI with Ollama 來進行演示
 
 
 
