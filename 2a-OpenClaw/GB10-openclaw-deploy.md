@@ -1,25 +1,29 @@
-使用 Dell Pro MAX GB10 佈建 openclaw
+### 使用 Dell Pro MAX GB10 佈建 openclaw<br>
 
-前提  1a-Open WebUI with Ollama  已使用 Docker 佈建 
-作業  於外層作業系統直接佈建openclaw 並存取 ollama 模型
+前提  1a-Open WebUI with Ollama  已使用 Docker 佈建 <br>
+作業  於外層作業系統直接佈建openclaw 並存取 ollama 模型<br>
 
-準備作業-1：
-在外層確認 ollama 有使用到 GPU,跑作ollama查詢接下來   docker exec ollama ollama ps
+準備作業-1：<br>
+在外層確認 ollama 有使用到 GPU,跑作ollama查詢接下來   docker exec ollama ollama ps<br>
+
+
+## 沒用到 GPU
 ```
-沒用到 GPU
 user@promaxgb10-0a25:~/Desktop$ docker exec ollama ollama ps
 NAME           ID              SIZE     PROCESSOR    CONTEXT    UNTIL              
 qwen3.5:35b    3460ffeede54    32 GB    100% CPU     262144     3 minutes from now    
 user@promaxgb10-0a25:~/Desktop$
 ```
+
+## 有用到 GPU
 ```
-有用到 GPU
 user@promaxgb10-0a25:~/openwebui$ docker exec ollama ollama ps
 NAME           ID              SIZE     PROCESSOR    CONTEXT    UNTIL              
 qwen3.5:35b    3460ffeede54    34 GB    100% GPU     262144     4 minutes from now    
 user@promaxgb10-0a25:~/openwebui$
+```
 
-問題在於 docker compose yml 
+## 問題在於 docker compose yml 
    deploy:
       resources:
         reservations:
@@ -29,80 +33,84 @@ user@promaxgb10-0a25:~/openwebui$
               capabilities: [gpu]
 
 Config 有 GPU 設定，但 container 沒有重建過。執行：
+```
 bashcd ~/openwebui
 docker compose down
 docker compose up -d
 ```
 等個30秒再檢查一次
+```
 docker exec ollama ollama ps 
+```
 
 準備作業-2：確認可以對外連網 , 回到 Home 目錄 .
-佈建openclaw於本機底下這行指令   v2026.5.7 版本為示範
+## 佈建openclaw於本機底下只要下這行指令   v2026.5.7 版本為示範
 
 ```
  curl -fsSL https://openclaw.ai/install.sh | bash
 ```
-Preparing installer interface...
+底下開始輸出訊息與佈署程序
+Preparing installer interface...<br>
 
-  🦞 OpenClaw Installer
-  Your terminal just grew claws—type something and let the bot pinch the busywork.
+  🦞 OpenClaw Installer<br>
+  Your terminal just grew claws—type something and let the bot pinch the busywork.<br>
 
-✓ Detected: linux
+✓ Detected: linux<br>
 
-Install plan
-OS: linux
-Install method: npm
-Requested version: latest
+Install plan<br>
+OS: linux<br>
+Install method: npm<br>
+Requested version: latest<br>
 
-[1/3] Preparing environment
-✓ Node.js v22.22.2 found
-· Active Node.js: v22.22.2 (/usr/bin/node)
-· Active npm: 10.9.7 (/usr/bin/npm)
-· Using Node.js runtime at /usr/bin/node
-· Using Node.js runtime at /usr/bin/node
+[1/3] Preparing environment<br>
+✓ Node.js v22.22.2 found<br>
+· Active Node.js: v22.22.2 (/usr/bin/node)<br>
+· Active npm: 10.9.7 (/usr/bin/npm)<br>
+· Using Node.js runtime at /usr/bin/node<br>
+· Using Node.js runtime at /usr/bin/node<br>
 
-[2/3] Installing OpenClaw
-✓ Git already installed
-· Installing OpenClaw v2026.5.7
-✓ OpenClaw npm package installed
-✓ OpenClaw installed
+[2/3] Installing OpenClaw<br>
+✓ Git already installed<br>
+· Installing OpenClaw v2026.5.7<br>
+✓ OpenClaw npm package installed<br>
+✓ OpenClaw installed<br>
 
-[3/3] Finalizing setup
-· Refreshing loaded gateway service
-· Refreshing gateway service
-✓ Gateway service metadata refreshed
-· Restarting gateway service
-✗ Restarting gateway service failed — re-run with --verbose for details
-Restarted systemd service: openclaw-gateway.service
-Gateway restart failed after 13s: service stayed stopped and port 18789 stayed free.
-Service runtime: status=stopped, state=failed, lastExit=78
-Gateway port 18789 status: free.
-Gateway restart failed after 13s: service stayed stopped and health checks never came up.
-Tip: openclaw gateway status --deep
-Tip: openclaw doctor
-! Gateway service restart failed; continuing
+[3/3] Finalizing setup<br>
+· Refreshing loaded gateway service<br>
+· Refreshing gateway service<br>
+✓ Gateway service metadata refreshed<br>
+· Restarting gateway service<br>
+✗ Restarting gateway service failed — re-run with --verbose for details<br>
+Restarted systemd service: openclaw-gateway.service<br>
+Gateway restart failed after 13s: service stayed stopped and port 18789 stayed free.<br>
+Service runtime: status=stopped, state=failed, lastExit=78<br>
+Gateway port 18789 status: free.<br>
+Gateway restart failed after 13s: service stayed stopped and health checks never came up.<br>
+Tip: openclaw gateway status --deep<br>
+Tip: openclaw doctor<br>
+! Gateway service restart failed; continuing<br>
 
-🦞 OpenClaw installed successfully (2026.5.7)!
-Installation complete. Your productivity is about to get weird.
+🦞 OpenClaw installed successfully (2026.5.7)!<br>
+Installation complete. Your productivity is about to get weird.<br>
 
-· Config already present; running doctor
-· Running doctor to migrate settings
-· Running doctor
-✓ Doctor complete
-· Config already present; skipping onboarding
-· Starting setup
-
-
-🦞 OpenClaw 2026.5.7 (eeef486) — Greetings, Professor Falken
+· Config already present; running doctor<br>
+· Running doctor to migrate settings<br>
+· Running doctor<br>
+✓ Doctor complete<br>
+· Config already present; skipping onboarding<br>
+· Starting setup<br>
 
 
-▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-██░▄▄▄░██░▄▄░██░▄▄▄██░▀██░██░▄▄▀██░████░▄▄▀██░███░██
-██░███░██░▀▀░██░▄▄▄██░█░█░██░█████░████░▀▀░██░█░█░██
-██░▀▀▀░██░█████░▀▀▀██░██▄░██░▀▀▄██░▀▀░█░██░██▄▀▄▀▄██
-▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
-                  🦞 OPENCLAW 🦞
+🦞 OpenClaw 2026.5.7 (eeef486) — Greetings, Professor Falken<br>
 
+
+▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄<br>
+██░▄▄▄░██░▄▄░██░▄▄▄██░▀██░██░▄▄▀██░████░▄▄▀██░███░██<br>
+██░███░██░▀▀░██░▄▄▄██░█░█░██░█████░████░▀▀░██░█░█░██<br>
+██░▀▀▀░██░█████░▀▀▀██░██▄░██░▀▀▄██░▀▀░█░██░██▄▀▄▀▄██<br>
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀<br>
+                  🦞 OPENCLAW 🦞<br>
+```
 ┌  OpenClaw setup
 │
 ◇  Security disclaimer ──────────────────────────────────────────────────────────────────────╮
@@ -138,19 +146,21 @@ Installation complete. Your productivity is about to get weird.
 │  - https://docs.openclaw.ai/gateway/security                                               │
 │                                                                                            │
 ├────────────────────────────────────────────────────────────────────────────────────────────╯
+```
 │
-◇  I understand this is personal-by-default and shared/multi-user use requires lock-down. Continue?
-│  Yes
-│
-  Create Session store dir at ~/.openclaw/agents/main/sessions?
-│  ● Yes / ○ No
+◇  I understand this is personal-by-default and shared/multi-user use requires lock-down. Continue?<br>
+│  Yes   使用左右鍵移動來選擇快定之後按下ENTER <br>
+│<br>
+  Create Session store dir at ~/.openclaw/agents/main/sessions?  設定檔位置<br>
+│  ● Yes / ○ No<br>
 
 
-◆  Setup mode
-│  ● QuickStart (Configure details later via openclaw configure.)
-│  ○ Manual
+◆  Setup mode 快速設定或手動詳細模式   <br>
+│  ● QuickStart (Configure details later via openclaw configure.)<br>
+│  ○ Manual<br>
 
- Model/auth provider
+```
+ Model/auth provider    要連接的模型
 │
 │  Search:
 │  ○ Anthropic
@@ -177,7 +187,7 @@ Installation complete. Your productivity is about to get weird.
 │  ○ Mistral AI
 │  ○ Moonshot AI (Kimi K2.6)
 │  ○ NVIDIA
-│  ● Ollama (Cloud and local open models)
+│  ● Ollama (Cloud and local open models)  << 本地 ollama 系統
 │  ○ OpenAI
 │  ○ OpenAI Codex
 │  ○ OpenCode
@@ -198,25 +208,29 @@ Installation complete. Your productivity is about to get weird.
 │  ○ Xiaomi
 │  ...
 │  ↑/↓ to select • Enter: confirm • Type: to search
+```
 
+```
   Model/auth provider
 │  Ollama
 │
 ◆  Ollama mode
 │  ○ Cloud + Local
 │  ○ Cloud only
-│  ● Local only (Local models only)
-
+│  ● Local only (Local models only)  <<本地
+```
+```
  Ollama base URL
-│  http://127.0.0.1:11434█
+│  http://127.0.0.1:11434█    <<自動帶入本機URL
 └
- Default model
-│  ● Keep current (default: ollama/gemma4)
-│  ○ Enter model manually
-│  ○ Browse all models
+ Default model  << 模型選擇
+│  ○ Keep current (default: ollama/gemma4) 
+│  ○ Enter model manually 
+│  ● Browse all models  << 列出全部來選擇
 
  ● Browse all models (loads provider catalogs)
-
+```
+```
  Loading available models
 │
 ◆  Default model
@@ -228,12 +242,13 @@ Installation complete. Your productivity is about to get weird.
 │  ○ ollama/gemma4:31b
 │  ○ ollama/gpt-oss:120b
 │  ○ ollama/llama3:latest
-│  ● ollama/qwen3.5:35b (ctx 256k · reasoning)
+│  ● ollama/qwen3.5:35b (ctx 256k · reasoning)   << 本示範採用千問3.5 35b模型
 │  ↑/↓ to select • Enter: confirm • Type: to search
+```
+ Default model<br>
+│  ollama/qwen3.5:35b<br>
 
- Default model
-│  ollama/qwen3.5:35b
-
+```
  How channels work ───────────────────────────────────────────────────────────────────────╮
 │                                                                                           │
 │  DM security: default is pairing; unknown DMs get a pairing code.                         │
@@ -270,8 +285,9 @@ Installation complete. Your productivity is about to get weird.
 │  WhatsApp: works with your own number; recommend a separate phone + eSIM.                 │
 │                                                                                           │
 ├───────────────────────────────────────────────────────────────────────────────────────────╯
-
- Select channel (QuickStart)
+```
+```
+ Select channel (QuickStart)  << 指的是通訊軟體絡的通道類型
 │
 │  Search:
 │  ○ BlueBubbles (macOS app)
@@ -290,7 +306,7 @@ Installation complete. Your productivity is about to get weird.
 │  ○ Signal (signal-cli)
 │  ○ Slack (Socket Mode)
 │  ○ Synology Chat (Webhook)
-│  ○ Telegram (Bot API)
+│  ○ Telegram (Bot API)  << 之後用這個
 │  ○ Tlon (Urbit)
 │  ○ Twitch (Chat)
 │  ○ WeCom（企业微信）
@@ -298,7 +314,7 @@ Installation complete. Your productivity is about to get weird.
 │  ○ Yuanbao (元宝)
 │  ○ Zalo (Bot API)
 │  ○ Zalo (Personal Account)
-│  ● Skip for now (You can add channels later via `openclaw channels add`)
+│  ● Skip for now (You can add channels later via `openclaw channels add`) << 後續叫 openclaw 自己幫設定
 │  ↑/↓ to select • Enter: confirm • Type: to search
  Web search ─────────────────────────────────────────────────────────────────╮
 │                                                                              │
@@ -312,21 +328,22 @@ Installation complete. Your productivity is about to get weird.
 │
 │  Search:
 │  ○ Brave Search
-│  ○ DuckDuckGo Search (experimental)
+│  ● DuckDuckGo Search (experimental)  << 這個不需API /Key
 │  ○ Exa Search
 │  ○ Firecrawl Search
 │  ○ Gemini (Google Search)
 │  ○ Grok (xAI)
 │  ○ Kimi (Moonshot)
 │  ○ MiniMax Search
-│  ● Ollama Web Search (Local Ollama host · requires ollama signin · key-free)
+│  ○ Ollama Web Search (Local Ollama host · requires ollama signin · key-free)
 │  ○ Perplexity Search
 │  ○ SearXNG Search
 │  ○ Tavily Search
 │  ○ Skip for now     <<或者先不設定
 │  ↑/↓ to select • Enter: confirm • Type: to search
 └
-
+```
+```
 ◇  Search provider
 │  Ollama Web Search
 │
@@ -350,8 +367,9 @@ Installation complete. Your productivity is about to get weird.
 ◆  Configure skills now? (recommended)
 │  ● Yes / ○ No
 └
-
-◆  Install missing skill dependencies
+```
+```
+◆  Install missing skill dependencies    <<skill可以先跳過
 │  ◻ Skip for now (Continue without installing dependencies)
 │  ◻ 🔐 1password
 │  ◻ 📰 blogwatcher
@@ -381,6 +399,8 @@ Installation complete. Your productivity is about to get weird.
 │  ◻ 📱 wacli
 │  ◻ 🐦 xurl
 └
+```
+```
    Configure skills now? (recommended)
 │  Yes
 │
@@ -408,7 +428,7 @@ Installation complete. Your productivity is about to get weird.
 │                                                                          │
 ├──────────────────────────────────────────────────────────────────────────╯
 │
-◆  Enable hooks?
+◆  Enable hooks?  << 建議下面三種
 │  ◻ Skip for now
 │  ◻ 🚀 boot-md
 │  ◻ 📎 bootstrap-extra-files
@@ -416,7 +436,8 @@ Installation complete. Your productivity is about to get weird.
 │  ◼ 🧹 compaction-notifier (Send visible chat notices when session compaction starts and finishes.)
 │  ◼ 💾 session-memory (Save session context to memory when /new or /reset command is issued)
 └
-
+```
+```
 │
 ◑  Installing Gateway service…
 Installed systemd service: /home/user/.config/systemd/user/openclaw-gateway.service
@@ -440,7 +461,7 @@ Session store (main): /home/user/.openclaw/agents/main/sessions/sessions.json (0
 ◇  Control UI ─────────────────────────────────────────────────────────────────────╮
 │                                                                                  │
 │  Web UI: http://127.0.0.1:18789/                                                 │
-│  Web UI (with token):                                                            │
+│  Web UI (with token):  下面這段要記起來 或 Token 變動後記在設定檔                   │
 │  http://127.0.0.1:18789/#token=52e58015d0bef764dd72b0b7f6d7fe4bce6518115fedb35b  │
 │  Gateway WS: ws://127.0.0.1:18789                                                │
 │  Gateway: reachable                                                              │
@@ -473,12 +494,13 @@ Session store (main): /home/user/.openclaw/agents/main/sessions/sessions.json (0
 ├────────────────────────────────────────────────────────────────────────────────────────────╯
 │
 ◆  How do you want to hatch your bot?
-│  ● Hatch in Terminal (recommended)
+│  ● Hatch in Terminal (recommended)  << 可以先進去 TerminalUI 先測試一下 如果有回應就正常
 │  ○ Open the Web UI
 │  ○ Do this later
 └
 🦞 OpenClaw 2026.5.7 (eeef486) — Ah, the fruit tree company! 🍎
-
+```
+```
  openclaw tui - local embedded - agent main - session main
 
  session agent:main:main
@@ -510,11 +532,10 @@ ask you:
 Want to figure this out together and then maybe read through SOUL.md to talk about what matters to you? Or if you've already done this, tell me your name and I'll update my
 IDENTITY.md!
  local ready | idle
- agent main | session main | ollama/qwen3.5:35b | think medium | tokens 11k/262k (4%)
+ agent main | session main | ollama/qwen3.5:35b | think medium | tokens 11k/262k (4%)   有回應/正常
 ───────────────────────────────────────────────────────────────────────────────────────────────
 
 同時觀察 GPU 狀態有沒有用到
-
  local ready | press ctrl+c again to exit
  agent main | session main | ollama/qwen3.5:35b | think medium | tokens 11k/262k (4%)
 ────────────────────────────────────────────────────────────────────────────────────────────
@@ -553,14 +574,13 @@ ctrl+c again to exit
 ├────────────────────────────────────────────────────────────────────────╯
 │
 └  Onboarding complete. Use the dashboard link above to control OpenClaw.
+```
+Ctrl+c 跳出
 
-在GB10開瀏覽器  或建 ssh 通道後在 windows 開瀏覽器  http://127.0.0.1:18789/#token=52e58015d0bef764dd72b0b7f6d7fe4bce6518115fedb35b
+在GB10開瀏覽器  或建 ssh 通道後在 windows 
+## 開瀏覽器  http://127.0.0.1:18789/#token=52e58015d0bef764dd72b0b7f6d7fe4bce6518115fedb35b
 
-http://192.168.101.159:18789/#token=82bd4ac915677e25ffcc10f05ea00bc702d912b2937dffaf
-
-
-
-停止運作與刪除（本機式openclaw）
+## 停止運作與刪除（本機式openclaw）
 查看是否有執行中的 OpenClaw 程序  停止程序  刪除檔案
 # 停止 OpenClaw 相關程序
 pkill -f openclaw || true
@@ -600,28 +620,21 @@ openclaw config
 
 openclaw doctor --fix
 
-Add new community skills → Check clawhub.ai for available skills and follow their installation instructions
+## community skills → Check clawhub.ai for available skills and follow their installation instructions
 
-其實可以不必自已修改設定 , 要改設定叫 openclaw 改就好
+## 其實可以不必自已修改設定 , 要改設定叫 openclaw 改就好
 
-如果覺得 WEB 功能太多不好找 就在 CLI 開啟 openclaw tui
-例如加telegram , 1.先在telegram 做好Bot Father , 建一個新的 bot  ,  在Bot Father 對話之下 /newbot  取個對話機器人名字結尾必需是以bot
-完成之後就會得到一串 HTTP API: 這串API 請妥善保管您的令牌，任何人都可以用它來控制您的機器人。
-openclaw tui 之下對話請建立 Telegram link 提供 HTTP API 
-打開telegram bot 開始進行對話 , 此時不一定會有回應 , 因為還必需在 openclaw 進行 pairing , bot 會回應你 Pairing Code
-回到GB10 CLI： 
+如果覺得 WEB 功能太多不好找 就在 CLI 開啟 openclaw tui <br>
+例如加telegram , 1.先在telegram 做好Bot Father , 建一個新的 bot  , <br>
+在Bot Father 對話之下 /newbot  取個對話機器人名字結尾必需是以bot<br>
+完成之後就會得到一串 HTTP API: 這串API 請妥善保管您的令牌，任何人都可以用它來控制您的機器人。<br>
+openclaw tui 之下對話請建立 Telegram link 提供 HTTP API <br>
+打開telegram bot 開始進行對話 , 此時不一定會有回應 , 因為還必需在 openclaw 進行 pairing , bot 會回應你 Pairing Code<br>
+回到GB10 CLI： <br>
 ```
 openclaw pairing approve telegram 00000000
 ```
-00000000 這就是bot 回應的配對碼
-接下來telegram 應該就可以正常對話 
+00000000 這就是bot 回應的配對碼<br>
+接下來telegram 應該就可以正常對話 <br>
 
-
-
-
-
-
-
-
-
-
+接下來大多數設定可以使用交談式方法叫openclaw 來設定
