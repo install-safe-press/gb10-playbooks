@@ -578,7 +578,7 @@ ctrl+c again to exit
 Ctrl+c 跳出
 
 在GB10開瀏覽器  或建 ssh 通道後在 windows 
-## 開瀏覽器  http://127.0.0.1:18789/#token=52e58015d0bef764dd72b0b7f6d7fe4bce6518115fedb35b
+開瀏覽器  http://127.0.0.1:18789/#token=52e58015d0bef764dd72b0b7f6d7fe4bce6518115fedb35b
 
 ## 停止運作與刪除（本機式openclaw）
 查看是否有執行中的 OpenClaw 程序  停止程序  刪除檔案
