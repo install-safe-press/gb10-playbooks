@@ -2,6 +2,7 @@
 
 前提  1a-Open WebUI with Ollama  已使用 Docker 佈建 <br>
 作業  於外層作業系統直接佈建openclaw 並存取 ollama 模型<br>
+應用  透過Telegram 進行系統的指令 , 其它應用就交給各位大神們進階發揮,大叔引進門 修行在各人 你一定可以做的更好。
 
 準備作業-1：<br>
 在外層確認 ollama 有使用到 GPU,跑作ollama查詢接下來   docker exec ollama ollama ps<br>
