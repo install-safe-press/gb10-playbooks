@@ -651,9 +651,13 @@ Telgram 範例: 定期回報系統狀態
 ![oc-tel-2](images/oc-tel-2.jpg)<br>
 
 ## Discord  注意事項
-從Openclaw TUI 詢問進行指引 ,進行設定 , 過程中 openclaw gateway 的設定有可能會壞掉;可能是因為 Token缺失 ,要使用 openclaw setup 重跑過一次
-Discord 那邊的Bot Token, Server ID , My ID ,先記錄起來.
-多做幾次 , openclaw tui 來回交問 .   當這個bot 有 online 之後進行DM 有回應就成功
+從Openclaw TUI 詢問進行指引 ,進行設定 , 過程中 openclaw gateway 的設定有可能會壞掉;可能是因為Discord Token缺失或其它 ,<br>
+要使用 openclaw setup 重跑過一次 ,Discord 那邊的Bot Token, Server ID , My ID ,先記錄起來.<br>
+多做幾次 , openclaw tui 來回交問 .   當這個bot 有 online  進行pare token , cli command  openclaw pairing approve discord  00000000 <br>
+
+![oc-dis-pair](images/oc-dis-pair.jpg)<br>
+
+之後進行DM 有回應就成功<br>
 
 ![oc-dis-1](images/oc-dis-1.jpg)<br>
 
