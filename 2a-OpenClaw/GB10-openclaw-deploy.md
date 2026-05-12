@@ -642,7 +642,7 @@ openclaw pairing approve telegram 00000000
 ## 至於如何讓openclaw 變的更強就請參考 https://clawhub.ai/
 
 
-Telgram 範例1: 檢查系統狀態
+Telgram 範例: 檢查系統狀態
 
 ![oc-tel-1](images/oc-tel-1.jpg)<br>
 
