@@ -650,4 +650,10 @@ Telgram 範例: 檢查系統狀態
 Telgram 範例: 定期回報系統狀態
 ![oc-tel-2](images/oc-tel-2.jpg)<br>
 
+## Discord  注意事項
+從Openclaw TUI 詢問進行指引 ,進行設定 , 過程中 openclaw gateway 的設定有可能會壞掉;可能是因為 Token缺失 ,要使用 openclaw setup 重跑過一次
+Discord 那邊的Bot Token, Server ID , My ID ,先記錄起來.
+多做幾次 , openclaw tui 來回交問 .   當這個bot 有 online 之後進行DM 有回應就成功
+
+![oc-dis-1](images/oc-dis-1.jpg)<br>
 
