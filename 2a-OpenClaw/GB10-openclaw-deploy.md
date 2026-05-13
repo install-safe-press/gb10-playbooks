@@ -288,7 +288,7 @@ Installation complete. Your productivity is about to get weird.<br>
 ├───────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 ```
- Select channel (QuickStart)  << 指的是通訊軟體的通道類型
+ Select channel (QuickStart)  << 指的是通訊軟體/協作通訊 類型
 │
 │  Search:
 │  ○ BlueBubbles (macOS app)
