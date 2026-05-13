@@ -3,6 +3,7 @@
 前提  1a-Open WebUI with Ollama  已使用 Docker 佈建 <br>
 作業  於外層作業系統直接佈建openclaw 並存取 ollama 模型<br>
 應用  透過Telegram 進行系統的指令 , 其它應用就交給各位大神們進階發揮,大叔引進門 修行在各人 你一定可以做的更好。
+## 注意 Openclaw 所引發之系統或個人資訊安全性 不在本章節討論
 
 準備作業-1：<br>
 在外層確認 ollama 有使用到 GPU,跑作ollama查詢接下來   docker exec ollama ollama ps<br>
@@ -578,15 +579,25 @@ ctrl+c again to exit
 ```
 Ctrl+c 跳出
 
+開啟openclaw文字交談命令互動
+```
+openclaw tui
+```
+![oc-tui](images/oc-tui.jpg)<br>
+
+
+
+
 在GB10開瀏覽器  或建 ssh 通道後在 windows 
-開瀏覽器  http://127.0.0.1:18789/#token=52e58015d0bef764dd72b0b7f6d7fe4bce6518115fedb35b
+開瀏覽器進行網頁式交談互動或設定  http://127.0.0.1:18789/#token=52e58015d0bef764dd72b0b7f6d7fe4bce6518115fedb35b
+![oc-web-ui](images/oc-web-ui.jpg)<br>
 
 ## 停止運作與刪除（本機式openclaw）
 查看是否有執行中的 OpenClaw 程序  停止程序  刪除檔案
 # 停止 OpenClaw 相關程序
-pkill -f openclaw || true
-pkill -f "npm run dev" || true
-pkill -f node || true
+pkill -f openclaw || true <br>
+pkill -f "npm run dev" || true<br>
+pkill -f node || true<br>
 
 # 刪除 OpenClaw 主程式目錄
 rm -rf ~/openclaw
@@ -598,14 +609,14 @@ rm -rf ~/openclaw-env
 rm -rf ~/.openclaw
 
 # 刪除 OpenClaw 專案內 npm 套件
-rm -rf ~/openclaw/node_modules
+rm -rf ~/openclaw/node_modules<br>
 rm -f ~/openclaw/package-lock.json
 
 # 清除 npm 快取（僅 OpenClaw 常用）
 npm cache clean --force
 
 # 搜尋並刪除殘留資料
-find ~ -type d -name "*openclaw*" -exec rm -rf {} + 2>/dev/null
+find ~ -type d -name "*openclaw*" -exec rm -rf {} + 2>/dev/null<br>
 
 
 除錯常用
@@ -617,10 +628,12 @@ CLI
 ```
 openclaw config 
 ```
-設定檔位於 :~/.openclaw/openclaw.json
+設定檔位於 :~/.openclaw/openclaw.json<br>
 
-openclaw doctor --fix
-
+設定錯誤之修復<br>
+```
+openclaw doctor --fix 
+```
 ## community skills → Check clawhub.ai for available skills and follow their installation instructions
 
 ## 其實可以不必自已修改設定 , 要改設定叫 openclaw 改就好
@@ -662,4 +675,6 @@ bot圖像右下的小點表示有沒有溝通到上線,一定要有online 之後
 
 
 ![oc-dis-1](images/oc-dis-1.jpg)<br>
+
+
 
