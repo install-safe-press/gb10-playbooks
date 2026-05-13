@@ -56,6 +56,7 @@ https://www.youtube.com/playlist?list=PLTfgcc_ky0u4sMNSJLS288erbZ4YMv3Zs <br>
 | 2a | AI Agent 應用 | 2a-OpenClaw | Local AI agent | 本地 AI Agent |
 | 2b | AI Agent 應用 | 2b-OpenShell | Secure sandbox AI agents | 安全沙盒 AI Agent |
 | 2c | AI Agent 應用 | 2c-NemoClaw | Telegram integration | Telegram AI Bot |
+| 2d | AI Agent 應用 | 2d-Hermes | self-improving AI agent  | AI Agent |
 | 3a | 模型推理 | 3a-NIM on Spark | Deploy NIM | NVIDIA 推理服務 |
 | 3b | 模型推理 | 3b-TRT LLM | TensorRT-LLM | 高效能推理 |
 | 3c | 模型推理 | 3c-NVFP4 Quantization | Model quantization | 模型量化 |
