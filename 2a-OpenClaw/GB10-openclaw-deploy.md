@@ -657,7 +657,9 @@ Telgram 範例: 定期回報系統狀態
 
 ![oc-dis-pair](images/oc-dis-pair.jpg)<br>
 
-之後進行DM 有回應就成功<br>
+bot圖像右下的小點表示有沒有溝通到上線,一定要有online 之後進行DM 有回應就成功<br>
+如果沒有online 再次檢查  Bot 是否已加入你的伺服器？ Server ID 和 User ID 是什麼？ 重新檢查channel設定
+
 
 ![oc-dis-1](images/oc-dis-1.jpg)<br>
 
