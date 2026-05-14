@@ -225,6 +225,18 @@ user@promaxgb10-0a25:~/ComfyUI$
 代表已退出虛擬環境。
 
 
+
+##如果已經完全離開或有重新開機要再次啟動ComfyUI
+
+python3 -m venv comfyui-env
+source comfyui-env/bin/activate
+cd ~/ComfyUI
+python main.py --listen 0.0.0.0
+
+
+
+
+
 ComfyUI有很多模型與工作流 有興趣的可以參考以下
 | [https://comfyui-wiki.com) | 有關於ComfyUI 相關推薦 |
 
