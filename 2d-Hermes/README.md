@@ -591,8 +591,8 @@ Telegram發送圖片
 ![hermes-sample-img](images/hermes-sample-img.jpg)
 
 Telegram發送檔案
-![hermes-sample-1](images/hermes-sample-1.jpg)
-![hermes-sample-2](images/hermes-sample-2.jpg)
+![hermes-sample-1](images/her-sample-1.jpg)
+![hermes-sample-2](images/her-sample-2.jpg)
 
 
 我只舉的出來這種例子 , 各位應該可以各活用
