@@ -3,24 +3,17 @@
 ## Dell Pro Max GB10 / NVIDIA DGX Spark  本地 AI 迷你工作站 可以做什麼？ 
 ![summary](00-00-TARGET/summary-1.jpg)
 
-## gb10-playbooks 專案目標
-* 透過 Spark Playbooks 熟悉各種應用場景，並將實際操作經驗完整記錄下來。  
-
-本專案聚焦於 **NVIDIA GB10 Grace Blackwell 超級晶片** 上的 AI 工作負載應用說明與實作範例。<br>
-
-##本專案一切為NVIDIA GB10相關用戶輔助學習使用,依據 NVIDIA 官方 Spark Playbooks 為操作基礎,進行中文註解補充說明,一切版權為原廠所有. 
-合理引用原則下,遵照NVIDIA TOU https://assets.ngc.nvidia.com/products/api-catalog/legal/NVIDIA_Technology_Access_TOU.pdf 
-
-
-依據 https://build.nvidia.com/spark <br> Playbooks 目前約有三十項以上範例劇本，本專案將每一個子項目獨立拆分成單獨目錄進行實作與整理。<br>
-
-除官方內容外，另額外補充：  
-- 硬體架構說明  
-- 基本作業系統操作  
-- 網路與叢集建置  
+##Nvidia DGX Spark playbooks GB10 專案目標
+本專案聚焦於 **NVIDIA GB10 Grace Blackwell 超級晶片** 上的 AI 工作負載應用說明與入門實作範例。<br>
+依據 https://build.nvidia.com/spark  Playbooks 目前約有三十項以上範例劇本，本專案將每一個子項目獨立拆分成單獨目錄進行實作與整理。<br>
+* 透過 Spark Playbooks 熟悉各種應用場景，並將實際操作經驗完整記錄下來。  <br>
+除官方內容外，另額外補充：  <br>
+- 硬體架構說明  <br>
+- 基本作業系統操作 <br> 
+- 網路與叢集建置  <br>
 - AI 應用部署經驗<br>
 
-並同步製作成影片，收錄於：  
+並同步製作成影片，收錄於：  <br>
 **大叔裝機安 GB10 Playbooks 播放清單**  
 https://www.youtube.com/playlist?list=PLTfgcc_ky0u4sMNSJLS288erbZ4YMv3Zs <br>
 
@@ -104,12 +97,15 @@ https://www.youtube.com/playlist?list=PLTfgcc_ky0u4sMNSJLS288erbZ4YMv3Zs <br>
 ---
 
 # 專案文件建立資訊
-本專案由 大叔裝機安混合多種 AI 工具共同建立。 一切內容依 https://build.nvidia.com/spark 及各官方網站為主 
+本專案由 大叔裝機安混合多種 AI 工具共同建立。 一切內容依 https://build.nvidia.com/spark 及各官方網站為主 .
+##本專案一切為NVIDIA GB10相關用戶輔助學習使用,依據 NVIDIA 官方 Spark Playbooks 為操作基礎,進行中文註解補充說明,一切版權為原廠所有. 
+合理引用原則下,遵照NVIDIA TOU https://assets.ngc.nvidia.com/products/api-catalog/legal/NVIDIA_Technology_Access_TOU.pdf 
+
 ** 創建起始日：2026.4.20**
 
 | 分類 | 基礎入門 | AI Agent 應用 | 模型推理 | 模型微調 | 加速運算 | 集群與網路 | 即時視覺推理 | 數位孿生與模擬 | 多模態互動 |
-|:----:|:--------:|:--------------:|:--------:|:--------:|:--------:|:----------:|:--------------:|:----------------:|:------------:|
-| 文字進度 |v      | v              |          |          |          |            |                |                  |              |
-| 影片進度 |v      |                |          |          |          |            |                |                  |              |
+|:-----:|:--------:|:--------------:|:--------:|:--------:|:--------:|:----------:|:--------------:|:----------------:|:------------:|
+|文字進度|v      | v              |          |          |          |            |                |                  |              |
+|影片進度|v      |                |          |          |          |            |                |                  |              |
 
 
