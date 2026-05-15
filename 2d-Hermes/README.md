@@ -595,7 +595,7 @@ Telegram發送檔案
 ![hermes-sample-2](images/her-sample-2.jpg)
 
 
-我只舉的出來這種例子 , 各位應該可以更活用
+我只能舉這種範例 , 如下圖還有無限應用
 ![hermes-agent-function-module-1](images/hermes-agent-function-module-1.png) 
 
 
