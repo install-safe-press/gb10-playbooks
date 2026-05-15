@@ -8,7 +8,9 @@
 Hermes Agent
 GitHub   https://github.com/nousresearch/hermes-agent
 
-Nous Research開發的這款自學習型 AI 智能體，是唯一內建學習循環的智能體——它能從經驗中積累技能，在使用過程中不斷改進，持續學習並鞏固知識，還能搜尋過往對話記錄，並在不同會話中逐步構建更深入的自我認知模型。它可以運行在 5 美元的 VPS、GPU 叢集或幾乎零成本的無伺服器基礎架構上。它不依賴你的筆記型電腦——即使它在雲端虛擬機上運行，你也可以透過 Telegram 與它互動。
+Nous Research開發的這款自學習型 AI 智能體，是唯一內建學習循環的智能體——它能從經驗中積累技能，在使用過程中不斷改進，持續學習並鞏固知識，還能搜尋過往對話記錄，並在不同會話中逐步構建更深入的自我認知模型。它可以運行在 5 美元的 VPS、GPU 叢集或幾乎零成本的無伺服器基礎架構上。它不依賴你的筆記型電腦——即使它在雲端虛擬機上運行，你也可以透過文字命令或Telegram 與它互動。
+![hermes-agent](images/hermes-agent-main.jpg)
+
 
 Dell Pro MAX GB10環境
 依gb10-playbooks專案文件配置
@@ -20,6 +22,8 @@ Dell Pro MAX GB10環境
 ```
 curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash
 ```
+
+![hermes-inst-01](images/her-i-01.jpg)
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -68,6 +72,8 @@ Hermes Agent 建議安裝 ripgrep (rg)，用途是：<br>
 
 Done: 87 new, 0 updated, 0 unchanged. 87 total bundled.
 ✓ Skills synced to ~/.hermes/skills/
+![hermes-inst-02](images/her-i-02.jpg)
+![hermes-inst-04](images/her-i-04.jpg)
 
 → Starting setup wizard...
 
@@ -97,6 +103,8 @@ Browser tools<br>
 Discord / Telegram 設定<br>
 部分 Agent skills<br>
 環境變數<br>
+
+![hermes-inst-05](images/her-i-05.jpg)
 
 ```
 ◆ Migration Preview — 10 item(s) would be imported
@@ -188,6 +196,8 @@ Default model<br>
 Messaging channel<br>
 基本 .env<br>
 
+![hermes-inst-06](images/her-i-06.jpg)
+
 ```
 Select provider:
   ↑↓ navigate  ENTER/SPACE select  ESC cancel
@@ -247,6 +257,8 @@ API base URL [e.g. https://api.example.com/v1]:
 
 http://localhost:11434/v1   <<< 本機 ollama 
 
+![hermes-inst-07](images/her-i-07.jpg)
+
 Select API compatibility mode:
   1. Auto-detect [current]
      Use Hermes URL heuristics; best for standard OpenAI-compatible endpoints.
@@ -265,6 +277,8 @@ Choice [1-4, Enter to keep current/detected]:1   <<<列出目前標機ollama 已
     4. llama3:latest
   Select model [1-4] or type name: 1    << 此範例採用 qwen3.5:35b模型
 
+![hermes-inst-08](images/her-i-08.jpg)
+
 Context length in tokens [leave blank for auto-detect]:
 Display name [Local (localhost:11434)]:
 Default model set to: qwen3.5:35b (via http://localhost:11434/v1)
@@ -276,6 +290,9 @@ Default model set to: qwen3.5:35b (via http://localhost:11434/v1)
      Guide: https://hermes-agent.nousresearch.com/docs/developer-guide/environments
 
     Skipped (keeping current)
+
+![hermes-inst-09](images/her-i-09.jpg)
+
 
   Keeping current backend: local
 ✓ Applied recommended defaults:
@@ -530,6 +547,9 @@ Next steps:
 
    source ~/.bashrc
 
+
+
+
 user@promaxgb10-0a25:~$
 ```
 安裝完成 上面的提示稍為看一下
@@ -542,24 +562,40 @@ hermes pairing approve telegram 配對碼
 ```
 Telegram 再次發送訊息  這次Hermes 應該會有回應
 
+![hermes-telgram-01](images/her-tel-01.jpg)
+
+
 回到SSH/終端
 
 進入Hermes Terminal UI 
 
+
 ```
 hermes
 ```
+![hermes-tui-1a](images/hermes-tui-1a.jpg)
+
 
 在 TUI 中執行指令，/reasoning show即可顯示模型的中間推理過程及其回應。這對於追蹤智能體在多步驟或複雜問題上的進展以及調試意外結果尤其有用。
 
+![hermes-tui-readoning](images/hermes-tui-reasoning.jpg)
 
 
 
+## 安裝完成之後可以做什麼？ 
+1.透過 hermes TUI 終端文字發送命令 , ssh 先連上再進入Hermes Terminal UI , 只能敲文字
+2.或者是 通訊程式Telegram發送命令 , 可敲文字 , 附檔案 , 附圖檔 
+
+演示範例：
+Telegram發送圖片
+![hermes-sample-img](images/hermes-sample-img.jpg)
+
+Telegram發送檔案
+![hermes-sample-1](images/hermes-sample-1.jpg)
+![hermes-sample-2](images/hermes-sample-2.jpg)
 
 
-
-
-
+我只舉的出來這種例子 , 各位應該可以各活用
 
 
 
