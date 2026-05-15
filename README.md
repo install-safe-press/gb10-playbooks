@@ -1,3 +1,5 @@
+![all-gb10](00-00-TARGET/all-gb10.jpg)
+
 ## Dell Pro Max GB10 / NVIDIA DGX Spark  本地 AI 迷你工作站 可以做什麼？ 
 ![summary](00-00-TARGET/summary-1.jpg)
 
