@@ -266,6 +266,26 @@ Open WebUI、AnythingLLM、Python 腳本、LangChain、Flowise、VS Code 插件�
 | 桌面版 LM Studio（Windows） | 先從系統托盤退出，再將應用程式移至垃圾桶 |
 
 ---
+使用後下載其它模型
+
+```
+lmstudio$ lms get  qwen3.6
+```
+get 之後搭配關鍵字 會有列表讓人手動選擇
+
+Searching staff picks with the term qwen3.6
+No exact match found. Please choose a model from the list below.
+
+✔ Select a model to download qwen/qwen3.6-35b-a3b
+
+   ↓ To download: model qwen/qwen3.6-35b-a3b - 173.20 KB
+   └─ ↓ To download: Qwen3.6 35B A3B Q4_K_M [GGUF] - 22.07 GB
+
+About to download 22.07 GB.
+
+
+
+
 
 ## 相關資源
 
