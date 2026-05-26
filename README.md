@@ -97,9 +97,11 @@ https://www.youtube.com/playlist?list=PLTfgcc_ky0u4sMNSJLS288erbZ4YMv3Zs <br>
 ---
 
 # 專案文件建立資訊
-本專案由 大叔裝機安混合多種 AI 工具共同建立。 一切內容依 https://build.nvidia.com/spark 及各官方網站為主 .
-##本專案一切為NVIDIA GB10相關用戶輔助學習使用,依據 NVIDIA 官方 Spark Playbooks 為操作基礎,進行中文註解補充說明,一切版權為原廠所有. 
-合理引用原則下,遵照NVIDIA TOU https://assets.ngc.nvidia.com/products/api-catalog/legal/NVIDIA_Technology_Access_TOU.pdf 
+本專案由 大叔裝機安混合多種 AI 工具共同建立。 
+一切內容依 https://build.nvidia.com/spark 及各官方網站為主 . <br>
+##本專案一切為NVIDIA DGX Spark 系列 GB10相關用戶輔助學習使用,<br>
+依據 NVIDIA 官方 Spark Playbooks 為操作基礎,進行中文註解補充說明,一切版權為原廠所有. <br>
+合理引用原則下,遵照NVIDIA TOU https://assets.ngc.nvidia.com/products/api-catalog/legal/NVIDIA_Technology_Access_TOU.pdf     <br>
 
 ** 創建起始日：2026.4.20**
 
