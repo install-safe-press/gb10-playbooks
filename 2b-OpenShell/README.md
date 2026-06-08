@@ -107,5 +107,90 @@ OpenClaw 作為 Agent 的執行層，負責：
 | 試圖讀取「員工薪水.xlsx」？ | ❌ 不允許，疑似提示詞注入攻擊！ |
 
 OpenShell 立即介入：
-
 > 「慢著！OpenClaw，你剛才試圖讀取薪水檔案的動作不安全，我將你隔離在沙箱小黑屋裡執行，並拒絕讓你接觸真正的公司主機！」
+
+
+## 🏗️ OpenShell 的三大核心角色：CLI、Gateway、Supervisor
+如果把 OpenShell 部署的環境比喻成一棟「高規格的中央情報局（CIA）辦公大樓」，那麼這三個角色分別扮演不同的職務：
+```
+[ 管理員/工程師 ] ──(使用 CLI 下命令)──► [ Gateway 中央控制室 ] ──(遠端指揮)──► [ Supervisor 現場警衛 ] ──(看管)──► [ AI Agent 沙箱 ]
+```
+---
+### 1. 💻 CLI（命令列介面）——「管理員的遙控器」
+**白話解釋：** 這是工程師或系統管理員用來控制 OpenShell 的黑底白字視窗工具。
+**它的職責：** 就像一個「遠端遙控器」。管理員不需要親自跑到大樓機房，只要在自己的電腦上輸入幾行簡單的指令，就能遠端：
+- 點火啟動沙箱
+- 修改安全規則
+- 查看現在有哪些 AI 正在調皮搗蛋
+---
+
+### 2. 🌐 Gateway（網關）——「總部中央控制室」
+**白話解釋：** 這是整套安全系統的「大腦」與「核心控制中心」，通常指的就是那台獨立運作、監聽 Port 8080 的安全閘道器。
+**它的職責：**
+- 作為**唯一的進出門戶**，所有人都必須向它驗證身份（身份驗證控制層）
+- 掌握全盤最高機密，負責管理每一個沙箱的**生命週期**（生老病死）
+- 發布最新版的**安全守則**（政策下發）
+- 在幕後協調各方資源與行動<br>
+ 
+有關Gateway與Sandboxes可參考以下原文  https://docs.nvidia.com/openshell/about/how-it-works#gateways-and-sandboxes
+
+---
+
+### 3. 👮 Supervisor（監控器）——「沙箱房門口的貼身保鏢」
+**白話解釋：** 這是真正待在第一線、跟 AI Agent 關在一起的「安全程式」。
+**它的職責：**
+
+- 如果 Gateway 是坐在總部的長官，Supervisor 就是**站在沙箱門口盯著 AI 的貼身保鏢**
+- 負責在本地端親手把 AI 關進沙箱、**限制 AI 的手腳**
+- 用鷹眼死死盯著 AI 的一舉一動——一旦 AI 呼叫工具或寫入檔案，立刻核對總部下發的守則
+- 把現場的「錄影帶（日誌 Log）」**即時回傳**給總部 Gateway <br>
+ 
+有關supervisor可參考以下原文  https://docs.nvidia.com/openshell/about/how-it-works#supervisor-protection-layers
+
+
+OpenShell 五大核心組件  
+
+| 組件名稱 (Component) | 它是什麼？（白話翻譯） | 它的防護功能？（為什麼安全） |
+|---|---|---|
+| Sandboxes | 隔離防爆房 | 讓 AI 在裡面做所有危險動作，壞事不外流。 |
+| Gateways | 中央控制室 | 最高指揮官，管理所有防爆房的生滅與權限。 |
+| Providers | 不露白的老管家 | 幫 AI 遞交密碼和金鑰，但死不讓 AI 看到密碼。 |
+| Policies | 行為守則手冊 | 白紙黑字寫死 AI 什麼能碰、什麼不能碰。 |
+| Inference Routing | 內線保密電話 | 讓 AI 專線跟大腦模型對話，防範連線被駭客竊聽。 | <br>
+
+上述採用擬人化表示 , 原意請參考  https://docs.nvidia.com/openshell/about/how-it-works#core-components  <br>
+
+「不論你想把 OpenShell 裝在自己的筆電上/GB10上，還是公司雲端龐大的伺服器群（Kubernetes）裡，它的運作邏輯和使用方法都完全一模一樣。」這種設計讓開發人員在個人電腦上做完測試後，可以毫無痛苦地直接搬到公司的生產環境中執行。
+
+
+# 安裝 OpenShell
+使用一條指令即可安裝 OpenShell：
+
+```
+curl -LsSf https://raw.githubusercontent.com/NVIDIA/OpenShell/main/install.sh | sh
+```
+該腳本會偵測您的作業系統，並使用您作業系統自帶的套件管理器安裝 OpenShell 命令列介面和網關。然後，它會啟動本機網關伺服器，以便您可以開始建立沙箱。
+
+
+以GB10安裝為例，Ubuntu 系統上，安裝腳本使用 Debian 軟體套件。此 Debian 軟體包會安裝openshell命令列介面 (CLI)、openshell-gateway守護程式、虛擬機器沙箱支援以及 systemd 使用者服務。
+
+Linux 用戶服務監聽端口https://127.0.0.1:17670，從內建預設值啟動，並在網關啟動前產生本地 mTLS 封包。~/.config/openshell/gateway.toml僅當需要覆寫這些預設值時才建立該服務。
+
+CLI 從以下位置讀取客戶端包~/.config/openshell/gateways/openshell/mtls/：
+
+安裝程式會自動啟動該服務。當您需要檢查、重新啟動或停止網關服務時，請使用 systemd 使用者命令：
+
+```
+systemctl --user status openshell-gateway
+systemctl --user restart openshell-gateway
+journalctl --user -u openshell-gateway -f
+```
+
+為使用戶服務在登出後繼續運行，請啟用 linger：
+
+```
+sudo loginctl enable-linger $USER
+```
+
+
+
