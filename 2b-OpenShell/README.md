@@ -192,5 +192,22 @@ journalctl --user -u openshell-gateway -f
 sudo loginctl enable-linger $USER
 ```
 
+## 等等 這時要考慮架構問題 :
+標準的DGX playbook 是全部裝在同一台 , 最終企業架構有可能會是這樣 <br>
+VM (Control Plane)      <br> 
+│                       <br>
+├─ OpenShell CLI        <br>
+├─ Gateway<br>
+├─ k3s<br>
+└─ OpenClaw Sandbox<br>
+       │<br>
+       │ inference.local<br>
+       ▼<br>
+GPU Server (Inference Plane)<br>
+│<br>
+├─ Ollama<br>
+├─ Nemotron/Llama<br>
+└─ NVIDIA GPU<br>
+
 
 
