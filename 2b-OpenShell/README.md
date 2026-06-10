@@ -173,9 +173,6 @@ OpenShell 五大核心組件
 
 「不論你想把 OpenShell 裝在自己的筆電上/GB10上，還是公司雲端龐大的伺服器群（Kubernetes）裡，它的運作邏輯和使用方法都完全一模一樣。」這種設計讓開發人員在個人電腦上做完測試後，可以毫無痛苦地直接搬到公司的生產環境中執行。
 
-
-
-
 ## 所以等等 這時要考慮架構問題 :
 標準的DGX playbook 是全部裝在同一台 , 或者是您有強大有力的DGX Workstation GB300 控一個有很多Agent與沙箱的大池子 , 或最終企業架構也有可能會是採分離式控制 <br>
 VM  (Control Plane)      <br> 
@@ -193,5 +190,8 @@ GPU Server (Inference Plane)<br>
 ├─ Nemotron/Llama<br>
 └─ NVIDIA GPU<br>
 
+下圖所展示的應用是多個Openclaw Agent 的示範應用, 拍攝於GTC TAIPEI 2026 build-a-claw展示區
+![GTC2026-multi-claw.jpg](images/GTC2026-multi-claw.jpg)
 
-
+運行在DGX Workstation GB300 , 畫面要表達的是有多組agent , 分別在不同的Sandbox , 有各自不同的任務 , 會互相溝通 . 
+圖中的QR 是引導到 build-a-claw  https://www.nvidia.com/en-us/ai/build-a-claw/
