@@ -1,5 +1,5 @@
 # 使用 OpenShell 確保長時間運行的 AI 代理程式的安全
-> 在 GB10與其它環境，佈建NVIDIA OpenShell 沙箱，使用本地模型執行OpenClaw
+> 佈建NVIDIA OpenShell 沙箱，使用本地模型執行OpenClaw
 
 ## 官方文件參考資料來源
 
