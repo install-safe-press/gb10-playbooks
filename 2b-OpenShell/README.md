@@ -15,9 +15,13 @@ NVIDIA OpenShell 是 NVIDIA 在 2026 年初推出的**開源 AI Agent 安全防�
 
 ![ai-agent-ecosys.jpg](images/ai-agent-ecosys.jpg)
 
-當 AI Agent 被賦予執行 Shell 指令、讀寫檔案與調用 API 的權限時，最大的風險就是「**失控**」或遭受「**提示詞注入攻擊（Prompt Injection）**」。OpenShell 的核心目的就是作為一個強制的**安全閘道器（Gateway）**，把 AI Agent 牢牢鎖在預先劃好的安全邊界內。
-
+當 AI Agent 被賦予執行 Shell 指令、讀寫檔案與調用 API 的權限時，最大的風險就是「**失控**」或遭受「**提示詞注入攻擊（Prompt Injection）**」。
+OpenShell 的核心目的就是作為一個強制的**安全閘道器（Gateway）**，把 AI Agent 牢牢鎖在預先劃好的安全邊界內。
+AI Agent(OpenClaw)負責生產力，OpenShell 負責安全性，而 Sandbox沙箱 則是兩者之間的隔離區。
+- 參考資訊 Run Autonomous, Self-Evolving Agents More Safely with NVIDIA OpenShell   https://developer.nvidia.com/blog/run-autonomous-self-evolving-agents-more-safely-with-nvidia-openshell/?utm_source=chatgpt.com#entry-content-comments
 ---
+
+
 
 ## 情境一：AI 遇到提示詞注入攻擊
 
@@ -116,21 +120,24 @@ OpenShell 立即介入：
 
 ## 🏗️ OpenShell 的三大核心角色：CLI、Gateway、Supervisor
 如果把 OpenShell 部署的環境比喻成一棟「高規格的中央情報局（CIA）辦公大樓」，那麼這三個角色分別扮演不同的職務：
-```
-[ 管理員/工程師 ] ──(使用 CLI 下命令)──► [ Gateway 中央控制室 ] ──(遠端指揮)──► [ Supervisor 現場警衛 ] ──(看管)──► [ AI Agent 沙箱 ]
-```
+
+`[ 管理員/工程師 ] ──(使用 CLI 下命令)──► [ Gateway 中央控制室 ] ──(遠端指揮)──► [ Supervisor 現場警衛 ] ──(看管)──► [ AI Agent 沙箱 ]`
+
+
+![openshell-flow-with-agent.jpg](images/openshell-flow-with-agent.jpg)
+
 ---
 ### 1. 💻 CLI（命令列介面）——「管理員的遙控器」
-**白話解釋：** 這是工程師或系統管理員用來控制 OpenShell 的黑底白字視窗工具。
-**它的職責：** 就像一個「遠端遙控器」。管理員不需要親自跑到大樓機房，只要在自己的電腦上輸入幾行簡單的指令，就能遠端：
+**解釋：** 這是工程師或系統管理員用來控制 OpenShell 的黑底白字視窗工具。<br>
+**職責：** <br>就像一個「遠端遙控器」。管理員不需要親自跑到大樓機房，只要在自己的電腦上輸入幾行簡單的指令，就能遠端：<br>
 - 點火啟動沙箱
 - 修改安全規則
 - 查看現在有哪些 AI 正在調皮搗蛋
 ---
 
 ### 2. 🌐 Gateway（網關）——「總部中央控制室」
-**白話解釋：** 這是整套安全系統的「大腦」與「核心控制中心」，通常指的就是那台獨立運作、監聽 Port 8080 的安全閘道器。
-**它的職責：**
+**解釋：** 這是整套安全系統的「大腦」與「核心控制中心」，通常指的就是那台獨立運作、監聽 Port 8080 的安全閘道器。<br>
+**職責：**<br>
 - 作為**唯一的進出門戶**，所有人都必須向它驗證身份（身份驗證控制層）
 - 掌握全盤最高機密，負責管理每一個沙箱的**生命週期**（生老病死）
 - 發布最新版的**安全守則**（政策下發）
@@ -141,8 +148,8 @@ OpenShell 立即介入：
 ---
 
 ### 3. 👮 Supervisor（監控器）——「沙箱房門口的貼身保鏢」
-**白話解釋：** 這是真正待在第一線、跟 AI Agent 關在一起的「安全程式」。
-**它的職責：**
+**解釋：** 這是真正待在第一線、跟 AI Agent 關在一起的「安全程式」。<br>
+**職責：**<br>
 
 - 如果 Gateway 是坐在總部的長官，Supervisor 就是**站在沙箱門口盯著 AI 的貼身保鏢**
 - 負責在本地端親手把 AI 關進沙箱、**限制 AI 的手腳**
@@ -166,9 +173,12 @@ OpenShell 五大核心組件
 
 「不論你想把 OpenShell 裝在自己的筆電上/GB10上，還是公司雲端龐大的伺服器群（Kubernetes）裡，它的運作邏輯和使用方法都完全一模一樣。」這種設計讓開發人員在個人電腦上做完測試後，可以毫無痛苦地直接搬到公司的生產環境中執行。
 
-## 等等 這時要考慮架構問題 :
-標準的DGX playbook 是全部裝在同一台 , 最終企業架構有可能會是這樣 <br>
-VM (Control Plane)      <br> 
+
+
+
+## 所以等等 這時要考慮架構問題 :
+標準的DGX playbook 是全部裝在同一台 , 或者是您有強大有力的DGX Workstation GB300 控一個有很多Agent與沙箱的大池子 , 或最終企業架構也有可能會是採分離式控制 <br>
+VM  (Control Plane)      <br> 
 │                       <br>
 ├─ OpenShell CLI        <br>
 ├─ Gateway<br>
@@ -176,7 +186,7 @@ VM (Control Plane)      <br>
 └─ OpenClaw Sandbox<br>
        │<br>
        │ inference.local<br>
-       ▼<br>
+       ▼ 區隔分離 <br>
 GPU Server (Inference Plane)<br>
 │<br>
 ├─ Ollama<br>
