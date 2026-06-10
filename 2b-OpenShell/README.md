@@ -214,4 +214,4 @@ OpenShell 透過網路、檔案系統、流程和推理四個層面強制執行�
 👉 第二張（NemoClaw）＝應用層使用方式（Agent Runtime / Use Case）- NemoClaw = **跑在上面的 Agent 應用** <br>
 
 # 如果單看 Openshell原廠章節資料 不太容易理解的話 建議一併把 Nemoclaw 資料一併看完,這樣就不會太抽像理解速度也會比較快 
-# 如果內容你問AI 都會給你鬼扯蛋 請注意NVIDIA原文件與AI生成內容比對 
+# 如果內容你問AI各自內容細節都有一點偏差, 請注意NVIDIA原文件與AI生成內容比對 
