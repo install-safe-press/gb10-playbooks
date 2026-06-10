@@ -200,3 +200,6 @@ OpenShell 詳細的工作原理請參考(那個圖不是很好理解, 但很值�
 OpenShell 透過網路、檔案系統、流程和推理四個層面強制執行沙箱安全。詳細的可設定的控制項、其預設值、保護範圍以及放寬限制的風險。請參考https://docs.nvidia.com/openshell/security/best-practices<br>
 
 
+來比對下個主題 NemoClaw  OpenShell 的更安全的自主代理架構，展示了其核心元件：沙箱、策略引擎和隱私路由器。
+![openshell-flow-with-agent-2.jpg](images/openshell-flow-with-agent-2.jpg)
+參考網頁 https://developer.nvidia.com/blog/run-autonomous-self-evolving-agents-more-safely-with-nvidia-openshell/?utm_source=chatgpt.com#entry-content-comments
