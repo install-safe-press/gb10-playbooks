@@ -13,6 +13,8 @@
 
 NVIDIA OpenShell 是 NVIDIA 在 2026 年初推出的**開源 AI Agent 安全防護與沙箱（Sandbox）框架**，通常與其 AI Agent 框架 **OpenClaw** 共同組成 **NemoClaw 解決方案**。
 
+![ai-agent-ecosys.jpg](images/ai-agent-ecosys.jpg)
+
 當 AI Agent 被賦予執行 Shell 指令、讀寫檔案與調用 API 的權限時，最大的風險就是「**失控**」或遭受「**提示詞注入攻擊（Prompt Injection）**」。OpenShell 的核心目的就是作為一個強制的**安全閘道器（Gateway）**，把 AI Agent 牢牢鎖在預先劃好的安全邊界內。
 
 ---
@@ -20,6 +22,7 @@ NVIDIA OpenShell 是 NVIDIA 在 2026 年初推出的**開源 AI Agent 安全防�
 ## 情境一：AI 遇到提示詞注入攻擊
 
 ### 🎯 故事背景
+![openshell-comic-1.jpg](images/openshell-comic-1.jpg)
 
 員工使用 AI Agent（透過 OpenClaw 驅動）幫忙管理電腦或自動化辦公，不幸遭遇**提示詞注入攻擊**。
 
@@ -72,6 +75,7 @@ OpenShell 啟動**沙箱（Sandbox）**技術，在電腦內虛擬出一個完�
 ---
 
 ## 情境二：正常任務的三方協作流程
+![openshell-comic-2.jpg](images/openshell-comic-2.jpg)
 
 **使用者指令：** 「幫我上網查最新財報，並把資料寫入公司電腦的資料庫中。」
 
@@ -161,36 +165,6 @@ OpenShell 五大核心組件
 上述採用擬人化表示 , 原意請參考  https://docs.nvidia.com/openshell/about/how-it-works#core-components  <br>
 
 「不論你想把 OpenShell 裝在自己的筆電上/GB10上，還是公司雲端龐大的伺服器群（Kubernetes）裡，它的運作邏輯和使用方法都完全一模一樣。」這種設計讓開發人員在個人電腦上做完測試後，可以毫無痛苦地直接搬到公司的生產環境中執行。
-
-
-# 安裝 OpenShell
-使用一條指令即可安裝 OpenShell：
-
-```
-curl -LsSf https://raw.githubusercontent.com/NVIDIA/OpenShell/main/install.sh | sh
-```
-該腳本會偵測您的作業系統，並使用您作業系統自帶的套件管理器安裝 OpenShell 命令列介面和網關。然後，它會啟動本機網關伺服器，以便您可以開始建立沙箱。
-
-
-以GB10安裝為例，Ubuntu 系統上，安裝腳本使用 Debian 軟體套件。此 Debian 軟體包會安裝openshell命令列介面 (CLI)、openshell-gateway守護程式、虛擬機器沙箱支援以及 systemd 使用者服務。
-
-Linux 用戶服務監聽端口https://127.0.0.1:17670，從內建預設值啟動，並在網關啟動前產生本地 mTLS 封包。~/.config/openshell/gateway.toml僅當需要覆寫這些預設值時才建立該服務。
-
-CLI 從以下位置讀取客戶端包~/.config/openshell/gateways/openshell/mtls/：
-
-安裝程式會自動啟動該服務。當您需要檢查、重新啟動或停止網關服務時，請使用 systemd 使用者命令：
-
-```
-systemctl --user status openshell-gateway
-systemctl --user restart openshell-gateway
-journalctl --user -u openshell-gateway -f
-```
-
-為使用戶服務在登出後繼續運行，請啟用 linger：
-
-```
-sudo loginctl enable-linger $USER
-```
 
 ## 等等 這時要考慮架構問題 :
 標準的DGX playbook 是全部裝在同一台 , 最終企業架構有可能會是這樣 <br>
