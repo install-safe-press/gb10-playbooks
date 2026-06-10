@@ -196,7 +196,7 @@ GPU Server (Inference Plane)<br>
 運行在DGX Workstation GB300 , 畫面要表達的是有多組agent , 分別在不同的Sandbox , 有各自不同的任務 , 會互相溝通 . 
 圖中的QR 是引導到 build-a-claw  https://www.nvidia.com/en-us/ai/build-a-claw/
 
-OpenShell 詳細的工作原理請參考  https://docs.nvidia.com/openshell/about/how-it-works <br>
+OpenShell 詳細的工作原理請參考(那個圖不是很好理解, 但很值得參考)  https://docs.nvidia.com/openshell/about/how-it-works <br>
 OpenShell 透過網路、檔案系統、流程和推理四個層面強制執行沙箱安全。詳細的可設定的控制項、其預設值、保護範圍以及放寬限制的風險。請參考https://docs.nvidia.com/openshell/security/best-practices<br>
 
 
