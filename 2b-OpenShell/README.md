@@ -125,6 +125,7 @@ OpenShell 立即介入：
 
 
 ![openshell-flow-with-agent.jpg](images/openshell-flow-with-agent.jpg)
+（OpenShell 官方）＝底層系統架構圖（Infrastructure / Platform）
 
 ---
 ### 1. 💻 CLI（命令列介面）——「管理員的遙控器」
@@ -200,6 +201,123 @@ OpenShell 詳細的工作原理請參考(那個圖不是很好理解, 但很值�
 OpenShell 透過網路、檔案系統、流程和推理四個層面強制執行沙箱安全。詳細的可設定的控制項、其預設值、保護範圍以及放寬限制的風險。請參考https://docs.nvidia.com/openshell/security/best-practices<br>
 
 
-來比對下個主題 NemoClaw  OpenShell 的更安全的自主代理架構，展示了其核心元件：沙箱、策略引擎和隱私路由器。
+## 來比對下個主題 NemoClaw  OpenShell 的更安全的自主代理架構，展示了其核心元件：沙箱、策略引擎和隱私路由器。
 ![openshell-flow-with-agent-2.jpg](images/openshell-flow-with-agent-2.jpg)
+（NemoClaw）＝應用層使用方式（Agent Runtime / Use Case）
+
 參考網頁 https://developer.nvidia.com/blog/run-autonomous-self-evolving-agents-more-safely-with-nvidia-openshell/?utm_source=chatgpt.com#entry-content-comments
+
+其實同一個架構的兩個視角，但抽象層級不同。 你可以把它理解成：
+
+對比兩個架構圖其實是 (同一個架構) 的兩個視角，但抽象層級不同。你可以把它理解成：<br>
+👉 第一張（OpenShell 官方）＝底層系統架構圖（Infrastructure / Platform）<br>
+👉 第二張（NemoClaw）＝應用層使用方式（Agent Runtime / Use Case）<br>
+
+## 🧱 架構分層關係
+
+```
+NemoClaw (Agent 應用層)
+   ↓
+OpenShell (Agent Runtime / 平台層)
+   ↓
+Docker / Kubernetes / VM (基礎設施層)
+```
+
+---
+
+## 🔗 核心對應關係
+### 1️⃣ 入口層（Control Plane）
+| OpenShell | NemoClaw | 說明 |
+|----------|----------|------|
+| CLI / SDK / TUI | NemoClaw CLI | 使用者操作入口 |
+| Gateway | （隱藏） | 被抽象掉 |
+---
+
+### 2️⃣ 模型 / AI 決策層
+| OpenShell | NemoClaw | 說明 |
+|----------|----------|------|
+| 無特定設計 | Privacy Router | 模型選擇 / routing |
+| 無特定設計 | Local / Frontier Model | LLM 執行 |
+---
+
+### 3️⃣ 執行環境（核心）
+| OpenShell | NemoClaw | 說明 |
+|----------|----------|------|
+| Sandbox data plane | Sandbox | 隔離執行環境 |
+| Supervisor | Sandbox Supervisor | 控制 agent |
+| Restricted process | Agents / Code execution | 任務執行 |
+| Policy proxy | Access Proxy | 安全與網路控管 |
+---
+
+### 4️⃣ 安全機制（Policy）
+| OpenShell | NemoClaw |
+|----------|----------|
+| OPA policy engine | Sandbox Supervisor |
+| Policy proxy | Access Proxy |
+
+---
+### 5️⃣ 外部資源
+| OpenShell | NemoClaw |
+|----------|----------|
+| External services | Skills & Tools / Enterprise Data |
+
+---
+
+### 6️⃣ Infra 層
+
+| OpenShell | NemoClaw |
+|----------|----------|
+| Docker / K8s / VM | （隱藏） |
+
+---
+
+## ⚠️ 關鍵差異
+
+### 🔴 1. 抽象層不同
+
+- **OpenShell** → 平台 / 作業系統層  
+- **NemoClaw** → 應用框架層  
+
+---
+
+### 🔴 2. Agent 定義不同
+
+- **OpenShell**
+  - Agent = 一個 process（低階）
+
+- **NemoClaw**
+  - Agent = 一整套能力
+    - Tool generation  
+    - Code execution  
+    - Long-running tasks  
+
+---
+
+### 🔴 3. 是否綁定 LLM
+
+- **OpenShell** → ❌ 不綁模型  
+- **NemoClaw** → ✅ 強綁 LLM  
+
+---
+
+### 🔴 4. 安全設計呈現
+
+- **OpenShell** → 模組化拆開  
+- **NemoClaw** → 收斂成產品元件  
+
+---
+
+### 🔴 5. 可觀測性（Observability）
+
+- **OpenShell** → 幾乎沒有呈現  
+- **NemoClaw** → 有 Telemetry / OTel  
+
+---
+
+👉 這兩個不是競爭關係，而是「上下層關係」
+
+- OpenShell = **底層 Agent Runtime**
+- NemoClaw = **跑在上面的 Agent 應用**
+
+
+# 如果單看 Openshell原廠章節資料 不太容易理解的話 建議一併把 Nemoclaw 資料一併看完,這樣就不會太抽像理解速度也會比較快 
