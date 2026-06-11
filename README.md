@@ -81,7 +81,7 @@ https://www.youtube.com/playlist?list=PLTfgcc_ky0u4sMNSJLS288erbZ4YMv3Zs <br>
 | 7a | 即時視覺推理 | 7a-Live VLM WebUI | Real-time webcam VLM | 即時視覺推理 |
 | 8a | 數位孿生與模擬 | 8a-Isaac Sim | Isaac ecosystem | 機器人模擬 |
 | 9a | 多模態互動 | 9a-Reachy Photo Booth | AI photo booth | 多模態互動展示 |
-| a1 | 企業級管理 | a1-Enterprise Manageability |  |  |
+| a1 | 企業級管理 | a1-Enterprise Manageability | NVIDIA GB10 管理方案 |  |
 | a2 | 企業級管理 | a2-Backup GB10 |備份方案  |  |
 
 ---
