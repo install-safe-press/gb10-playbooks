@@ -83,7 +83,7 @@ https://www.youtube.com/playlist?list=PLTfgcc_ky0u4sMNSJLS288erbZ4YMv3Zs <br>
 | 9a | 多模態互動 | 9a-Reachy Photo Booth | AI photo booth | 多模態互動展示 |
 | a1 | 企業級管理 | a1-Enterprise Manageability | NVIDIA GB10 管理方案 |  |
 | a2 | 企業級管理 | a2-Backup GB10 |備份方案  |  |
-| b1 | 工作流程 | b1-AI-Q | AI-Q Blueprint  |  |
+| b1 | 工作流程 | b1-AI-Q | NVIDIA AI-Q Blueprint for intelligent agents  |  |
 | b2 | 工作流程 | b2-DDOE | Dell Data Orchestration Engine  |  |
 
 ---
