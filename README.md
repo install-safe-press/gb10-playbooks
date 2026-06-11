@@ -82,6 +82,7 @@ https://www.youtube.com/playlist?list=PLTfgcc_ky0u4sMNSJLS288erbZ4YMv3Zs <br>
 | 8a | 數位孿生與模擬 | 8a-Isaac Sim | Isaac ecosystem | 機器人模擬 |
 | 9a | 多模態互動 | 9a-Reachy Photo Booth | AI photo booth | 多模態互動展示 |
 | a1 | 企業級管理 | a1-Enterprise Manageability |  |  |
+| a2 | 企業級管理 | GB10/NVIDIA DGX Spark 的備份方案 |  |  |
 
 ---
 ---
