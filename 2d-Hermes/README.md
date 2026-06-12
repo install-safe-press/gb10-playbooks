@@ -600,6 +600,8 @@ Telegram發送檔案
 
 
 
+2026/06/12 [https://hermes-agent.nousresearch.com/hermes-agent ](https://hermes-agent.nousresearch.com/desktop) 
+![hermes-agent.nousresearch.comdesktop.jpg](images/hermes-agent.nousresearch.comdesktop.jpg) 
 
 
 
