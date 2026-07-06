@@ -200,8 +200,24 @@ GPU Server (Inference Plane)<br>
 OpenShell 詳細的工作原理請參考(那個圖不是很好理解, 但很值得參考)  https://docs.nvidia.com/openshell/about/how-it-works <br>
 OpenShell 透過網路、檔案系統、流程和推理四個層面強制執行沙箱安全。詳細的可設定的控制項、其預設值、保護範圍以及放寬限制的風險。請參考https://docs.nvidia.com/openshell/security/best-practices<br>
 
+## 之前系統之中已建置的環境如下（注意GB10目前還未洗掉重灌,都是一直疊加上去）<br>
+openwebui/ollama--docker <br>
+openclaw -- 直接佈在OS層 (port 18789) 原生process  <br>
+接下來的要做的openshell項目是建立sanbox並在其中佈建openclaw (port 18790) <br>
+所以openshell的sanbox沙箱架構會是這樣如下圖<br>
+![manual-add-openshell](images/real_openshell_architecture.jpg)
+openshell 建一個 sanbox 之後會產生一個新的 docker , 新佈的openclaw運行在其中如下圖<br>
+![0706-docker-gui](images/0706-docker-gui.jpg)
 
-## 來比對下個主題 NemoClaw  OpenShell 的更安全的自主代理架構，展示了其核心元件：沙箱、策略引擎和隱私路由器。
+
+
+
+
+
+
+
+
+先比對下個主題 NemoClaw  OpenShell 的更安全的自主代理架構，展示了其核心元件：沙箱、策略引擎和隱私路由器。
 ![openshell-flow-with-agent-2.jpg](images/openshell-flow-with-agent-2.jpg)
 （NemoClaw）＝應用層使用方式（Agent Runtime / Use Case）
 
@@ -213,5 +229,7 @@ OpenShell 透過網路、檔案系統、流程和推理四個層面強制執行�
 👉 第一張（OpenShell 官方）＝底層系統架構圖（Infrastructure / Platform）- OpenShell = **底層 Agent Runtime** <br>
 👉 第二張（NemoClaw）＝應用層使用方式（Agent Runtime / Use Case）- NemoClaw = **跑在上面的 Agent 應用** <br>
 
-# 如果單看 Openshell原廠章節資料 不太容易理解的話 建議一併把 Nemoclaw 資料一併看完,這樣就不會太抽像理解速度也會比較快 
-# 如果內容你問AI各自內容細節都有一點偏差, 請注意NVIDIA原文件與AI生成內容比對 
+
+
+
+
