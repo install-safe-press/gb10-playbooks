@@ -208,7 +208,7 @@ openclaw -- 直接佈在OS層 (port 18789) 原生process  <br>
 ![manual-add-openshell](images/real_openshell_architecture.jpg)
 openshell 建一個 sanbox 之後會產生一個新的 docker , 新佈的openclaw運行在其中如下圖<br>
 ![0706-docker-gui](images/0706-docker-gui.jpg)
-# 採用這種方式是為了知道每個環節的動作,手動做openshell,接著建openclaw . 的手動行為步驟,詳細的步驟將在Instructions拆解說明.
+# 採用這種方式是為了知道每個環節的動作,手動做openshell,接著建openclaw . 的手動行為步驟,詳細的步驟將在install-deployment-openshell.md說明.
 
 
 而後面的主題 NemoClaw 則是把OpenShell.openclaw一併包在一起
