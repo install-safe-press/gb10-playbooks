@@ -208,15 +208,10 @@ openclaw -- 直接佈在OS層 (port 18789) 原生process  <br>
 ![manual-add-openshell](images/real_openshell_architecture.jpg)
 openshell 建一個 sanbox 之後會產生一個新的 docker , 新佈的openclaw運行在其中如下圖<br>
 ![0706-docker-gui](images/0706-docker-gui.jpg)
+# 採用這種方式是為了知道每個環節的動作,手動做openshell,接著建openclaw . 的手動行為步驟,詳細的步驟將在Instructions拆解說明.
 
 
-
-
-
-
-
-
-
+而後面的主題 NemoClaw 則是把OpenShell.openclaw一併包在一起
 先比對下個主題 NemoClaw  OpenShell 的更安全的自主代理架構，展示了其核心元件：沙箱、策略引擎和隱私路由器。
 ![openshell-flow-with-agent-2.jpg](images/openshell-flow-with-agent-2.jpg)
 （NemoClaw）＝應用層使用方式（Agent Runtime / Use Case）
@@ -228,8 +223,4 @@ openshell 建一個 sanbox 之後會產生一個新的 docker , 新佈的opencla
 對比兩個架構圖其實是 (同一個架構) 的兩個視角，但抽象層級不同。你可以把它理解成：<br>
 👉 第一張（OpenShell 官方）＝底層系統架構圖（Infrastructure / Platform）- OpenShell = **底層 Agent Runtime** <br>
 👉 第二張（NemoClaw）＝應用層使用方式（Agent Runtime / Use Case）- NemoClaw = **跑在上面的 Agent 應用** <br>
-
-
-
-
 
