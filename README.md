@@ -41,7 +41,7 @@ https://www.youtube.com/playlist?list=PLTfgcc_ky0u4sMNSJLS288erbZ4YMv3Zs <br>
 | 0b | 基礎入門 | 0b-DAC Cable Network NIC Basic | GB10 DAC Cable 有關 QSFP 網路連接 | 高速網路與 DAC/QSFP 基礎 |
 | 0c | 基礎入門 | 0c-OS-command | 作業系統相關應用指令 | Linux / DGX OS 常用指令 |
 | 0d | 基礎入門 | 0d-DGX Dashboard | Monitor your DGX system and launch JupyterLab | 即時監控硬體並啟動 JupyterLab |
-| 0z | 基礎入門 | 0z-Recovery Image| 重刷ISO系統重置 | |
+| 0z | 基礎入門 | 0z-Reimage| Recovery Image |重刷ISO系統重置 |
 | 1a | 基礎入門 | 1a-Open WebUI with Ollama | Install Open WebUI and use Ollama | 本地 ChatGPT 平台部署 |
 | 1b | 基礎入門 | 1b-VS Code | Install and use VS Code locally or remotely | 本地 / 遠端開發環境 |
 | 1c | 基礎入門 | 1c-Set up Tailscale on Your Spark | Remote network access | 遠端安全連線 |
