@@ -191,7 +191,7 @@ GPU Server (Inference Plane)<br>
 ├─ Nemotron/Llama<br>
 └─ NVIDIA GPU<br>
 
-下圖所展示的應用是多個Openclaw Agent 的示範應用, 拍攝於GTC TAIPEI 2026 build-a-claw展示區
+下圖所展示的應用是多個Openclaw Agent 的示範應用, 拍攝於GTC TAIPEI 2026 build-a-claw展示區 （這個例子其實是用nemoclaw）
 ![GTC2026-multi-claw.jpg](images/GTC2026-multi-claw.jpg)
 
 運行在DGX Workstation GB300 , 畫面要表達的是有多組agent , 分別在不同的Sandbox , 有各自不同的任務 , 會互相溝通 . 
