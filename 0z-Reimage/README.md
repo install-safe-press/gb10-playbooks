@@ -124,7 +124,7 @@ sudo fwupdmgr refresh 執行成功，無版本錯誤<br>
 sudo fwupdmgr refresh --force 成功刷新韌體資料庫（LVFS metadata）<br>
 sudo fwupdmgr get-updates 與 sudo fwupdmgr upgrade 確認：所有裝置韌體皆為最新版本，無需更新<br>
 
-
+update 也可透過dgx-dashboard檢查
 ![dgx-dashboard](images/dgx-dashboard.jpg) 
 這一版本的dgx-dashboard , update 是獨立選項 , 顯示系統無更新項目
 
