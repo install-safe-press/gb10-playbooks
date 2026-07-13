@@ -8,7 +8,7 @@ https://www.nvidia.com/zh-tw/ai/build-a-claw <br>
 # 在 GB10 上部署 NemoClaw：打造地端安全 AI Agent
 ## 為什麼要做這件事
 ### 背景
-NVIDIA 在 GTC 2026 發表了 **OpenClaw** —— 一個可以長時間自主運行的 AI Agent 框架，被 Jensen Huang 稱為「個人 AI 的作業系統」。但直接跑 OpenClaw 有一個問題：它預設沒有安全防護層，Agent 一旦被 prompt injection 攻擊或誤操作，可能會存取到不該碰的檔案、發出不該發的網路請求。
+**OpenClaw**  一個可以長時間自主運行的 AI Agent 框架，但直接跑 OpenClaw 有一個問題：它預設沒有安全防護層，Agent 一旦被 prompt injection 攻擊或誤操作，可能會存取到不該碰的檔案、發出不該發的網路請求。
 
 ### NemoClaw 要解決的問題
 NemoClaw 是 NVIDIA 推出的開源參考堆疊，核心目的是：
