@@ -179,7 +179,7 @@ cat /etc/docker/daemon.json
 ```
 ---
 
-### 安裝 Ollama
+### Step 2 : 安裝 Ollama
 
 Ollama 是這套架構裡的**推論引擎**，跑在 Host（GHB10 主機本身），負責載入並執行 Nemotron 模型。之後 NemoClaw 的 sandbox 容器會透過內部路由連到這個服務，所以必須先在 Host 上裝好、跑起來。
 
@@ -247,8 +247,71 @@ Environment="OLLAMA_HOST=0.0.0.0"
 ```
 ![p-0-7](images/p-0-7.jpg)
 ---
+### Step 3 : 下載 Nemotron 3 Super 模型
+Ollama 服務跑起來之後，接下來要把 **Nemotron 3 Super 120B** 模型權重下載下來。這是 NemoClaw 官方教學指定搭配的模型，參數量 120B，靠 GB10 的 128GB unified memory 才能整個放進記憶體執行。
 
-*（下一部分：Phase 1 — Step 3 下載 Nemotron 3 Super 模型）*
+#### 1. 下載模型
+
+```bash
+ollama pull nemotron-3-super:120b
+```
+
+模型大小約 **87GB**，依照網路速度不同，預估需要 **15～30 分鐘** 視網路連線速度。下載過程中會顯示進度條，可以直接放著跑，先去做別的事。
+
+#### 2. 預先載入模型到記憶體
+
+下載完成後，先手動跑一次，讓 Ollama 把權重載入記憶體並做一次初始化：
+
+```bash
+ollama run nemotron-3-super:120b
+```
+
+進入互動模式後，可以先簡單問一句話測試回應是否正常，例如：
+
+```
+>>> 你好，請簡單自我介紹
+```
+
+測試完成後，輸入 `/bye` 離開：
+
+```
+>>> /bye
+```
+
+#### 3. 確認模型已經在本地清單中
+
+```bash
+ollama list
+```
+
+預期輸出應該要看到類似這樣的一行：
+
+```
+NAME                       ID              SIZE      MODIFIED
+nemotron-3-super:120b      xxxxxxxxxxxx    87 GB     x minutes ago
+```
+
+---
+
+### ⚠️ 重點提醒
+
+> 第一次執行 `ollama run` 載入 120B 模型時，回應速度可能會比較慢（首次載入權重到記憶體需要時間），屬於正常現象，之後同一個 Ollama 服務再次呼叫這個模型會快很多，因為權重已經常駐在記憶體。
+
+> 下載前建議先確認硬碟可用空間至少有 **100GB** 以上（87GB 模型本體 + 額外操作空間），可以用以下指令檢查：
+> ```bash
+> df -h /
+> ```
+
+### 這一步做完後應該確認的事
+
+- [ ] `ollama pull nemotron-3-super:120b` 完整下載完成，沒有中斷錯誤
+- [ ] `ollama run nemotron-3-super:120b` 可以正常對話、有收到回應
+- [ ] `ollama list` 可以看到 `nemotron-3-super:120b` 出現在清單中，且大小約 87GB
+
+---
+
+*（下一部分：Phase 2 — Step 4 安裝 NemoClaw）*
+
 
 
 
