@@ -310,7 +310,128 @@ nemotron-3-super:120b      xxxxxxxxxxxx    87 GB     x minutes ago
 
 ---
 
-*（下一部分：Phase 2 — Step 4 安裝 NemoClaw）*
+## Phase 2：安裝並啟動 NemoClaw
+
+前置準備（Docker/NVIDIA runtime、Ollama、Nemotron 3 Super 模型）都完成後，接下來這一步是整個流程的核心——一行指令裝好 NemoClaw 本體。
+
+### 官方頁面資訊摘要
+
+| 項目 | 內容 |
+|---|---|
+| 頁面標題 | NemoClaw with Nemotron 3 Super and Telegram on DGX Spark |
+| 預估時間 | 30 分鐘 |
+| 標籤 | AI Agent、DGX、NemoClaw、Nemotron 3 Super、Ollama、OpenShell、Spark、Telegram |
+| 原始碼 | [NemoClaw on GitHub](https://github.com/NVIDIA/NemoClaw) |
+| 官方分頁 | [Overview](https://build.nvidia.com/spark/nemoclaw/overview) / [Instructions](https://build.nvidia.com/spark/nemoclaw/instructions) / [Troubleshooting](https://build.nvidia.com/spark/nemoclaw/troubleshooting) |
+
+官方頁面在 Phase 1 開頭有特別註明：
+
+> 這些步驟是為了在全新的 GB10 上準備好 NemoClaw 執行環境。**如果 NVIDIA runtime、Ollama 都已經設定好了，可以直接跳到 Phase 2。**
+
+也就是說，如果你（跟我們前面一路走過來一樣）已經完成 Step 1~3，接下來就是正式進入 **Phase 2** 的核心步驟。
+
+### Step 4：安裝 NemoClaw
+
+這一行指令會處理所有事情：安裝 Node.js（若尚未安裝）、安裝 OpenShell、複製最新穩定版 NemoClaw、建置 CLI，並執行 onboard 精靈來建立 sandbox。
+
+```bash
+curl -fsSL https://www.nvidia.com/nemoclaw.sh | bash
+```
+
+#### Onboard 精靈會依序詢問這些設定
+
+**1. Sandbox 名稱**
+
+取一個名稱（例如 `my-assistant`）。**限制：只能用小寫英數字加連字號**。
+
+**2. 推論來源（Inference provider）**
+
+選擇 **Local Ollama**。
+
+**3. 模型（Model）**
+
+選擇 **nemotron-3-super:120b**（就是我們在 Step 3 已經下載好的那個）。
+
+**4. 訊息通道（Messaging channels）**
+
+如果要接 Telegram bot，這裡選 `telegram`，並貼上先前跟 [@BotFather](https://t.me/BotFather)申請好的 bot token。
+如果這步先跳過，之後要啟用 Telegram，必須**重新執行安裝程序來重建 sandbox**，不能事後補加。
+
+**5. 政策預設（Policy presets）**
+
+出現提示時按 **Y** 接受建議的預設值即可。
+
+---
+
+### ⚠️ 重點提醒
+
+> **Telegram 必須在這一步的 onboard 精靈中就設定好。** 
+channel plugin 和 bot token 是在 sandbox 建立當下就寫進容器內部的，事後無法透過在 host 上設定環境變數的方式補加到既有的 sandbox。
+
+### 安裝完成後的輸出畫面
+
+完成後會看到類似這樣的資訊：
+
+```
+──────────────────────────────────────────────────
+Dashboard    http://localhost:18789/
+Sandbox      my-assistant (Landlock + seccomp + netns)
+Model        nemotron-3-super:120b (Local Ollama)
+──────────────────────────────────────────────────
+Run:         nemoclaw my-assistant connect
+Status:      nemoclaw my-assistant status
+Logs:        nemoclaw my-assistant logs --follow
+──────────────────────────────────────────────────
+```
+
+### ⚠️ 一定要保存這個網址
+
+輸出最後會印出一組**帶 token 的 Web UI 網址**，格式類似：
+
+```
+http://127.0.0.1:18789/#token=<很長的token字串>
+```
+
+**這組網址（含 token）務必先複製保存下來**，後面 Step 8 開啟 Web UI 時要用到，之後不會再重複顯示。
+
+### 小提醒：如果裝完找不到 `nemoclaw` 指令
+
+```bash
+source ~/.bashrc
+```
+
+重新載入 shell 的 PATH 設定即可。
+
+---
+
+### 這一步做完後應該確認的事
+
+- [ ] onboard 精靈完整跑完，沒有中途報錯
+- [ ] 有看到 Dashboard / Sandbox / Model 的摘要輸出
+- [ ] 已經複製保存好帶 token 的 Web UI 網址
+- [ ] 終端機輸入 `nemoclaw` 指令，能正常顯示說明（不是 command not found）
+
+---
+
+### 延伸資源（官方頁面附帶連結）
+
+- [NemoClaw GitHub Repo](https://github.com/NVIDIA/NemoClaw)
+- [NemoClaw 官方文件](https://docs.nvidia.com/nemoclaw/latest/index.html)
+- [OpenClaw 官方文件](https://docs.openclaw.ai)
+- [DGX Spark 官方文件](https://docs.nvidia.com/dgx/dgx-spark)
+- [DGX Spark 討論區](https://forums.developer.nvidia.com/c/accelerated-computing/dgx-spark-gb10)
+
+### 相關 Playbook（同樣在 build.nvidia.com/spark 上，之後有興趣可以延伸閱讀）
+
+| 分類 | Playbook |
+|---|---|
+| use case | [Secure Long Running AI Agents with OpenShell on DGX Spark](https://build.nvidia.com/spark/openshell) |
+| use case | [OpenClaw 🦞](https://build.nvidia.com/spark/openclaw)（純 OpenClaw，沒有 OpenShell 安全層） |
+| inference | [Run models with llama.cpp on DGX Spark](https://build.nvidia.com/spark/llama-cpp) |
+| inference | [Nemotron-3-Nano with llama.cpp](https://build.nvidia.com/spark/nemotron)（前面澄清過，跟 NemoClaw 是不同路線，不是前置步驟） |
+| tools | [DGX Dashboard](https://build.nvidia.com/spark/dgx-dashboard) |
+
+*（下一部分：Step 5～8 — 連進 sandbox、驗證推論、CLI 對話測試、開啟 Web UI）*
 
 
 
