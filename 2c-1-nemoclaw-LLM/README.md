@@ -60,7 +60,9 @@ GB10 的 128GB unified memory 剛好可以把 120B 參數的模型整個放進�
 |---|---|---|
 | **Ollama** | Host（GB10 主機本身） | 純推論引擎，載入 Nemotron 3 Super 120B 模型權重，對外開 11434 port |
 | **NemoClaw / OpenShell** | Docker container（sandbox） | Agent 執行環境，提供檔案系統/網路/程序隔離，透過內部路由呼叫 Host 上的 Ollama |
+
 這個分工是整篇文章的核心概念——**推論引擎跟 Agent 執行環境是分離的兩層**，中間靠 NemoClaw 的 inference router 串接（`https://inference.local/v1/models`）。
+
 ### 為什麼要先裝 Ollama 才裝 NemoClaw
 因為 NemoClaw 的 onboard 精靈在問「選擇推論來源」時，需要偵測到本地已經有一個跑起來的 Ollama 服務才能選，所以順序不能顛倒。
 ---
@@ -175,11 +177,78 @@ newgrp docker
 ```bash
 cat /etc/docker/daemon.json
 ```
-
 ---
 
-*（下一部分：Phase 1 — Step 2 安裝 Ollama）*
+### 安裝 Ollama
 
+Ollama 是這套架構裡的**推論引擎**，跑在 Host（GHB10 主機本身），負責載入並執行 Nemotron 模型。之後 NemoClaw 的 sandbox 容器會透過內部路由連到這個服務，所以必須先在 Host 上裝好、跑起來。
+
+#### 1. 執行官方安裝腳本
+
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+這行會安裝 Ollama 執行檔，並自動建立一個 systemd service（`ollama.service`），方便後續用 `systemctl` 管理。
+
+#### 2. 設定 Ollama 監聽所有網路介面
+
+預設情況下 Ollama 只會監聽 `127.0.0.1`，NemoClaw 的 sandbox 容器（跑在另一個網路 namespace）連不到。需要建立一個 systemd override，加上 `OLLAMA_HOST=0.0.0.0` 環境變數：
+
+```bash
+sudo mkdir -p /etc/systemd/system/ollama.service.d
+printf '[Service]\nEnvironment="OLLAMA_HOST=0.0.0.0"\n' | sudo tee /etc/systemd/system/ollama.service.d/override.conf
+```
+
+#### 3. 重新載入設定並重啟服務
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart ollama
+```
+
+#### 4. 驗證服務正常運作且監聽正確
+
+```bash
+curl http://0.0.0.0:11434
+```
+預期輸出：
+```
+Ollama is running
+```
+如果沒有回應，可以先檢查服務狀態：
+```bash
+sudo systemctl status ollama
+```
+![p-0-6](images/p-0-6.jpg)
+
+
+若服務沒有啟動，手動啟動：
+
+```bash
+sudo systemctl start ollama
+```
+---
+
+### 這一步做完後應該確認的事
+
+- [ ] `sudo systemctl status ollama` 顯示 `active (running)`
+- [ ] `curl http://0.0.0.0:11434` 回傳 `Ollama is running`
+- [ ] override 設定檔內容正確：
+
+```bash
+cat /etc/systemd/system/ollama.service.d/override.conf
+```
+應該要看到：
+
+```
+[Service]
+Environment="OLLAMA_HOST=0.0.0.0"
+```
+![p-0-7](images/p-0-7.jpg)
+---
+
+*（下一部分：Phase 1 — Step 3 下載 Nemotron 3 Super 模型）*
 
 
 
