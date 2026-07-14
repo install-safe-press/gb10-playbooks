@@ -469,23 +469,6 @@ nemoclaw gb10-assistant dashboard-url --quiet
 
 ---
 
-### 延伸資源（官方頁面附帶連結）
-
-- [NemoClaw GitHub Repo](https://github.com/NVIDIA/NemoClaw)
-- [NemoClaw 官方文件](https://docs.nvidia.com/nemoclaw/latest/index.html)
-- [OpenClaw 官方文件](https://docs.openclaw.ai)
-- [DGX Spark 官方文件](https://docs.nvidia.com/dgx/dgx-spark)
-- [DGX Spark 討論區](https://forums.developer.nvidia.com/c/accelerated-computing/dgx-spark-gb10)
-
-### 相關 Playbook（同樣在 build.nvidia.com/spark 上，之後有興趣可以延伸閱讀）
-
-| 分類 | Playbook |
-|---|---|
-| use case | [Secure Long Running AI Agents with OpenShell on DGX Spark](https://build.nvidia.com/spark/openshell) |
-| use case | [OpenClaw 🦞](https://build.nvidia.com/spark/openclaw)（純 OpenClaw，沒有 OpenShell 安全層） |
-| inference | [Run models with llama.cpp on DGX Spark](https://build.nvidia.com/spark/llama-cpp) |
-| inference | [Nemotron-3-Nano with llama.cpp](https://build.nvidia.com/spark/nemotron)（前面澄清過，跟 NemoClaw 是不同路線，不是前置步驟） |
-| tools | [DGX Dashboard](https://build.nvidia.com/spark/dgx-dashboard) |
 
 
 ## 實際驗證指令記錄  連進 sandbox、驗證推論、CLI 對話測試、開啟 Web UI 
@@ -687,6 +670,23 @@ https://github.com/install-safe-press/gb10-playbooks/blob/main/2a-OpenClaw/GB10-
 
 ---
 
+### 延伸資源（官方頁面附帶連結）
+
+- [NemoClaw GitHub Repo](https://github.com/NVIDIA/NemoClaw)
+- [NemoClaw 官方文件](https://docs.nvidia.com/nemoclaw/latest/index.html)
+- [OpenClaw 官方文件](https://docs.openclaw.ai)
+- [DGX Spark 官方文件](https://docs.nvidia.com/dgx/dgx-spark)
+- [DGX Spark 討論區](https://forums.developer.nvidia.com/c/accelerated-computing/dgx-spark-gb10)
+
+### 相關 Playbook（同樣在 build.nvidia.com/spark 上，之後有興趣可以延伸閱讀）
+
+| 分類 | Playbook |
+|---|---|
+| use case | [Secure Long Running AI Agents with OpenShell on DGX Spark](https://build.nvidia.com/spark/openshell) |
+| use case | [OpenClaw 🦞](https://build.nvidia.com/spark/openclaw)（純 OpenClaw，沒有 OpenShell 安全層） |
+| inference | [Run models with llama.cpp on DGX Spark](https://build.nvidia.com/spark/llama-cpp) |
+| inference | [Nemotron-3-Nano with llama.cpp](https://build.nvidia.com/spark/nemotron)（前面澄清過，跟 NemoClaw 是不同路線，不是前置步驟） |
+| tools | [DGX Dashboard](https://build.nvidia.com/spark/dgx-dashboard) |
 
 
 
