@@ -368,41 +368,101 @@ curl -fsSL https://www.nvidia.com/nemoclaw.sh | bash
 > **Telegram 必須在這一步的 onboard 精靈中就設定好。** 
 channel plugin 和 bot token 是在 sandbox 建立當下就寫進容器內部的，事後無法透過在 host 上設定環境變數的方式補加到既有的 sandbox。
 
-### 安裝完成後的輸出畫面
+### 安裝完成後的輸出畫面  NemoClaw 完整安裝成功了 
 
 完成後會看到類似這樣的資訊：
-
 ```
-──────────────────────────────────────────────────
-Dashboard    http://localhost:18789/
-Sandbox      my-assistant (Landlock + seccomp + netns)
-Model        nemotron-3-super:120b (Local Ollama)
-──────────────────────────────────────────────────
-Run:         nemoclaw my-assistant connect
-Status:      nemoclaw my-assistant status
-Logs:        nemoclaw my-assistant logs --follow
-──────────────────────────────────────────────────
-```
+  ──────────────────────────────────────────────────
+  OpenClaw is ready
+  Sandbox:  gb10-assistant
+  Model:    nemotron-3-super:120b (Local Ollama)
+  Start chatting
+    Browser:
+      http://127.0.0.1:18789/
+    Terminal:
+      nemoclaw gb10-assistant connect
+      then run: openclaw tui
+  Authenticated dashboard URL, if needed:
+    nemoclaw gb10-assistant dashboard-url --quiet
+  Remote access (SSH session detected):
+    On your workstation, run:
+      ssh -L 18789:127.0.0.1:18789 user@<host>
+    Then open the dashboard URL above in your local browser.
 
-### ⚠️ 一定要保存這個網址
-
-輸出最後會印出一組**帶 token 的 Web UI 網址**，格式類似：
-
-```
-http://127.0.0.1:18789/#token=<很長的token字串>
-```
-
-**這組網址（含 token）務必先複製保存下來**，後面 Step 8 開啟 Web UI 時要用到，之後不會再重複顯示。
-
-### 小提醒：如果裝完找不到 `nemoclaw` 指令
-
-```bash
-source ~/.bashrc
+  Manage later
+    Status:      nemoclaw gb10-assistant status
+    Logs:        nemoclaw gb10-assistant logs --follow
+    Model:       nemoclaw inference set --model <model> --provider <provider> --sandbox gb10-assistant
+    Policies:    nemoclaw gb10-assistant policy-add
+    Credentials: nemoclaw credentials reset <KEY> && nemoclaw onboard
+  ──────────────────────────────────────────────────
 ```
 
-重新載入 shell 的 PATH 設定即可。
+終端機視窗要先刷新 PATH 才能用 nemoclaw 指令：
+```
+source /home/user/.bashrc
+export PATH="/home/user/.local/bin:$PATH"
+```
+或者最簡單的做法：直接開一個全新的終端機視窗。確認指令可以用：
+```
+nemoclaw gb10-assistant status
+```
+如何連接進入sanbox 啟用 openclaw tui
 
----
+■方式一：終端機互動（CLI/TUI）
+```
+nemoclaw gb10-assistant connect
+```
+連進 sandbox 之後：
+```
+openclaw tui
+```
+
+■方式二：瀏覽器 Dashboard
+因為你是 SSH 連線進來操作，安裝程式也已經偵測到並給了對應提示：
+```
+ssh -L 18789:127.0.0.1:18789 user@<host>
+```
+建好 tunnel 後，在你本機瀏覽器打開：
+```
+nemoclaw gb10-assistant dashboard-url --quiet
+```
+這個指令會印出帶完整 token 的網址，直接貼到瀏覽器即可。
+
+之後的管理指令整理
+|用途|指令|
+|---|---|
+|查看狀態|nemoclaw gb10-assistant status|
+|查看即時| lognemoclaw gb10-assistant logs --follow|
+|換模型|nemoclaw inference set --model <model> --provider <provider> --sandbox gb10-assistant|
+|補加網路權限|nemoclaw gb10-assistant policy-add|
+|重設憑證/重跑| onboardnemoclaw credentials reset <KEY> && nemoclaw onboard|
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### 這一步做完後應該確認的事
 
