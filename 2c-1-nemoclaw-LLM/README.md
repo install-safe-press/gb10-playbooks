@@ -13,7 +13,7 @@ https://www.nvidia.com/zh-tw/ai/build-a-claw <br>
 ### NemoClaw 要解決的問題
 NemoClaw 是 NVIDIA 推出的開源參考堆疊，核心目的是：
 1. **安全性** — 把 OpenClaw 包進 **OpenShell** runtime 執行，提供 Landlock + seccomp + network namespace 隔離，限制 Agent 能碰的檔案系統範圍與網路對外連線
-2. **完全地端運行** — 搭配 **Ollama** 跑 **Nemotron 3 Super (120B)** 模型，所有推論都在自己的 GB10 上完成，不需要把資料送到雲端
+2. **完全地端運行** — 搭配 **Ollama** 跑 **LLM ** 模型，所有推論都在自己的 GB10 上完成，不需要把資料送到雲端
 3. **降低上手門檻** — 一行安裝指令，自動處理 Node.js、OpenShell、CLI 安裝，搭配互動式精靈完成設定
 ### 為什麼選 GB10
 GB10 的 128GB unified memory 剛好可以把 120B 參數的模型整個放進記憶體跑，不用像一般顯卡受限於 VRAM 大小，這是這篇實作選擇在 GB10 Spark 上做的原因。
@@ -371,7 +371,7 @@ curl -fsSL https://www.nvidia.com/nemoclaw.sh | bash
 > **Telegram 必須在這一步的 onboard 精靈中就設定好。** 
 channel plugin 和 bot token 是在 sandbox 建立當下就寫進容器內部的，事後無法透過在 host 上設定環境變數的方式補加到既有的 sandbox。
 
-### 安裝完成後的輸出畫面  NemoClaw 完整安裝成功了 
+### 安裝過程請依序參考下圖,安裝完成後的輸出畫面  NemoClaw 完整安裝成功了 
 
 ![p-3-2-4.2](images/p-3-2-4-2.jpg)
 ![p-3-2-4.3](images/p-3-2-4-3.jpg)
@@ -488,7 +488,7 @@ nemoclaw gb10-assistant dashboard-url --quiet
 | tools | [DGX Dashboard](https://build.nvidia.com/spark/dgx-dashboard) |
 
 
-## 實際驗證  連進 sandbox、驗證推論、CLI 對話測試、開啟 Web UI 
+## 實際驗證指令記錄  連進 sandbox、驗證推論、CLI 對話測試、開啟 Web UI 
 ### Step 5：連進 sandbox，驗證推論路由
 
 #### 1. 連進 sandbox
@@ -646,6 +646,26 @@ openshell forward start 18789 gb10-assistant --background
 
 ---
 
+## 狀況與調整
+Nemotron 3 Super (120B)** 模型 回應速度可能會比較長 請依狀況讁度更換模型, 以下示範更換成qwen3.6:35b
+
+##  Telegram 對話測試
+
+以下這段驗證 現在環境是被受限的openclaw . 
+
+先看對照組 請使用Ctrl+Click另開底下URL視窗
+https://github.com/install-safe-press/gb10-playbooks/blob/main/2a-OpenClaw/GB10-openclaw-deploy.md
+內文段落 Telgram 範例: 定期回報系統狀態 
+
+現在 nemoclaw 建構了在sanbox內的openclaw  , sanbox 內受限無法對外層的OS作業系統做任何動作,只能看到sanbox環境資訊
+
+![p-t-1](images/p-t-1.jpg)
+
+![p-t-2](images/p-t-2.jpg)
+
+由上圖看出端倪了嗎 , 此時openclaw 再也不能夠自由放飛 , 受nemoclaw openshell policy 管控
+
+
 ### ⚠️ 重點提醒：TUI 與 Telegram 共用同一個 session
 
 實測過程中發現一個重要現象：**TUI 對話跟 Telegram bot 對話，預設是同一個 session（`agent:main:main`）**。這代表：
@@ -666,10 +686,6 @@ openshell forward start 18789 gb10-assistant --background
 - [ ] 理解 TUI 與 Telegram 共用 session 的限制，避免同時混用
 
 ---
-
-
-
-
 
 
 
