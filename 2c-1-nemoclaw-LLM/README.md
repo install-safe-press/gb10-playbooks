@@ -338,6 +338,8 @@ nemotron-3-super:120b      xxxxxxxxxxxx    87 GB     x minutes ago
 curl -fsSL https://www.nvidia.com/nemoclaw.sh | bash
 ```
 
+![p-3-2-4.1](images/p-3-2-4.1.jpg)
+
 #### Onboard 精靈會依序詢問這些設定
 
 **1. Sandbox 名稱**
@@ -351,6 +353,7 @@ curl -fsSL https://www.nvidia.com/nemoclaw.sh | bash
 **3. 模型（Model）**
 
 選擇 **nemotron-3-super:120b**（就是我們在 Step 3 已經下載好的那個）。
+
 
 **4. 訊息通道（Messaging channels）**
 
@@ -369,6 +372,17 @@ curl -fsSL https://www.nvidia.com/nemoclaw.sh | bash
 channel plugin 和 bot token 是在 sandbox 建立當下就寫進容器內部的，事後無法透過在 host 上設定環境變數的方式補加到既有的 sandbox。
 
 ### 安裝完成後的輸出畫面  NemoClaw 完整安裝成功了 
+
+![p-3-2-4.2](images/p-3-2-4-2.jpg)
+![p-3-2-4.3](images/p-3-2-4-3.jpg)
+![p-3-2-4.4](images/p-3-2-4-4.jpg)
+![p-3-2-4.5](images/p-3-2-4-5.jpg)
+![p-3-2-4.6](images/p-3-2-4-6.jpg)
+![p-3-2-4.7](images/p-3-2-4-7.jpg)
+![p-3-2-4.8](images/p-3-2-4-8.jpg)
+![p-3-2-4.9](images/p-3-2-4-9.jpg)
+
+
 
 完成後會看到類似這樣的資訊：
 ```
@@ -417,17 +431,25 @@ nemoclaw gb10-assistant connect
 ```
 openclaw tui
 ```
+![p-3-4-a-1](images/p-3-4-a-1.jpg)
+![p-3-4-a-2](images/p-3-4-a-2.jpg)
+![p-3-4-a-3](images/p-3-4-a-3.jpg)
+![p-3-4-a-4](images/p-3-4-a-4.jpg)
 
 ■方式二：瀏覽器 Dashboard
 因為你是 SSH 連線進來操作，安裝程式也已經偵測到並給了對應提示：
 ```
 ssh -L 18789:127.0.0.1:18789 user@<host>
 ```
+
 建好 tunnel 後，在你本機瀏覽器打開：
 ```
 nemoclaw gb10-assistant dashboard-url --quiet
 ```
 這個指令會印出帶完整 token 的網址，直接貼到瀏覽器即可。
+![p-3-4-b-1](images/p-3-4-b-1.jpg)
+
+
 
 之後的管理指令整理
 |用途|指令|
@@ -437,32 +459,6 @@ nemoclaw gb10-assistant dashboard-url --quiet
 |換模型|nemoclaw inference set --model <model> --provider <provider> --sandbox gb10-assistant|
 |補加網路權限|nemoclaw gb10-assistant policy-add|
 |重設憑證/重跑| onboardnemoclaw credentials reset <KEY> && nemoclaw onboard|
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ### 這一步做完後應該確認的事
 
@@ -491,7 +487,189 @@ nemoclaw gb10-assistant dashboard-url --quiet
 | inference | [Nemotron-3-Nano with llama.cpp](https://build.nvidia.com/spark/nemotron)（前面澄清過，跟 NemoClaw 是不同路線，不是前置步驟） |
 | tools | [DGX Dashboard](https://build.nvidia.com/spark/dgx-dashboard) |
 
-*（下一部分：Step 5～8 — 連進 sandbox、驗證推論、CLI 對話測試、開啟 Web UI）*
+
+## 實際驗證  連進 sandbox、驗證推論、CLI 對話測試、開啟 Web UI 
+### Step 5：連進 sandbox，驗證推論路由
+
+#### 1. 連進 sandbox
+
+```bash
+nemoclaw gb10-assistant connect
+```
+
+連線成功後，提示字元會從 host 的：
+
+```
+user@promaxgb10-0a25:~$
+```
+
+變成 sandbox 內部的：
+
+```
+sandbox@a7ec382e478f:~$
+```
+
+這代表你現在人在容器內，不是主機上了。
+
+連線時也會看到這段提醒，值得記住：
+
+```
+Note: this sandbox restricts outbound network access by policy.
+Blocked requests fail with 'CONNECT tunnel failed, response 403'.
+See which rule denied a request:  nemoclaw <name> logs --tail 50
+```
+
+也就是說，如果之後在 sandbox 內執行的任何動作卡住、失敗，第一個該查的地方就是 policy 有沒有把它擋下來。
+
+#### 2. 驗證 sandbox 能不能連到 Ollama 推論服務
+
+在 sandbox 內部執行：
+
+```bash
+curl -sf https://inference.local/v1/models
+```
+
+`inference.local` 是 NemoClaw 內部的推論路由，會轉發到 host 上的 Ollama（`local-inference` policy 允許這條路徑）。如果指令成功回傳 JSON，列出你設定的模型（例如 `nemotron-3-super:120b`），代表 sandbox → Ollama 這條推論鏈路完全打通。
+
+---
+
+
+### Step 6：CLI 對話測試
+
+在 sandbox 內部，最基礎的對話測試方式：
+
+```bash
+openclaw agent --agent main -m "hello" --session-id test
+```
+
+⚠️ **這一步要有心理準備**：如果是第一次呼叫、模型還沒載入到記憶體，回應可能要等 **30 秒到數分鐘**不等（依模型大小而定，120B 級的模型甚至可能需要 5～10 分鐘冷啟動，這是我們前面疑難排解章節詳細記錄過的狀況）。
+
+---
+
+### Step 7：互動式 TUI（Terminal UI）
+
+比起單次指令，TUI 提供一個持續對話的互動介面，是實際使用時比較常用的方式：
+
+```bash
+openclaw tui
+```
+
+進入後畫面類似：
+
+```
+│
+◇
+OpenClaw 2026.x.x (xxxxxxx) — Claws out, commit in—let's ship something mildly responsible.
+ openclaw tui - ws://127.0.0.1:18789 - agent main - session main
+ session agent:main:main
+```
+
+直接輸入文字就能跟 agent 對話，畫面下方會顯示目前狀態列，例如：
+
+```
+agent main | session main | inference/nemotron-3-super:120b | tokens 0/16k (0%)
+```
+
+這行資訊很實用，可以隨時看到：目前用的模型、context 累積用量與上限（我們前面遇到的 context overflow 問題，就是靠這個數字提早發現苗頭）。
+
+**離開方式**：
+
+```
+/exit     ← 先離開對話，回到 sandbox shell
+exit      ← 再離開 sandbox，回到 host shell
+```
+
+---
+
+### Step 8：開啟 Web UI（Dashboard）
+
+Step 4 安裝完成時，畫面上會印出一組帶 token 的網址，格式類似：
+
+```
+http://127.0.0.1:18789/#token=<很長的token字串>
+```
+
+**如果忘記存、想重新拿到這組網址**，回到 host 執行：
+
+```bash
+nemoclaw gb10-assistant dashboard-url --quiet
+```
+
+#### 情境一：本機直接有螢幕操作
+
+直接在瀏覽器貼上網址即可。
+
+#### 情境二：透過 SSH 遠端連線操作（最常見）
+
+**1. 先在 Spark 主機上查出區網 IP**
+
+```bash
+hostname -I | awk '{print $1}'
+```
+
+**2. 在你要瀏覽的那台電腦，建立 SSH tunnel**
+
+```bash
+ssh -L 18789:127.0.0.1:18789 <帳號>@<Spark的IP>
+```
+
+這行指令會保持在終端機視窗中運行，**不能關閉**，一關閉 tunnel 就斷了。
+
+**3. 在該電腦瀏覽器開啟同一組 token 網址**
+
+```
+http://127.0.0.1:18789/#token=<token>
+```
+
+⚠️ **務必用 `127.0.0.1`，不能用 `localhost`**——Gateway 有做 origin 檢查，兩者在瀏覽器眼中的 origin 不同，用 `localhost` 會被擋下來。
+
+#### 情境三：已設定 Tailscale（進階，跨網路存取）
+
+如果 Spark 跟要瀏覽的電腦都在同一個 tailnet，可以把 SSH tunnel 的目標 IP 換成 Tailscale IP，不需要在同一個區網：
+
+```bash
+# 在 Spark 主機上查詢 Tailscale IP
+tailscale ip -4
+
+# 在另一台電腦建立 tunnel，目標換成 Tailscale IP
+ssh -L 18789:127.0.0.1:18789 <帳號>@<Spark的Tailscale IP>
+```
+
+原理一樣，瀏覽器打開的依然是 `127.0.0.1`，只是傳輸通道換成 Tailscale 加密網路，好處是不受區網限制、IP 也不會因路由器重啟而變動。
+
+#### 如果 port forward 失效
+
+```bash
+openshell forward stop 18789 gb10-assistant || true
+openshell forward start 18789 gb10-assistant --background
+```
+
+---
+
+### ⚠️ 重點提醒：TUI 與 Telegram 共用同一個 session
+
+實測過程中發現一個重要現象：**TUI 對話跟 Telegram bot 對話，預設是同一個 session（`agent:main:main`）**。這代表：
+
+- 兩邊的對話歷史、context 用量是**共用累加**的，容易更快撞到 context 上限
+- 如果同一時間兩邊都在發送請求，會互相排隊（`queueDepth`），可能導致其中一邊的訊息卡住、逾時
+
+建議**不要同時用 TUI 和 Telegram 聊同一件事**，避免互相干擾；如果真的需要兩邊都用，可以考慮之後研究是否能分開設定獨立 session。
+
+---
+
+### 這一步做完後應該確認的事
+
+- [ ] `nemoclaw gb10-assistant connect` 能成功進入 sandbox
+- [ ] `curl -sf https://inference.local/v1/models` 能正確回傳模型清單
+- [ ] `openclaw tui` 能正常對話，狀態列顯示的模型與 context 資訊正確
+- [ ] Web UI 能透過 SSH tunnel（或 Tailscale）正常開啟，且使用 `127.0.0.1` 而非 `localhost`
+- [ ] 理解 TUI 與 Telegram 共用 session 的限制，避免同時混用
+
+---
+
+
+
+
 
 
 
