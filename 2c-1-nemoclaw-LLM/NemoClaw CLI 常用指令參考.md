@@ -14,7 +14,7 @@ NemoClaw 指令分兩種：
 
 ## 核心觀念：兩層、兩套指令，不互通
 
-![nemo-claw-1](images/nemo-claw-1.jpg)
+![cli-1.png](images/cli-1.png)
 
 
 
@@ -29,6 +29,8 @@ NemoClaw 指令分兩種：
 
 ## 第一層：`nemoclaw`（在 Host 上打，不需要 connect 進 sandbox）
 
+![cli-2.jpg](images/cli-2.jpg)
+
 ### 入門 / 建立
 
 ```bash
@@ -36,6 +38,12 @@ nemoclaw onboard                          # 互動精靈，建立新 sandbox
 nemoclaw list                             # 列出所有 sandbox
 nemoclaw use gb10-assistant                # 設定預設 sandbox
 ```
+![cli-3.1.jpg](images/cli-3.1.jpg)
+![cli-3.2.jpg](images/cli-3.2.jpg)
+
+
+![cli-3.jpg](images/cli-3.jpg)
+
 
 ### Sandbox 生命週期管理
 
@@ -47,6 +55,9 @@ nemoclaw gb10-assistant rebuild            # 重建 sandbox（換模型後常用
 nemoclaw gb10-assistant destroy --yes      # 刪除 sandbox
 nemoclaw gb10-assistant doctor --fix       # 診斷並修復 sandbox/gateway 問題
 ```
+![cli-4.1.jpg](images/cli-4.1.jpg)
+![cli-5.jpg](images/cli-5.jpg)
+
 
 ### 檔案傳輸（host ↔ sandbox）
 
@@ -63,6 +74,8 @@ nemoclaw gb10-assistant policy-add                      # 加內建 preset（僅
 nemoclaw gb10-assistant policy-explain --json            # 解釋目前完整生效的 policy
 ```
 
+![cli-p-1.jpg](images/cli-p-1.jpg)
+
 > ⚠️ `policy-add` 只支援約 11 個內建服務，**不接受自訂網域**。要放行一般網站需改走底層 `openshell policy get --full` / `openshell policy set --policy <file> --wait`（這已經不算 `nemoclaw` 系列，是更底層的 `openshell`）。
 
 ### Messaging Channels
@@ -78,6 +91,7 @@ nemoclaw gb10-assistant channels status --channel telegram
 nemoclaw inference get                                          # 查目前推論路由
 nemoclaw inference set --model qwen3.6:35b --provider ollama-local --sandbox gb10-assistant
 ```
+![cli-in-1.jpg](images/cli-in-1.jpg)
 
 ### 全域狀態 / 資源 / 服務
 
@@ -86,7 +100,8 @@ nemoclaw status --json          # 全域 sandbox/host 服務狀態
 nemoclaw resources --json       # CPU/RAM/GPU VRAM
 nemoclaw tunnel start           # 啟動對外 tunnel（cloudflared）
 ```
-
+![cli-en-1.jpg](images/cli-en-1.jpg)
+![cli-en-2.jpg](images/cli-en-2.jpg)
 ---
 
 ## 第二層：`openclaw`（先 `nemoclaw <name> connect` 進 sandbox 後才打）
@@ -95,14 +110,19 @@ nemoclaw tunnel start           # 啟動對外 tunnel（cloudflared）
 ```
 sandbox@a7ec382e478f:~$
 ```
+
 **這裡開始，指令一律是 `openclaw`，不是 `nemoclaw`。**
 
+![cli-5.jpg](images/cli-5.jpg)
+![cli-5.2.jpg](images/cli-5.2.jpg)
 ### 對話 / TUI
 
 ```bash
 openclaw tui                            # 開互動終端機介面對話
 openclaw agent -m "hello"               # 非互動跑一次 agent turn
 ```
+![ocli-1.jpg](images/ocli-1.jpg)
+
 
 ### 狀態 / 診斷（今天沒用過，但很實用）
 
@@ -119,6 +139,8 @@ openclaw cron create "0 8 * * *" "訊息內容" --name daily-tech-news --announc
 openclaw cron list                      # 列出所有 cron job
 openclaw cron run <job_id>              # 手動觸發一次
 ```
+![ocli-2.jpg](images/ocli-2.jpg)
+
 
 ### Session（對話紀錄）
 
@@ -139,6 +161,7 @@ openclaw memory --help                  # 查看正確用法（搜尋/檢視/重
 ```bash
 openclaw agents list                    # 列出這個 sandbox 裡設定的 agent 與 routing 規則
 ```
+![ocli-3.jpg](images/ocli-3.jpg)
 
 ### Channels（通訊管道，sandbox 內視角）
 
