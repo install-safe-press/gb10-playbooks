@@ -10,6 +10,8 @@ https://www.nvidia.com/zh-tw/ai/build-a-claw <br>
 ### 背景
 **OpenClaw**  一個可以長時間自主運行的 AI Agent 框架，但直接跑 OpenClaw 有一個問題：它預設沒有安全防護層，Agent 一旦被 prompt injection 攻擊或誤操作，可能會存取到不該碰的檔案、發出不該發的網路請求。
 
+![nemo-claw-1](images/nemo-claw-1.jpg)
+
 ### NemoClaw 要解決的問題
 NemoClaw 是 NVIDIA 推出的開源參考堆疊，核心目的是：
 1. **安全性** — 把 OpenClaw 包進 **OpenShell** runtime 執行，提供 Landlock + seccomp + network namespace 隔離，限制 Agent 能碰的檔案系統範圍與網路對外連線
