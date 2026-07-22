@@ -14,7 +14,7 @@ NemoClaw 指令分兩種：
 
 ## 核心觀念：兩層、兩套指令，不互通
 
-
+![nemo-claw-1](images/nemo-claw-1.jpg)
 
 
 
