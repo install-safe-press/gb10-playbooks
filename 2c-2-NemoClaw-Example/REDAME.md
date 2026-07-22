@@ -95,7 +95,7 @@ nemoclaw gb10-assistant status
 
 ---
 
-*（下一部分：三個通用機制——`policy-add` 熱更新、`share mount` 掛載目錄、以及唯一需要 rebuild 的情況）*
+*下一部分：四個應用會分別寫在本章節目錄下各自的檔案 請各別開啟文章*
 
 
 
