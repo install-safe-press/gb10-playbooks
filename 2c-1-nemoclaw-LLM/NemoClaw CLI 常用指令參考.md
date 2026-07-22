@@ -3,6 +3,7 @@
 > 版本：`NemoClaw v0.0.81`（`nemoclaw` 指令本身可執行 `nemoclaw` 查看完整說明）
 > 官方文件：https://docs.nvidia.com/nemoclaw/user-guide/openclaw/home
 
+
 ## 指令格式說明
 
 NemoClaw 指令分兩種：
@@ -16,7 +17,8 @@ NemoClaw 指令分兩種：
 
 ![cli-1.png](images/cli-1.png)
 
-
+nemoclaw（host，高階封裝）——一鍵化管理，日常操作優先用這個
+openclaw（sandbox 內，執行層）——真正跟 agent 互動的地方
 
 
 **判斷原則只有一句話：**
@@ -195,4 +197,22 @@ exit     # 再離開 sandbox shell，回到 host
 | 診斷 agent 本身的問題 | openclaw（sandbox 內） | `openclaw doctor --fix` |
 | 診斷 sandbox 容器本身的問題 | nemoclaw（host） | `nemoclaw <name> doctor --fix` |
 
+
+
 > 注意最後兩行：`doctor` 這個指令**兩層都有**，但診斷的對象不同——host 端的 `nemoclaw <name> doctor` 看的是容器/gateway 層級；sandbox 內的 `openclaw doctor` 看的是 agent 本身的設定/plugin/channel。
+
+
+
+## 補充說明
+nemoclaw是建立在 openshell 之上的一層「懶人包」——把 openshell 底層那些比較繁瑣、需要懂 YAML 結構、需要記住一堆參數的操作，包裝成簡單好記的指令。<br>
+至於openshell（host，底層引擎）——真正的 sandbox/gateway/policy 操作核心，請參考先前說明<br>
+https://github.com/install-safe-press/gb10-playbooks/tree/main/2b-OpenShell<br>
+
+
+| 你想做的事 | nemoclaw 有沒有包起來 | 底層實際上是誰在做 |
+|---|---|---|
+| 建立/連線/刪除 sandbox | ✅ 有包（`nemoclaw onboard`、`connect`、`destroy`） | 底層還是呼叫 `openshell sandbox` |
+| 加開 11 個內建服務的網路權限 | ✅ 有包（`nemoclaw policy-add`） | 底層是簡化過的 `openshell policy set` |
+| 加開任意自訂網域的網路權限 | ❌ 沒包，這個能力被留在底層沒有封裝出來 | 只能直接下 `openshell policy get/set` |
+| Port forward 修復 | ❌ 沒包 | 只能直接下 `openshell forward` |
+
