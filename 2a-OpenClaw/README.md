@@ -119,11 +119,10 @@ OpenClaw **最大的價值所在**，透過外掛元件擴展 AI 的能力，可
 將利用在 GB10上安裝OpenClaw 接上 1a-Open WebUI with Ollama 來進行演示
 
 
-將使用手上三種不同硬體做出相對映的本地模型進行運作 比較差異
-| 編號 | 硬體平台 | 模型 | GPU 配置 |文件名稱 |
-|------|----------|----------------|----------|---------- |
-| 1 |Dell Pro MAX GB10 | OpenClaw / 本地 LLM 部署 | unified 128G |GB10-openclaw-deploy.md|
-| 2 | Dell R640 |   | NVIDIA T4(16G) x2 | |
-| 3 | Dell Pro Max 16 |  | NVIDIA RTX Pro 1000(8G) | 
+## 推薦觀看
+硅谷101  对话Vincent Koc：OpenClaw的反思与进化，中国的“小龙虾”狂热，与Agent的下一步
+https://youtu.be/tnvyMcmtAiw?si=fOWvoWxkNWTejvzf&t=1405
+
+
 
 
