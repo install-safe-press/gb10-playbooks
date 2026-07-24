@@ -26,3 +26,53 @@ GB10_IndexTTS2_標準安裝流程.md   <br>
 ![tts](index-tts2-2.jpg)
 ![tts](index-tts2-3.jpg)
 ![tts](index-tts2-4.jpg)
+
+
+
+# 以下無關只是筆記
+
+啟動 Index-TTS2 進入 conda 虛擬環境，用：
+```
+conda activate indextts
+```
+執行後 prompt 前面就會再出現 (indextts)，變回：
+(indextts) user@promaxgb10-0a25:~/index-tts$
+
+進入環境之後（看到 (indextts) 出現），依你上次用的方式啟動 IndexTTS2 即可，常見的用法有兩種：
+
+1. 啟動 Web UI（如果你是用網頁介面操作）
+
+
+```
+cd ~/index-tts
+```
+```
+python webui.py
+```
+
+2. 用指令列直接生成語音（如果你是寫腳本呼叫）
+依你之前的用法，可能類似：
+
+bash
+python inference.py --text "你的文字內容" --output output.wav
+
+實際參數要看你之前設定的腳本或指令內容。
+
+如何離開 conda 
+```
+conda deactivate 
+```
+
+如果你是想直接關閉整個終端機/SSH連線，可以用：
+```
+exit
+```
+
+
+Index-TTS2 WEB
+http://GB10-IP:7860/
+
+![tts](index-tts2-5.jpg)
+
+
+
