@@ -18,5 +18,11 @@
 
 請參考路徑下的文件 
 
-GB10_IndexTTS2_安裝與除錯紀錄.md
-GB10_IndexTTS2_標準安裝流程.md
+GB10_IndexTTS2_安裝與除錯紀錄.md <br>
+GB10_IndexTTS2_標準安裝流程.md   <br>
+
+
+![tts](index-tts2-1.jpg)
+![tts](index-tts2-2.jpg)
+![tts](index-tts2-3.jpg)
+![tts](index-tts2-4.jpg)
