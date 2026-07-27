@@ -46,8 +46,7 @@ tar czf - -C ~/nemoclaw-projects/my-app . \
 > ⚠️ **今天發現的修正**：官方這行 `tar` 管道指令，在我們的環境實測會出現 `gzip: stdin: unexpected end of file`。如果遇到同樣狀況，改用：
 
 ```bash
-tar czf /tmp/my-app.tar.gz -C ~/nemoclaw-projects/my-app .
-nemoclaw gb10-assistant upload /tmp/my-app.tar.gz /sandbox/my-app.tar.gz
+nemoclaw gb10-assistant upload my-app.tar.gz /sandbox/my-app.tar.gz
 nemoclaw gb10-assistant exec -- bash -lc 'mkdir -p /sandbox/project && tar xzf /sandbox/my-app.tar.gz -C /sandbox/project --strip-components=1 && rm /sandbox/my-app.tar.gz'
 ```
 
