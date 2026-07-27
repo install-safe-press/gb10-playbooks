@@ -26,8 +26,9 @@
 | 確認本地模型可用 | `ollama list` 確認模型存在，使用 context 夠大的（我們今天用 `nemotron-3-super:120b-64k`，262k context） |
 | `my-app.tar.gz` | 專案打包檔，操作步驟見 [`2-upload-my-app-to-sandbox.md`](./2-upload-my-app-to-sandbox.md)，負責把檔案放到 sandbox |
 | Prompt 檔案（選其一） |    英文：`Software Development Agent-dev-agent-prompt.txt`／     中文：`Software Development Agent-dev-agent-prompt-zh.txt` |
-
 ---
+my-app.tar.gz 是「自製最小 Flask 範例，用於測試官方建議的第一個 feature request」官方文件本身沒有提供範例專案原始碼，my-app 這個測試專案是為了示範第一個建議 feature request（/healthz）而額外準備的最小 Flask 範例，並非 NVIDIA 官方素材。
+
 
 ## 三、要如何操作（照官方 Step 1 → Step 2 → Step 3）
 
@@ -50,7 +51,7 @@ nemoclaw gb10-assistant upload my-app.tar.gz /sandbox/my-app.tar.gz
 nemoclaw gb10-assistant exec -- bash -lc 'mkdir -p /sandbox/project && tar xzf /sandbox/my-app.tar.gz -C /sandbox/project --strip-components=1 && rm /sandbox/my-app.tar.gz'
 ```
 
-官方文件本身沒有提供範例專案原始碼，my-app 這個測試專案是為了示範第一個建議 feature request（/healthz）而額外準備的最小 Flask 範例，並非 NVIDIA 官方素材。
+
 
 
 #### 驗證三件事（官方原文）
