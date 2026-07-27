@@ -51,6 +51,9 @@ nemoclaw gb10-assistant upload /tmp/my-app.tar.gz /sandbox/my-app.tar.gz
 nemoclaw gb10-assistant exec -- bash -lc 'mkdir -p /sandbox/project && tar xzf /sandbox/my-app.tar.gz -C /sandbox/project --strip-components=1 && rm /sandbox/my-app.tar.gz'
 ```
 
+官方文件本身沒有提供範例專案原始碼，my-app 這個測試專案是為了示範第一個建議 feature request（/healthz）而額外準備的最小 Flask 範例，並非 NVIDIA 官方素材。
+
+
 #### 驗證三件事（官方原文）
 
 ```bash
@@ -60,7 +63,13 @@ nemoclaw gb10-assistant exec -- bash -lc 'curl -sf https://inference.local/v1/mo
 ```
 
 预期：專案樹看得到、`example.com` 被 `403` 擋下、`inference.local` 回傳模型清單。
+進入sanbox  : nemoclaw gb10-assistant connect
+啟動openclaw tui : openclaw tui
+驗證模型與回應正常
 
+
+
+  進入 
 ---
 
 ### Step 2：貼上官方完整 prompt
