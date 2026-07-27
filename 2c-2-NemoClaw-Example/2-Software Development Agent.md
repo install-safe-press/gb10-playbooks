@@ -24,7 +24,7 @@
 | 已完成的 NemoClaw sandbox | 前一篇安裝文章的成果，`nemoclaw list` 能看到 |
 | 一個測試專案的副本 | **絕對不要**用你唯一的正式工作目錄，官方原話：「Point it at a project copy or a clean clone, not your only working tree.」 |
 | 確認本地模型可用 | `ollama list` 確認模型存在，使用 context 夠大的（我們今天用 `nemotron-3-super:120b-64k`，262k context） |
-| `my-app.tar.gz` | 專案打包檔，操作步驟見 [`2-upload-my-app-to-sandbox.md`](./2-upload-my-app-to-sandbox.md)，負責把檔案放到 sandbox |
+| `my-app.tar.gz` | 專案打包檔，把檔案放到 sandbox |
 | Prompt 檔案（選其一） |    英文：`Software Development Agent-dev-agent-prompt.txt`／     中文：`Software Development Agent-dev-agent-prompt-zh.txt` |
 ---
 my-app.tar.gz 是「自製最小 Flask 範例，用於測試官方建議的第一個 feature request」官方文件本身沒有提供範例專案原始碼，my-app 這個測試專案是為了示範第一個建議 feature request（/healthz）而額外準備的最小 Flask 範例，並非 NVIDIA 官方素材。
