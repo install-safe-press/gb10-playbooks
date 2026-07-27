@@ -14,7 +14,10 @@ Agent 有真正的檔案讀寫、指令執行能力（不是純聊天建議）
 項目	說明
 已完成的 NemoClaw sandbox	前一篇安裝文章的成果，nemoclaw list 能看到
 一個測試專案的副本	絕對不要用你唯一的正式工作目錄，官方原話：「Point it at a project copy or a clean clone, not your only working tree.」
-確認本地模型可用	ollama list 確認模型存在，建議選一個 context 夠大的（我們今天用 nemotron-3-super:120b-64k，262k context）
+確認本地模型可用	ollama list 確認模型存在，使用 context 夠大的（我們今天用 nemotron-3-super:120b-64k，262k context）
+目錄下的my-app.tar.gz 操作 2-upload-my-app-to-sandbox.md 把檔案放到sanbox
+目錄下的prompt 選其一 英文Software Development Agent-dev-agent-prompt.txt 中文Software Development Agent-dev-agent-prompt-zh.txt
+
 
 三、要如何操作（照官方 Step 1 → Step 2 → Step 3）
 Step 1：把專案送進 sandbox
