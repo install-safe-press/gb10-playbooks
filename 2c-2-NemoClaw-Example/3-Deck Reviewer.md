@@ -490,6 +490,7 @@ show active dismissals for <artifact>
 *（下一部分：實測記錄——套用今天在 Software Development Agent 發現的三項修正，實際跑一份測試簡報）*
 
 nemoclaw-redteam.tar.gz 測試素材的完整結構
+```
 nemoclaw-redteam/
 ├── corpus/
 │   ├── canonical-metrics.md   （真相：live_playbooks_count = 42）
@@ -499,29 +500,100 @@ nemoclaw-redteam/
 ├── profile.yaml
 ├── reports/                     （空，等 agent 產出）
 └── memory/                      （空，等 agent 產出）
+```
 
-測試簡報內建的 6 個問題（對應官方四大檢查類別）
-#	Slide	問題	應被歸類的檢查類別
-1	Slide 1	標題寫「47 Live Playbooks」，但 corpus 真相是 42	Cross-artifact consistency
-2	Slide 2	出現兩次「Nemoclaw」（應為 NemoClaw）	Cross-artifact consistency（品牌名稱）
-3	Slide 2	「FROB」是未定義的縮寫，不在術語表裡	Internal consistency（首次使用未展開）
-4	Slide 2	「RAG」也出現但有在術語表裡	用來驗證 agent 不會誤判——這個不應該被標記
-5	Slide 3	「Over 2,000,000 developers...」沒有引用來源	Truthiness
-6	Slide 3	淺灰色文字（
-#D9D9D9）在白底上，對比度不足	Craft & Accessibility (WCAG)
-7	Slide 3	「fastest-growing agent framework」是無來源的最高級主張	Truthiness
-8	Slide 4	圖示佔位框完全沒有 alt-text，也沒標記為裝飾性	Craft & Accessibility
+## 測試簡報內建的 6 個問題（對應官方四大檢查類別）
+
+| # | Slide | 問題 | 應被歸類的檢查類別 |
+|---|---|---|---|
+| 1 | Slide 1 | 標題寫「47 Live Playbooks」，但 corpus 真相是 42 | Cross-artifact consistency |
+| 2 | Slide 2 | 出現兩次「Nemoclaw」（應為 NemoClaw） | Cross-artifact consistency（品牌名稱） |
+| 3 | Slide 2 | 「FROB」是未定義的縮寫，不在術語表裡 | Internal consistency（首次使用未展開） |
+| 4 | Slide 2 | 「RAG」也出現但有在術語表裡 | 用來驗證 agent 不會誤判——這個不應該被標記 |
+| 5 | Slide 3 | 「Over 2,000,000 developers...」沒有引用來源 | Truthiness |
+| 6 | Slide 3 | 淺灰色文字（`#D9D9D9`）在白底上，對比度不足 | Craft & Accessibility (WCAG) |
+| 7 | Slide 3 | 「fastest-growing agent framework」是無來源的最高級主張 | Truthiness |
+| 8 | Slide 4 | 圖示佔位框完全沒有 alt-text，也沒標記為裝飾性 | Craft & Accessibility |
 
 測試素材部署到 GB10 的步驟
-
 ```
-tar xzf nemoclaw-redteam.tar.gz -C ~/nemoclaw-redteam-extracted
-mv ~/nemoclaw-redteam-extracted ~/nemoclaw-redteam
-
-tar czf - -C ~/nemoclaw-redteam . \
-  | nemoclaw gb10-assistant exec -- bash -lc 'mkdir -p /sandbox/redteam && tar xzf - -C /sandbox/redteam'
+mkdir -p ~/nemoclaw-redteam
+tar xzf ~/nemoclaw-redteam.tar.gz -C ~/nemoclaw-redteam
 ```
 
+現在把整個資料夾傳進 sandbox
+```
+tar czf /tmp/redteam.tar.gz -C ~/nemoclaw-redteam .
+nemoclaw gb10-assistant upload /tmp/redteam.tar.gz /sandbox/redteam.tar.gz
+```
+
+解壓縮並清理
+```
+nemoclaw gb10-assistant exec -- bash -lc 'mkdir -p /sandbox/redteam && tar xzf /sandbox/redteam.tar.gz -C /sandbox/redteam && rm /sandbox/redteam.tar.gz'
+```
+
+驗證解壓縮結果
+```
+nemoclaw gb10-assistant exec -- ls -la /sandbox/redteam
+```
+
+現在設定唯讀保護（queue/corpus 唯讀，reports/memory 可寫）
+```
+nemoclaw gb10-assistant exec -- bash -lc 'chmod -R a-w /sandbox/redteam/queue /sandbox/redteam/corpus /sandbox/redteam/profile.yaml && chmod -R u+w /sandbox/redteam/reports /sandbox/redteam/memory'
+```
+
+進行五項驗證
+1. 讀取路徑：應該看得到測試簡報
+```
+nemoclaw gb10-assistant exec -- ls /sandbox/redteam/queue
+```
+2. 讀取路徑：應該看得到 corpus 檔案
+```
+nemoclaw gb10-assistant exec -- ls /sandbox/redteam/corpus
+```
+3. 寫入測試：reports/ 應該可以寫
+```
+nemoclaw gb10-assistant exec -- bash -c 'echo test > /sandbox/redteam/reports/.write-check && rm /sandbox/redteam/reports/.write-check && echo OK reports'
+```
+4. 寫入測試：memory/ 應該可以寫
+```
+nemoclaw gb10-assistant exec -- bash -c 'echo test > /sandbox/redteam/memory/.write-check  && rm /sandbox/redteam/memory/.write-check  && echo OK memory'
+```
+5. 唯讀驗證：queue/ 應該寫不進去
+```
+nemoclaw gb10-assistant exec -- bash -c 'echo test > /sandbox/redteam/queue/.write-check 2>&1 | head -1'
+```
+6. 網路隔離驗證：sandbox 應該連不到外網
+```
+nemoclaw gb10-assistant exec -- bash -c 'curl -sS --max-time 5 https://example.com'
+```
+現在進入 Step 2：貼上完整的 Agent Prompt
+
+連進 sandbox：
+```
+nemoclaw gb10-assistant connect
+```
+```
+openclaw tui
+```
+```
+/new
+```
+
+這次記得沿用我們在 Software Development Agent 那篇驗證過的三項修正，先貼這段工具介面說明：
+```
+IMPORTANT: This sandbox's tool interface only exposes tool_call, tool_describe,
+and tool_search as top-level tools. There is no direct "exec" or "read" tool.
+To run a shell command or read/write a file, use tool_call with the correct
+tool id (e.g. "openclaw:core:exec"). Never call "exec" or "read" directly.
+When you need to write a new file, use create mode with the complete file
+content rather than incremental text-replacement edits, since the
+text-replacement tool has been unreliable with multi-line content in this
+environment.
+```
+
+
+接著單獨貼上 Deck Reviewer 的完整官方 prompt（我們前面 Part 2 那份），等它開始問六個問題。
 
 
 
