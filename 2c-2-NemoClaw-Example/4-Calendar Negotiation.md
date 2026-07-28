@@ -201,3 +201,99 @@ run error: LLM request failed.
 2. **Propose-only 模式仍需驗證措辭**——即使 agent 本身沒有能力真正發送訊息，措辭上仍可能產生「已完成」的誤導性描述，使用前務必先測試一次，確認 agent 不會讓你誤以為溝通已經發生
 3. **BOOK AND LOG 這類最終寫入步驟，務必用查證三部曲確認**（`ls` → `cat` 檔案 → 比對格式），不要只信任 agent 自己的 HANDOFF 摘要
 
+
+# Calendar Negotiator — 實際用到的 NemoClaw 指令整理
+
+> 對應實測：Calendar Negotiation Agent
+> Sandbox 名稱：`gb10-assistant`
+
+---
+
+## 檔案傳輸類
+
+```bash
+# 因為 tar 管道直接串流會出現 gzip: stdin: unexpected end of file，
+# 沿用前三篇文章驗證過的穩定方式：先落地成檔案，再上傳
+nemoclaw gb10-assistant upload /tmp/calendar.tar.gz /sandbox/calendar.tar.gz
+```
+
+用途：把 host 上準備好的 `~/nemoclaw-calendar/`（含 `calendar.ics`、`profile.yaml`、`bookings/`）整個傳進 sandbox。
+
+---
+
+## 非互動執行類（用量最大）
+
+```bash
+nemoclaw gb10-assistant exec -- <command>
+```
+
+貫穿整個測試過程，具體用途包括：
+
+| 用途 | 指令範例 |
+|---|---|
+| 解壓縮並建立目錄結構 | `bash -lc 'mkdir -p /sandbox/calendar && tar xzf /sandbox/calendar.tar.gz -C /sandbox/calendar && rm /sandbox/calendar.tar.gz'` |
+| 設定唯讀/可寫邊界 | `bash -lc 'chmod a-w /sandbox/calendar/calendar.ics /sandbox/calendar/profile.yaml && chmod -R u+w /sandbox/calendar/bookings'` |
+| 列出檔案（讀取路徑驗證） | `ls /sandbox/calendar`、`ls /sandbox/calendar/bookings` |
+| 寫入測試（可寫路徑驗證） | `bash -c 'echo test > /sandbox/calendar/bookings/.write-check && rm ... && echo OK bookings'` |
+| 唯讀測試（唯讀路徑驗證） | `bash -c 'echo test > /sandbox/calendar/calendar.ics 2>&1 \| head -1'` |
+| 網路隔離驗證 | `bash -c 'curl -sS --max-time 5 https://example.com'` |
+| 查看 sandbox 內檔案是否還在（重開機後確認） | `ls -la /sandbox/calendar` |
+| 查看 profile 是否正確寫入 | `cat /sandbox/calendar/bookings/profile.json` |
+| 查看產出的 booking 檔案清單 | `ls -la /sandbox/calendar/bookings/` |
+| 讀取完整 booking 內容 | `cat /sandbox/calendar/bookings/2026-08-03-q3-roadmap-with-asha.md` |
+| 讀取 booking log | `cat /sandbox/calendar/bookings/log.csv` |
+
+---
+
+## 連線互動類
+
+```bash
+nemoclaw gb10-assistant connect
+```
+
+連進 sandbox 開啟互動 shell，之後在裡面執行 `openclaw tui`，貼上完整的 Calendar Negotiator Agent Prompt，逐題回答六個 one-time setup 問題（通訊模式、提議時段數、預設會議長度、時區公平性、資訊揭露程度、核准門檻），並送出模擬的會議需求測試完整協商流程。
+
+---
+
+## 這次測試「沒有用到」但官方文件有提到的指令
+
+| 指令 | 用途 | 這次沒用到的原因 |
+|---|---|---|
+| `nemoclaw gb10-assistant status \| grep -i telegram` | 確認 Telegram channel 是否已註冊 | 這次選擇 **Propose-only** 模式（官方建議的預設、風險最低），完全不需要 Telegram |
+| `nemoclaw gb10-assistant policy-add outlook` | 開放 Microsoft 365 / Graph / Outlook 的直接行事曆 API 存取 | 這次沒有測試「Direct calendar API booking」這個進階選用功能 |
+| `nemoclaw gb10-assistant policy-add --from-file` | 開放 Google Calendar API（`googleapis.com`） | 同上，進階功能未測 |
+| `nemoclaw gb10-assistant share mount` | 即時掛載 sandbox 內的憑證檔案供 host 讀取（進階：直接 API 綁定時用來保護 OAuth token） | 這次只用 `upload`/`exec` 做單次傳輸，沒有測試即時雙向掛載 |
+| `nemoclaw gb10-assistant rebuild` | 把 `chmod` 這種軟性邊界升級成 `filesystem_policy` 的核心層級硬性邊界 | 這次只驗證軟性邊界（`chmod`），沒有進一步做 `rebuild` 測試硬性邊界 |
+| `nemoclaw tunnel start` | 啟動公開 webhook tunnel，讓對方能透過 Telegram 聯繫到 bot | 只有 `proxy`/`proxy-auto` 模式才需要，這次是 Propose-only 模式，完全跳過 |
+| `nemoclaw gb10-assistant download` | 把 `bookings/` 拉回 host | 這次驗證都在 sandbox 內部用 `exec -- cat` 完成，沒有實際拉回 host 端 |
+
+---
+
+## 與前三篇應用的指令使用對比
+
+| 指令類別 | News Digest | Software Development Agent | Deck Reviewer | Calendar Negotiator |
+|---|---|---|---|---|
+| 檔案傳輸 | 沒用到 | `upload` | `upload` | `upload` |
+| `exec` 非互動執行 | 大量使用（cron 建立/查詢） | 大量使用（git、pytest 查證） | 大量使用（chmod、驗證、讀報告） | 大量使用（chmod、驗證、讀 booking 檔案） |
+| `connect` 互動 | 有 | 有 | 有 | 有 |
+| `policy-add` | 有（放行新聞來源網域） | 沒用到 | 沒用到（進階選用未測） | 沒用到（因選擇 Propose-only，無需 Telegram/API policy） |
+| `inference set` | 有（切換模型） | 有（切換模型） | 沒用到 | 沒用到 |
+| `rebuild` | 有（切換模型後 context 重新偵測） | 沒用到 | 沒用到（硬性邊界未測） | 沒用到（硬性邊界未測） |
+| `tunnel start` | 沒用到 | 沒用到 | 沒用到 | 沒用到（Propose-only 模式不需要） |
+| `status` | 有（排查 gateway 健康狀態） | 有（排查 gateway 健康狀態） | 沒用到 | 沒用到 |
+
+---
+
+## 這四篇測試中，`policy-add`／Telegram 相關指令的完整對照
+
+這是四篇文章裡差異最大的一類指令，因為每篇對「要不要對外連線／要不要用 Telegram」的需求完全不同：
+
+| 應用 | 是否需要 Telegram | 是否需要 `policy-add` |
+|---|---|---|
+| News Digest | 需要（推播每日摘要） | 需要（放行新聞來源網域） |
+| Software Development Agent | 不需要 | 不需要（完全不對外連線） |
+| Deck Reviewer | 選用（可選擇通知門檻） | 選用（進階的 URL 引用驗證功能，未測） |
+| **Calendar Negotiator** | **依模式而定**：Propose-only 不需要；Proxy/Proxy-auto 需要 | **依模式而定**：Propose-only 不需要；若接直接行事曆 API 才需要 |
+
+這也呼應了 Calendar Negotiator 這篇官方文件反覆強調的核心設計——**風險分級對應到不同的 policy 需求**，選擇越保守的通訊模式，需要用到的 NemoClaw policy 指令就越少。
+
