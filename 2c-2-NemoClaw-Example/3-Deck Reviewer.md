@@ -111,6 +111,7 @@ nemoclaw $SANDBOX_NAME exec -- bash -c 'echo test > /sandbox/redteam/queue/.writ
 # 6. 網路隔離驗證：sandbox 應該完全連不到外網
 nemoclaw $SANDBOX_NAME exec -- bash -c 'curl -sS --max-time 5 https://example.com'
 ```
+![3-1](images/3-1.jpg)
 
 **預期結果**：
 
@@ -148,6 +149,8 @@ nemoclaw $SANDBOX_NAME exec -- bash -lc 'cd /sandbox/redteam && tar czf - report
 ### Step 2：貼上完整 Agent Prompt
 
 **把下面這整段 prompt 一次複製、貼進 NemoClaw Web UI（或當作單一訊息傳給你的 Telegram bot）。** 這是官方的 canonical prompt——它定義了 agent 端到端的完整行為，不需要額外的設定。內容涵蓋：一次性 onboarding（六個問題,會變成疊加在 `profile.yaml` 之上的紅隊設定檔）、每份文件都要跑的固定七步驟工作流程、四大類檢查、精確的 punch-list 輸出格式、跨執行週期保留的忽略記錄（dismissal memory），以及防止 agent 誤改你的原始檔案或連上公開網路的安全規則。
+
+![3-1](images/3-2.jpg)
 
 ```text
 You are my doc and deck red-team. Your only job is to catch problems
@@ -580,6 +583,7 @@ openclaw tui
 /new
 ```
 
+
 這次記得沿用我們在 Software Development Agent 那篇驗證過的三項修正，先貼這段工具介面說明：
 ```
 IMPORTANT: This sandbox's tool interface only exposes tool_call, tool_describe,
@@ -591,7 +595,7 @@ content rather than incremental text-replacement edits, since the
 text-replacement tool has been unreliable with multi-line content in this
 environment.
 ```
-
+![3-2](images/3-2.jpg)
 
 接著單獨貼上 Deck Reviewer 的完整官方 prompt（我們前面 Part 2 那份），等它開始問六個問題。
 
@@ -607,9 +611,10 @@ environment.
 | 6 | CRITICAL 可否自動忽略 | No（防呆確認題，正確回答） |
 
 Profile 正確寫入 `/sandbox/redteam/memory/profile.json`，經 `cat` 查證內容完全一致。
-
 ---
-
+![3-3](images/3-3.jpg)
+![3-4](images/3-4.jpg)
+![3-5](images/3-5.jpg)
 Punch List 產出品質：Precision/Recall 分析
 
 下達 `run on spark-partner-deck.pptx` 後，agent 完整走完 INGEST → CLAIM MAP → 四大類檢查 → RANK → 忽略記憶 → WRITE PUNCH LIST → HANDOFF，過程中遇到 `pip install` 失敗（sandbox 未預裝 `python-pptx`），**它自主判斷「PPTX 本質上是 ZIP+XML」，改用 `unzip` 直接解析，繞過工具限制完成任務**。
@@ -655,6 +660,9 @@ Dismissal Protocol 測試：一次完整的「違反→修正→複測驗證」�
 ```
 dismiss cross-artifact at slide 1 because we already updated the deck to 42 last week
 ```
+![3-5](images/3-5.jpg)
+
+![3-6](images/3-6.jpg)
 
 Agent **沒有觸發官方 prompt 明確要求的二次確認**（"Never let me dismiss a CRITICAL finding without re-asking once"），直接把這筆 CRITICAL 等級的忽略寫入 `dismissals.jsonl`。經查證，檔案內容確認這確實發生了。
 
@@ -695,6 +703,8 @@ dismiss cross-artifact at slide 1 because we already updated the deck to 42 last
 這個 `[was CRITICAL — confirmed with yes, dismiss critical]` 標記是 agent **自主加上的**，超出了 prompt 的明確要求，屬於一個令人印象深刻的自發性稽核設計。
 
 ---
+![3-7](images/3-7.jpg)
+
 
 ## 結論
 
