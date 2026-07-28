@@ -99,3 +99,9 @@ nemoclaw gb10-assistant status
 
 
 
+後記： NVIDIA 對於Agent的playbook持續生成新的章節在 build.nvidia.com 例如 NemoClaw for Hermes Agent <br>
+https://build.nvidia.com/nvidia/nemoclaw-for-hermes-agent/nemoclawcard<br>
+
+相關新增內容將會再後續進行.
+
+
