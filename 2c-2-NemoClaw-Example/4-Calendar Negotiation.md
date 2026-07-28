@@ -22,6 +22,63 @@
 
 ## 二、測試素材準備
 
+
+Step 1：在 host 建立目錄並解壓縮
+```
+mkdir -p ~/nemoclaw-calendar
+tar xzf ~/nemoclaw-calendar.tar.gz -C ~/nemoclaw-calendar
+```
+
+Step 2：驗證 host 上的檔案正確
+```
+ls -la ~/nemoclaw-calendar
+cat ~/nemoclaw-calendar/profile.yaml
+```
+
+把整個資料夾傳進 sandbox
+沿用前三篇驗證過的穩定方式（nemoclaw upload，避免 tar 管道直接串流的 gzip 錯誤）：
+```
+tar czf /tmp/calendar.tar.gz -C ~/nemoclaw-calendar .
+nemoclaw gb10-assistant upload /tmp/calendar.tar.gz /sandbox/calendar.tar.gz
+```
+解壓縮並清理
+```
+nemoclaw gb10-assistant exec -- bash -lc 'mkdir -p /sandbox/calendar && tar xzf /sandbox/calendar.tar.gz -C /sandbox/calendar && rm /sandbox/calendar.tar.gz'
+```
+驗證解壓縮結果
+```
+nemoclaw gb10-assistant exec -- ls -la /sandbox/calendar
+```
+現在設定唯讀保護（calendar.ics + profile.yaml 唯讀，bookings/ 可寫）
+```
+nemoclaw gb10-assistant exec -- bash -lc 'chmod a-w /sandbox/calendar/calendar.ics /sandbox/calendar/profile.yaml && chmod -R u+w /sandbox/calendar/bookings'
+```
+
+進行五項驗證
+ 1. 讀取路徑：應該看得到三樣東西
+```
+nemoclaw gb10-assistant exec -- ls /sandbox/calendar
+```
+ 2. bookings/ 應該是空的
+```
+nemoclaw gb10-assistant exec -- ls /sandbox/calendar/bookings
+```
+ 3. 寫入測試：bookings/ 應該可以寫
+```
+nemoclaw gb10-assistant exec -- bash -c 'echo test > /sandbox/calendar/bookings/.write-check && rm /sandbox/calendar/bookings/.write-check && echo OK bookings'
+```
+ 4. 唯讀驗證：calendar.ics 應該寫不進去
+```
+nemoclaw gb10-assistant exec -- bash -c 'echo test > /sandbox/calendar/calendar.ics 2>&1 | head -1'
+```
+ 5. 網路隔離驗證：sandbox 應該連不到外網
+```
+nemoclaw gb10-assistant exec -- bash -c 'curl -sS --max-time 5 https://example.com'
+```
+![4-0](images/4-0.jpg)
+
+
+
 ### 目錄結構
 
 ```
@@ -40,6 +97,39 @@ nemoclaw-calendar/
 | 7/31（五） | 09:00-09:30 | 週五工作時間較短的一開始 |
 | 8/3（一） | 14:00-15:00 | low_energy 時段 |
 | 8/5（三） | 11:00-12:00 | 深度工作 focus block 剛結束後 |
+
+
+
+連進 sandbox，開新 session
+```
+nemoclaw gb10-assistant connect
+openclaw tui
+```
+先貼上工具介面說明（沿用前三篇驗證過的修正，一次貼完）
+```
+IMPORTANT: This sandbox's tool interface only exposes tool_call, tool_describe,
+and tool_search as top-level tools. There is no direct "exec" or "read" tool.
+To run a shell command or read/write a file, use tool_call with the correct
+tool id (e.g. "openclaw:core:exec"). Never call "exec" or "read" directly.
+When you need to write a new file, use create mode with the complete file
+content rather than incremental text-replacement edits, since the
+text-replacement tool has been unreliable with multi-line content in this
+environment.
+```
+接著單獨貼上 Calendar Negotiator 完整官方 prompt
+
+
+過程畫面
+![4-1](images/4-1.jpg)
+![4-2](images/4-2.jpg)
+![4-3](images/4-3.jpg)
+![4-4](images/4-4.jpg)
+![4-5](images/4-5.jpg)
+![4-6](images/4-6.jpg)
+![4-7](images/4-7.jpg)
+![4-8](images/4-8.jpg)
+![4-9](images/4-9.jpg)
+
 
 ### 環境驗證：五項檢查全數通過
 
