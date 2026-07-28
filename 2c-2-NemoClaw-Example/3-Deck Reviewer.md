@@ -489,4 +489,39 @@ show active dismissals for <artifact>
 
 *（下一部分：實測記錄——套用今天在 Software Development Agent 發現的三項修正，實際跑一份測試簡報）*
 
+nemoclaw-redteam.tar.gz 測試素材的完整結構
+nemoclaw-redteam/
+├── corpus/
+│   ├── canonical-metrics.md   （真相：live_playbooks_count = 42）
+│   └── brand-guide.md          （真相：NemoClaw 大小寫規則）
+├── queue/
+│   └── spark-partner-deck.pptx （刻意內建 6 個問題的測試簡報）
+├── profile.yaml
+├── reports/                     （空，等 agent 產出）
+└── memory/                      （空，等 agent 產出）
+
+測試簡報內建的 6 個問題（對應官方四大檢查類別）
+#	Slide	問題	應被歸類的檢查類別
+1	Slide 1	標題寫「47 Live Playbooks」，但 corpus 真相是 42	Cross-artifact consistency
+2	Slide 2	出現兩次「Nemoclaw」（應為 NemoClaw）	Cross-artifact consistency（品牌名稱）
+3	Slide 2	「FROB」是未定義的縮寫，不在術語表裡	Internal consistency（首次使用未展開）
+4	Slide 2	「RAG」也出現但有在術語表裡	用來驗證 agent 不會誤判——這個不應該被標記
+5	Slide 3	「Over 2,000,000 developers...」沒有引用來源	Truthiness
+6	Slide 3	淺灰色文字（
+#D9D9D9）在白底上，對比度不足	Craft & Accessibility (WCAG)
+7	Slide 3	「fastest-growing agent framework」是無來源的最高級主張	Truthiness
+8	Slide 4	圖示佔位框完全沒有 alt-text，也沒標記為裝飾性	Craft & Accessibility
+
+測試素材部署到 GB10 的步驟
+
+```
+tar xzf nemoclaw-redteam.tar.gz -C ~/nemoclaw-redteam-extracted
+mv ~/nemoclaw-redteam-extracted ~/nemoclaw-redteam
+
+tar czf - -C ~/nemoclaw-redteam . \
+  | nemoclaw gb10-assistant exec -- bash -lc 'mkdir -p /sandbox/redteam && tar xzf - -C /sandbox/redteam'
+```
+
+
+
 
