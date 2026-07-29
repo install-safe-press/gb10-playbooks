@@ -416,7 +416,7 @@ tests pass (2/2 ✅)
 
 ## 十、結論
 
-這次完整成功證實：**Software Development Agent 這個 Playbook 官方描述的自動化流程，在本地模型（`nemotron-3-super:120b-64k`）上是可以完全自主、可靠達成的**——前提是使用者必須先了解並補足官方文件沒有寫出的三個實務細節（工具介面說明、整份覆寫策略、堅定的 approval gate 措辭）。這些細節屬於「環境特定的隱性知識」，是透過大量實測才能發掘出來的，值得整理進正式文件，作為其他人依循官方 Playbook 操作時的重要補充。
+這次完整成功證實：**Software Development Agent 這個 Playbook 官方描述的自動化流程，在本地模型（`nemotron-3-super:120b-64k`）上是可以完全自主、可靠達成的**——前提是使用者必須先了解並補足官方文件沒有寫出的三個實務細節（工具介面說明、整份覆寫策略、堅定的 approval gate 措辭）。這些細節屬於「環境特定的隱性知識」，是透過大量實測才能發掘出來的，值得作為其他人依循官方 Playbook 操作時的重要補充。
 
 
 # Software Development Agent 專案中使用到的 NemoClaw 指令（Sandbox 外層操作）
