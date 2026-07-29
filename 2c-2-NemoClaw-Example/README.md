@@ -15,6 +15,9 @@ https://github.com/install-safe-press/gb10-playbooks/tree/main/2c-1-nemoclaw-LLM
 NVIDIA 官方為此準備了一份專門的續集 playbook：[**Set Up Example NemoClaw Agents**](https://build.nvidia.com/spark/nemoclaw-applications)，裡面提供四個現成、可以直接照抄套用的應用場景。
 
 ### 四個現成應用一覽
+![main](images/2c-2-main-1.png)
+
+
 
 | 應用 | 一句話說明 |
 |---|---|
