@@ -214,18 +214,138 @@ nemoclaw $SANDBOX_NAME exec -- openclaw cron status
 
 ---
 
-## 與我們今天實測的對照
 
-| 項目 | 官方標準做法 | 我們今天實際走的路 |
-|---|---|---|
-| 新增網域方式 | `nemoclaw policy-add --from-file <preset.yaml> --yes`（增量、熱重載） | `openshell policy get --full` 匯出 → 手動編輯 → `openshell policy set --policy <file> --wait`（整份覆蓋） |
-| 為什麼繞遠路 | — | 當時只測試過**互動式** `nemoclaw policy-add`（只顯示 11 個內建 preset），沒發現 `--from-file` 這個非互動參數能吃自訂 YAML |
-| Endpoint 存取模式 | 建議用 `access: full` + `tls: skip`（原始穿透，適合唯讀抓取） | 用了 `protocol: rest` + `enforcement: enforce` + `rules`（L7 過濾），需要 proxy 終止 TLS，對唯讀抓取來說其實不必要，但today一樣測試成功 |
-| Preset 命名 | 必須是小寫連字號（RFC 1123），如 `news-sources` | 用了底線 `news_sources`——因為我們是直接改整份 `network_policies` 底下的 key，不是走 `policy-add` 的 preset 驗證流程，剛好沒有被擋下來 |
-| 排程註冊方式 | `openclaw cron add`，操作端執行，`--no-deliver` 因為沒接通道時必要 | `openclaw cron create`，同樣是操作端在 sandbox shell 內執行，直接指定 `--announce --channel discord --to <id>` 投遞 |
-| `Version:` 大小寫 bug | 官方文件明確記錄為 OpenShell 0.0.44 已知 bug，並給出 `sed` 修正法 | 我們今天實際踩到同一個錯誤，也是用同樣的 `sed -i 's/^Version:/version:/'` 方式修正 |
+# Daily Personal News Digest — 實際操作完整正確摘要
 
-兩條路殊途同歸，都能達成放行自訂新聞來源網域的目的，但官方 `policy-add --from-file` 這條路**風險更低**（增量合併，不會誤刪其他既有設定），值得作為之後的標準做法。
+> 時間範圍：2026/7/13 ～ 7/24
+> 說明：這份摘要對照實際對話紀錄整理，跟目前 GitHub 已發布版本有出入——
+> 實際過程比文章呈現的更曲折，這裡如實記錄完整時間軸與過程。
+
+---
+
+## 實作修正摘要
+
+| 日期 | 內容 |
+| **7/24** | **Daily Personal News Digest 完整重建的實際操作日**——從決定重現舊功能、policy 排查、cron 建立、裝置權限死結、RSS 網址修正、成功推播、到最後補做官方標準做法示範，全部發生在這一天 |
+
+---
+
+起點不是照 playbook 從頭做起，而是想把**之前用純 OpenClaw（沒有 NemoClaw/OpenShell 沙箱）搭配 Discord**做出來的每日新聞 bot，在 NemoClaw 底下重建一次。原本的架構參考：
+
+```
+/home/user/.openclaw/workspace/bin/daily-tech-news.sh
+```
+
+推播對象：Discord #news 頻道；來源：中央社科技（CTI Tech）、Digitimes IT/雲端、Digitimes 電腦運算、Yahoo 股市（台積電）；排程：每天 08:00。
+系統整台重灌後舊資料全部消失，這次要在**有沙箱隔離、有網路白名單限制**的 NemoClaw 環境下重做一次同樣的功能。
+
+---
+
+## 7/24 完整操作過程
+
+### 階段一：釐清架構差異
+
+先確認純 OpenClaw 跟 NemoClaw 的核心差異——NemoClaw 的 sandbox 預設完全連不到外網，需要額外用 policy 放行才能抓新聞來源。
+
+### 階段二：建立 Cron Job，第一次直接失敗
+
+用 `openclaw cron create` 建立排程任務，手動觸發測試後**立刻失敗**——sandbox 網路 policy 沒有放行任何新聞來源，agent 一嘗試連線就被 `403 CONNECT tunnel failed` 擋下。
+
+### 階段三：手動編輯 Policy（不是用 `policy-add --from-file`）
+
+先嘗試互動式的 `nemoclaw policy-add`，發現這個指令**只列出 11 個內建 preset（npm、telegram、discord 等），沒有任何選項能輸入自訂網域**。找不到高階指令能用，繞去底層手動處理：
+
+```bash
+openshell policy get gb10-assistant --full > policy.yaml
+# 手動編輯，加入 news_sources 區塊
+openshell policy set gb10-assistant --policy policy.yaml --wait
+```
+
+過程中撞到兩個具體問題：
+
+1. `openshell policy get --full` 輸出開頭有 metadata header（`Version:` 大寫），直接拿去 `policy set` 會報錯 `unknown field 'Version'`——用 `sed` 去掉 header 才解決,後來確認這是 OpenShell 官方承認的已知 bug
+2. 一度誤以為手動編輯時 YAML 裡混進了 Markdown 連結格式，查證後發現只是聊天介面顯示層自動轉換，檔案內容其實是乾淨的
+
+這條路最終成功套用了 `news_sources` policy，放行 `technews.tw`、`www.ithome.com.tw`、`www.reuters.com`、`news.ycombinator.com`、`www.digitimes.com.tw`。
+
+### 階段四：Cron Job 意外消失，牽出裝置權限死結
+
+某次 `nemoclaw rebuild`（換模型觸發）之後，回頭發現**cron job 整個不見了**——`openclaw cron list` 顯示 `No cron jobs.`。
+
+重新建立時撞上更深層的問題：
+
+```
+gateway connect failed: GatewayClientRequestError: scope upgrade pending approval
+pairing required: device is asking for more scopes than currently approved
+```
+
+追查後發現：唯一的裝置只有 `operator.pairing`、`operator.read` 權限，但建立 cron job 需要 `operator.admin`——系統規則是「只能核准自己已持有的權限範圍」，導致這個裝置**永遠無法核准自己申請的升級**，形成死結。CLI 跟 Telegram 兩條路都試過，都卡在同一個地方。
+
+**最終解法**：手動編輯 sandbox 內的裝置記錄檔案：
+
+```bash
+nemoclaw gb10-assistant connect
+# 進去後用 python3 編輯 /sandbox/.openclaw/devices/paired.json
+# 把 operator.admin 加進 scopes / approvedScopes / tokens.operator.scopes
+# 清空 pending.json
+```
+
+重啟 gateway 後權限問題解除，重新建立 cron job 成功。
+
+### 階段五：新聞來源網址本身也不對
+
+Cron job 建起來後，agent 執行時嘗試連線的網域跟埋好的白名單對不上——它自己聯想去抓 `rss.digitimes.com`、`feeds.arstechnica.com` 這類完全沒放行過的網址。
+
+逐一用 `curl` 驗證正確的 RSS 網址：
+
+- iThome：`https://www.ithome.com.tw/rss` → 確認是有效的 `application/rss+xml`
+- Digitimes：一開始猜的網址是死的（`404`），從 `301 Moved` 回應追出正確路徑 `https://www.digitimes.com.tw/tech/rss/xml/xmlrss_30_1.xml`
+
+把 prompt 改成明確指定這兩個驗證過的 RSS 網址，不讓 agent 自己亂猜其他來源。
+
+### 階段六：終於成功，Discord 收到真實摘要
+
+重新建立 cron job、手動觸發測試，這次成功抓到內容，Discord #news 頻道收到結構化摘要，含「🌍 國際新聞」「🇹🇼 台灣新聞」分類、標題、摘要、原文連結。
+
+### 階段七：補做官方標準做法示範
+
+整個流程跑通後，額外**刻意重新示範一次官方推薦的正確做法**，作為對照：
+
+1. 用 Python 從現有 policy 移除 `www.ithome.com.tw`、`www.digitimes.com.tw` 兩筆，套用回去，製造「還沒放行」的狀態
+2. 手動觸發 cron job，故意讓它失敗——Discord 收到「連線失敗 403」訊息，agent 自己準確診斷出是 policy 限制
+3. **這時候才第一次用上 `nemoclaw policy-add --from-file`**——寫一個乾淨的 preset YAML 套用，系統會先列出「即將開放的端點」讓你確認,體驗跟一開始手動改整份 policy 差很多
+4. 重新觸發，這次成功，Discord 收到真實內容
+
+---
+
+## 更正：跟目前已發布文章的落差
+
+| 文章描述 | 實際發生的事 |
+|---|---|
+| 從一開始就用 `policy-add --from-file` | **不是**——一開始互動式選單沒有自訂網域選項，繞去用 `openshell policy get/set` 手動編輯；`policy-add --from-file` 是後來才發現、且是**額外補做示範**才用上 |
+| 流程一路順暢 | **不是**——中間發生過 cron job 憑空消失、裝置權限死結（需手動改 `paired.json`）、RSS 網址猜錯要重新排查 |
+| `Version:` bug 只是順手提一句 | 這其實是**當時卡關的關鍵原因之一**，排查花了不少來回才確認是已知 bug |
+| 事件發生在多天分散進行 | 實際上整個 News Digest 重建、排查、修正、成功、加上補做示範，**全部集中在 7/24 這一天**完成 |
+
+---
+
+## 一句話總結
+
+**這次 Daily Personal News Digest 的重建，不是照著官方 playbook 一步到位的乾淨示範，而是先用最笨的手動方式（改整份 policy YAML）解決問題，中途意外挖出一個裝置權限死結，最後才回頭示範官方真正建議的簡便做法（`policy-add --from-file`）作為對照。全部發生在 7/24 這一天，過程中踩到的坑，遠比文章呈現的內容更多。**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 
