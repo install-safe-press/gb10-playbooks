@@ -95,7 +95,16 @@ nemoclaw gb10-assistant status
 
 ---
 
-*下一部分：四個應用會分別寫在本章節目錄下各自的檔案 請各別開啟文章*
+*下一部分：四個應用會分別寫在本章節目錄下各自的檔案 請各別開啟各自章節*<br>
+1-Daily Personal News Digest.md <br>
+2-Software Development Agent.md <br>
+3-Deck Reviewer.md  <br>
+4-Calendar Negotiation.md  <br>
+
+
+
+
+
 
 
 
