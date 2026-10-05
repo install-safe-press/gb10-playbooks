@@ -18,7 +18,7 @@ Oct 5, 2026 · @Install-Safe
 | QSFP IP | 172.16.7.1/24 | 172.16.7.2/24 |
 | RoCE 裝置 | rocep1s0f1 | rocep1s0f1 |
 
-- 線材：100G QSFP DAC（官方建議 QSFP112 400G 被動式 DAC 可跑滿 200G）
+- 線材：現在手上只有100G QSFP DAC（官方建議 QSFP112 400G 被動式 DAC 可跑滿 200G）
 - 帳號：兩台使用相同使用者名稱 `dell`
 - 分工：管理 IP 負責 SSH 與 MPI/Ray 啟動，QSFP 負責 NCCL 的 RDMA 資料傳輸
 
