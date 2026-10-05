@@ -4,8 +4,8 @@ Oct 5, 2026 · @Install-Safe
 
 
 ## 前言與環境
+![2gb10-2](images/2gb10-pic-1.jpg)<br> 
 
-![2gb10-1](images/2gb10vllm.jpg)<br> 
 
 
 
@@ -264,6 +264,8 @@ sparkrun cluster monitor
 ```
 
 用 spark-vllm-docker 啟動的 vLLM 不會出現在 Jobs 欄（顯示 `No sparkrun workloads running`），但 CPU、RAM、GPU、功耗照常顯示。兩套工具擇一啟動模型，避免搬 8000 port 與 GPU 記憶體。若某台顯示 `Host key verification failed`，回到 Step 2 對該 IP 重連一次並回答 `yes`。
+
+![2gb10-1](images/2gb10vllm.jpg)<br> 
 
 ## 附錄：不接螢幕的遠端桌面（xrdp）
 
