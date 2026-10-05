@@ -1,8 +1,13 @@
 # 兩台 Dell Pro Max GB10（DGX Spark）雙機互連與 vLLM 分散式推論實戰
 
-Oct 5, 2026 · @Angelo
+Oct 5, 2026 · @Install-Safe
+
 
 ## 前言與環境
+
+![2gb10-1](images/2gb10vllm.jpg)<br> 
+
+
 
 本文記錄用一條 QSFP 線把兩台 Dell Pro Max GB10 直連，完成 NCCL 驗證，並用 vLLM 以 tensor parallel（TP=2）跨兩台提供模型服務。Dell Pro Max GB10 與 NVIDIA DGX Spark 是同一平台，流程完全沿用 NVIDIA 官方 playbook，另外補上實作時踩到的坑。
 
